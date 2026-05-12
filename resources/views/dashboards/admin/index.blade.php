@@ -6,43 +6,43 @@
 @section('dashboard_content')
 <div class="space-y-8">
     <!-- Stats Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 group hover:border-soft-rose transition-all duration-300">
-            <div class="w-12 h-12 bg-soft-rose/10 rounded-2xl flex items-center justify-center text-soft-rose mb-6 group-hover:scale-110 transition-transform">
-                <i class="fas fa-shopping-bag"></i>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 group hover:border-soft-rose transition-all duration-300">
+            <div class="w-8 h-8 bg-soft-rose/10 rounded-lg flex items-center justify-center text-soft-rose mb-3 group-hover:scale-105 transition-transform">
+                <i class="fas fa-shopping-bag text-[10px]"></i>
             </div>
-            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Total Pesanan</p>
-            <h3 class="text-3xl font-bold text-dark-wool">{{ $stats['total_orders'] }}</h3>
+            <p class="text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1">Total Pesanan</p>
+            <h3 class="text-xl font-bold text-dark-wool">{{ $stats['total_orders'] }}</h3>
         </div>
 
-        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 group hover:border-yellow-500 transition-all duration-300">
-            <div class="w-12 h-12 bg-yellow-500/10 rounded-2xl flex items-center justify-center text-yellow-500 mb-6 group-hover:scale-110 transition-transform">
-                <i class="fas fa-clock"></i>
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 group hover:border-yellow-500 transition-all duration-300">
+            <div class="w-8 h-8 bg-yellow-500/10 rounded-lg flex items-center justify-center text-yellow-500 mb-3 group-hover:scale-105 transition-transform">
+                <i class="fas fa-clock text-[10px]"></i>
             </div>
-            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Menunggu</p>
-            <h3 class="text-3xl font-bold text-dark-wool">{{ $stats['pending_orders'] }}</h3>
+            <p class="text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1">Menunggu</p>
+            <h3 class="text-xl font-bold text-dark-wool">{{ $stats['pending_orders'] }}</h3>
         </div>
 
-        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 group hover:border-blue-500 transition-all duration-300">
-            <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 transition-transform">
-                <i class="fas fa-box"></i>
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 group hover:border-blue-500 transition-all duration-300">
+            <div class="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-500 mb-3 group-hover:scale-105 transition-transform">
+                <i class="fas fa-box text-[10px]"></i>
             </div>
-            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Produk Aktif</p>
-            <h3 class="text-3xl font-bold text-dark-wool">{{ $stats['total_products'] }}</h3>
+            <p class="text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1">Produk Aktif</p>
+            <h3 class="text-xl font-bold text-dark-wool">{{ $stats['total_products'] }}</h3>
         </div>
 
-        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 group hover:border-red-500 transition-all duration-300">
-            <div class="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center text-red-500 mb-6 group-hover:scale-110 transition-transform">
-                <i class="fas fa-exclamation-triangle"></i>
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 group hover:border-red-500 transition-all duration-300">
+            <div class="w-8 h-8 bg-red-500/10 rounded-lg flex items-center justify-center text-red-500 mb-3 group-hover:scale-105 transition-transform">
+                <i class="fas fa-exclamation-triangle text-[10px]"></i>
             </div>
-            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Stok Menipis</p>
-            <h3 class="text-3xl font-bold text-dark-wool">{{ $stats['low_stock'] }}</h3>
+            <p class="text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1">Stok Menipis</p>
+            <h3 class="text-xl font-bold text-dark-wool">{{ $stats['low_stock'] }}</h3>
         </div>
     </div>
 
     <!-- Charts Section -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="lg:col-span-2 bg-white p-10 rounded-[3rem] shadow-sm border border-gray-100">
+        <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
             <div class="flex items-center justify-between mb-10">
                 <h4 class="text-xl font-bold text-dark-wool">Tren Pesanan 7 Hari</h4>
                 <div class="flex items-center space-x-4">
@@ -57,7 +57,7 @@
             </div>
         </div>
 
-        <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-gray-100 flex flex-col justify-center text-center">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center text-center">
             <div class="mb-8">
                 <i class="fas fa-chart-pie text-5xl text-dark-wool/10"></i>
             </div>
@@ -70,7 +70,7 @@
     </div>
 
     <!-- Latest Orders -->
-    <div class="bg-white rounded-[3rem] shadow-sm border border-gray-100 overflow-hidden">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div class="px-10 py-8 border-b border-gray-50 flex justify-between items-center">
             <h4 class="text-xl font-bold text-dark-wool">Pesanan Terbaru</h4>
             <a href="{{ route('admin.orders.index') }}" class="text-[10px] font-bold text-soft-rose uppercase tracking-widest hover:underline">Lihat Semua</a>
@@ -110,7 +110,7 @@
                                 </div>
                             </td>
                             <td class="px-10 py-6 text-right">
-                                <a href="#" class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gray-50 text-dark-wool hover:bg-dark-wool hover:text-white transition-all shadow-sm">
+                                <a href="{{ route('admin.orders.show', $order->id) }}" class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gray-50 text-dark-wool hover:bg-dark-wool hover:text-white transition-all shadow-sm">
                                     <i class="fas fa-eye text-sm"></i>
                                 </a>
                             </td>

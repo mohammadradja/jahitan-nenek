@@ -134,32 +134,18 @@
                 <i class="fas fa-credit-card absolute -right-6 -bottom-6 text-7xl text-gray-50/50"></i>
             </div>
 
-            <!-- Order Workflow Card -->
+            <!-- Order Status Info -->
             <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-gray-100">
-                <h4 class="text-lg font-serif font-bold text-dark-wool mb-8">Update Status Pesanan</h4>
-                <form action="{{ route('admin.orders.update', $order->id) }}" method="POST" class="space-y-6">
-                    @csrf
-                    @method('PUT')
-                    <div>
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Pilih Status Baru</label>
-                        <select name="status" class="input-premium appearance-none">
-                            <option value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>Menunggu (Pending)</option>
-                            <option value="processing" {{ $order->status === 'processing' ? 'selected' : '' }}>Diproses (Processing)</option>
-                            <option value="shipped" {{ $order->status === 'shipped' ? 'selected' : '' }}>Dikirim (Shipped)</option>
-                            <option value="completed" {{ $order->status === 'completed' ? 'selected' : '' }}>Selesai (Completed)</option>
-                            <option value="cancelled" {{ $order->status === 'cancelled' ? 'selected' : '' }}>Dibatalkan (Cancelled)</option>
-                        </select>
-                    </div>
-                    
-                    <div x-show="status === 'shipped' || '{{ $order->status }}' === 'shipped'" x-data="{ status: '{{ $order->status }}' }">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Nomor Resi</label>
-                        <input type="text" name="tracking_number" value="{{ $order->tracking_number }}" class="input-premium" placeholder="Masukkan nomor resi...">
-                    </div>
-
-                    <button type="submit" class="w-full btn-premium py-4 shadow-xl shadow-soft-rose/20">
-                        Perbarui Status
-                    </button>
-                </form>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Status Pesanan</p>
+                <div class="flex items-center space-x-3">
+                    <span class="text-xl font-serif font-bold text-dark-wool uppercase tracking-widest">{{ $order->status }}</span>
+                </div>
+                @if($order->tracking_number)
+                <div class="mt-6 pt-6 border-t border-gray-50">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nomor Resi</p>
+                    <p class="font-mono font-bold text-soft-rose">{{ $order->tracking_number }}</p>
+                </div>
+                @endif
             </div>
         </div>
     </div>

@@ -25,7 +25,7 @@
     }
     
     .btn-premium {
-        @apply premium-gradient text-white font-bold py-4 px-10 rounded-2xl shadow-xl shadow-soft-rose/20 hover:shadow-2xl hover:shadow-soft-rose/30 hover:-translate-y-1 active:scale-95 transition-all duration-300 inline-flex items-center justify-center text-center;
+        @apply premium-gradient text-white font-bold py-3 px-8 rounded-xl shadow-xl shadow-soft-rose/20 hover:shadow-2xl hover:shadow-soft-rose/30 hover:-translate-y-1 active:scale-95 transition-all duration-300 inline-flex items-center justify-center text-center;
     }
 
     .input-premium {

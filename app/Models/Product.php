@@ -10,7 +10,8 @@ class Product extends Model
     use Searchable;
     protected $fillable = [
         'category_id', 'name', 'slug', 'description', 
-        'price', 'stock', 'image_url', 'rating',
+        'price', 'stock', 'sales_count', 'view_count',
+        'image_url', 'rating',
         'meta_title', 'meta_description', 'meta_keywords'
     ];
 

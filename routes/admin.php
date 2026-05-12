@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\DashboardController;
 
 Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'admin'])->name('dashboard');
@@ -18,4 +19,5 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->name('adm
     Route::post('/orders/{order}/reject', [OrderController::class, 'reject'])->name('orders.reject');
     Route::resource('measurements', \App\Http\Controllers\Admin\MeasurementController::class);
     Route::resource('blogs', BlogController::class);
+    Route::get('/reports', function() { return view('dashboards.superadmin.reports'); })->name('reports.index');
 });

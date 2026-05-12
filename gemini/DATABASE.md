@@ -134,6 +134,8 @@ Stores product catalog and tailoring service products.
 | status            | enum      | Draft/Published       |
 | meta_title        | varchar   | SEO title             |
 | meta_description  | text      | SEO description       |
+| sales_count      | integer   | Total sold quantity (triggers 'Best Seller' badge > 10) |
+| view_count       | integer   | Total views           |
 | created_at        | timestamp | Created timestamp     |
 | updated_at        | timestamp | Updated timestamp     |
 

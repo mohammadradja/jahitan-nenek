@@ -85,8 +85,22 @@ This plan outlines the development roadmap for the Jahitan Nenek premium handmad
 | [ ] | **Product Reviews** | Star rating and text review system for verified purchasers. |
 | **📍 Phase 14: System Hardening & Optimization** | | |
 | [ ] | **Advanced Search** | Laravel Scout integration with Meilisearch/Typesense for instant results. |
-| [ ] | **Activity Logging** | Comprehensive audit trail for administrative and system actions. |
+| [ ] | **Activity Logging** | Comprehensive audit trail for administrative actions, CRUD logs, and system security monitoring. |
 | [ ] | **Media Optimization** | WebP conversion and lazy loading for all editorial assets. |
 
 ---
-**Status**: 🕒 **PHASES 1-8, 11-12 COMPLETED | PHASES 9-10, 13-14 IN PROGRESS**
+| **📍 Phase 15: Admin & UX Refinement** | | |
+| ✅ | **Collapsible Sidebar** | Implemented Alpine.js state for a non-obstructive administrative sidebar. |
+| ✅ | **Quick Action List** | Added Approve/Reject buttons directly to the orders table for faster processing. |
+| ✅ | **Global Reporting** | Created a dedicated 'Reports' menu for superadmins with export capability. |
+| ✅ | **Staff Management UI** | Built a custom interface for managing administrative users and system roles. |
+| ✅ | **AJAX Product Filtering**| Implemented no-refresh category filtering and searching for a smoother guest experience. |
+| ✅ | **Data-Driven UX** | Added 'Best Seller' badges and sales counts to products for social proof. |
+| ✅ | **Mobile Optimization** | Refined navigation sizes and image aspect ratios for superior mobile experience. |
+| ✅ | **Premium Pagination** | Developed custom, high-end navigation components for all product listings. |
+| ✅ | **AJAX Filter Logic** | Resolved logic issues where search and category filters were interfering. |
+| ✅ | **Enhanced Reporting** | Built detailed exportable reports (Sales, Stock, Activity) for superadmins. |
+| ✅ | **Desktop Sidebar Toggle**| Implemented a fully functional, non-overlapping sidebar toggle for administrators. |
+
+---
+**Status**: 🕒 **PHASES 1-8, 11-12, 15 COMPLETED | PHASES 9-10, 13-14 IN PROGRESS**

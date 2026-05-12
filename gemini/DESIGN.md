@@ -194,6 +194,27 @@ The platform uses subtle motion for premium interaction feedback.
 
 ---
 
+## Primary Premium Button
+- **Size**: `py-1.5 px-4 rounded-lg`.
+- **Style**: High-contrast shadow, elegant transition, premium gradient.
+- **Micro-interactions**: Hover: `-translate-y-0.5`, Active: `scale-95`.
+
+## Secondary Button
+- **Size**: `py-1.5 px-4 rounded-lg`.
+- **Style**: `border border-soft-rose`, `text-soft-rose`, transparent background.
+- **Hover**: `bg-soft-rose`, `text-white`.
+
+---
+
+# 📊 Dashboard Standards
+- **Stats Cards**: `p-4 rounded-xl shadow-sm`.
+- **Typography**: Value: `text-xl font-bold`, Label: `text-[8px] font-bold uppercase tracking-widest`.
+- **Layout**: 4-column grid for overview, 3-column flex for user summary.
+- **Boxes/Containers**: `rounded-2xl` for most containers, `rounded-xl` for small cards.
+- **Paddings**: Use `p-4` to `p-6` for main sections, avoid `p-12`.
+
+---
+
 # 🎞️ Transition Utilities
 
 ## Standard Transition
@@ -338,6 +359,21 @@ hover:border-soft-rose/40
 
 ---
 
+# 🔢 Pagination System
+
+## Design
+- Large rounded-2xl buttons
+- Soft-rose active state
+- Elegant shadow interaction
+- Minimalist navigation icons
+
+## Tailwind Classes
+```txt
+w-12 h-12 flex items-center justify-center rounded-2xl
+```
+
+---
+
 # 🧭 Navigation System
 
 ## Desktop Navbar
@@ -346,11 +382,28 @@ hover:border-soft-rose/40
 - Rounded-full container
 - Sticky scrolling behavior
 
-## Mobile Navigation
+### Admin/Superadmin Sidebar
+- Collapsible architecture (Alpine.js)
+- Responsive overlay on mobile
+- Transition-all duration-300
+- Custom bar-staggered toggle
 
-- Slide-in drawer
-- Backdrop blur overlay
-- Large touch targets
+---
+
+## Analytics & Summary Widgets
+- Compact summary cards (3-column horizontal on desktop)
+- Iconic indicators with color-coded accents
+- High-contrast value display
+
+---
+
+# 📱 Mobile Experience
+
+## Mobile Overlay
+- Backdrop blur (blur-sm)
+- Semi-transparent dark wool (bg-dark-wool/20)
+- Smooth fade transition
+- Global tap-to-close behavior for sidebar
 
 ---
 
@@ -359,8 +412,8 @@ hover:border-soft-rose/40
 Admin and Superadmin dashboards use:
 
 - Large analytics cards
-- Minimal chart clutter
-- Glass widgets
+- Detailed report categorization (Sales, Stock, Activity)
+- Export-focused UI with visual feedback
 - High readability spacing
 
 ## Chart System
@@ -418,7 +471,7 @@ Pending
 
 | Usage        | Ratio  |
 | ------------ | ------ |
-| Product Card | `4:5`  |
+| Product Card | `1:1` (Mobile) / `4:5` (Desktop) |
 | Hero Banner  | `16:9` |
 | Gallery      | `1:1`  |
 

@@ -20,7 +20,7 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-20">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                 @forelse($blogs as $blog)
-                    <x-blog-card :blog="$blog" :delay="$loop->index * 100" />
+                    <x-blog.blog-card :blog="$blog" :delay="$loop->index * 100" />
                 @empty
                     <div class="col-span-full text-center py-32">
                         <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-8 shadow-sm">

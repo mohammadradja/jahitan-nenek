@@ -29,39 +29,38 @@
                                 @foreach($cart as $id => $details)
                                     @php $total += $details['price'] * $details['quantity'] @endphp
                                     <tr class="group hover:bg-gray-50/30 transition-colors">
-                                        <td class="px-8 py-8">
-                                            <div class="flex items-center space-x-6">
-                                                <div class="w-20 h-20 rounded-2xl overflow-hidden border border-gray-100 shadow-sm shrink-0">
+                                        <td class="px-8 py-4">
+                                            <div class="flex items-center space-x-4">
+                                                <div class="w-16 h-16 rounded-xl overflow-hidden border border-gray-100 shadow-sm shrink-0">
                                                     <img src="{{ $details['image'] }}" class="w-full h-full object-cover transition-transform group-hover:scale-110 duration-500" alt="{{ $details['name'] }}">
                                                 </div>
                                                 <div class="min-w-0">
-                                                    <h6 class="font-bold text-dark-wool truncate">{{ $details['name'] }}</h6>
-                                                    <p class="text-[10px] font-bold text-soft-rose uppercase tracking-widest mt-1">{{ $details['category'] }}</p>
+                                                    <h6 class="font-bold text-dark-wool truncate text-sm">{{ $details['name'] }}</h6>
+                                                    <p class="text-[8px] font-bold text-soft-rose uppercase tracking-widest mt-0.5">{{ $details['category'] }}</p>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="px-8 py-8 font-bold text-dark-wool">
+                                        <td class="px-8 py-4 font-bold text-dark-wool text-sm">
                                             Rp{{ number_format($details['price'], 0, ',', '.') }}
                                         </td>
-                                        <td class="px-8 py-8">
-                                            <form action="{{ route('cart.update', $id) }}" method="POST" class="flex items-center justify-center space-x-2">
+                                        <td class="px-8 py-4">
+                                            <form action="{{ route('cart.update', $id) }}" method="POST" class="flex items-center justify-center">
                                                 @csrf
                                                 @method('PATCH')
-                                                <input type="number" name="quantity" value="{{ $details['quantity'] }}" class="w-16 h-10 rounded-xl bg-gray-50 border-0 text-center font-bold text-sm focus:ring-4 focus:ring-soft-rose/10 outline-none transition-all" min="1">
-                                                <button type="submit" class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-dark-wool hover:bg-soft-rose hover:text-white transition-all shadow-sm">
-                                                    <i class="fas fa-sync-alt text-xs"></i>
-                                                </button>
+                                                <input type="number" name="quantity" value="{{ $details['quantity'] }}" 
+                                                       class="w-12 h-8 rounded-lg bg-gray-50 border-0 text-center font-bold text-xs focus:ring-2 focus:ring-soft-rose/10 outline-none transition-all" 
+                                                       min="1" onchange="this.form.submit()">
                                             </form>
                                         </td>
-                                        <td class="px-8 py-8 font-bold text-soft-rose">
+                                        <td class="px-8 py-4 font-bold text-soft-rose text-sm">
                                             Rp{{ number_format($details['price'] * $details['quantity'], 0, ',', '.') }}
                                         </td>
-                                        <td class="px-8 py-8 text-right">
+                                        <td class="px-8 py-4 text-right">
                                             <form action="{{ route('cart.remove', $id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="w-10 h-10 flex items-center justify-center rounded-xl text-red-400 hover:bg-red-50 transition-all">
-                                                    <i class="fas fa-trash-alt"></i>
+                                                <button type="submit" class="text-red-400 hover:text-red-600 transition-all">
+                                                    <i class="fas fa-trash-alt text-xs"></i>
                                                 </button>
                                             </form>
                                         </td>

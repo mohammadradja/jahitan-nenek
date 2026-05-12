@@ -6,7 +6,8 @@ This document outlines the structural and logical foundations of the Jahitan Nen
 
 - **Framework**: Laravel 11
 - **Styling**: Utility-First Tailwind CSS (Bespoke Design System)
-- **Interactivity**: Alpine.js (Modal-based CRUD, Dynamic UI States)
+- **Dashboard Layout**: Collapsible Sidebar Architecture with Alpine.js state management.
+- **Interactivity**: Alpine.js (Modal-based CRUD, Dynamic UI States, Sidebar Toggle)
 - **Database**: MySQL
 - **Cache & Queue**: Redis
 - **Analytics**: Chart.js for data visualization (Visitor & Revenue tracking)
@@ -27,7 +28,7 @@ The application uses modular route files located in `routes/` to maintain clarit
 - `web.php`: Public routes (Home, Gallery, Blog, Auth).
 - `customer.php`: Standard e-commerce profile, Cart, and Order Tracking.
 - `admin.php`: Operational management (Orders, Products, Categories, Blogs).
-- `superadmin.php`: Global system configuration and comprehensive business reports.
+- `superadmin.php`: Global system configuration, Staff Management, and comprehensive Business Reports.
 - `api.php`: Public and internal API endpoints (`/api/v1`).
 
 ---
@@ -109,11 +110,13 @@ User roles are managed via a `role` column in the `users` table and enforced thr
 
 Reusable UI elements:
 
-- `x-product-card`
-- `x-hero`
-- `x-gallery`
-- `x-button`
-- `x-modal`
+- `x-product-card`: Responsive card with 'Buy Now' (direct to checkout) and 'Add to Cart' actions.
+- `x-hero`: Split-screen hero section.
+- `x-gallery`: Grid-based editorial gallery.
+- `x-button`: Premium utility buttons.
+- `x-modal`: Glassmorphism-based Alpine modals.
+- `x-pagination`: Bespoke high-end navigation system.
+- `x-mobile-overlay`: Backdrop component for safe sidebar closing on touch devices.
 
 ## Alpine.js Components
 

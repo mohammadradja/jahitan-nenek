@@ -11,17 +11,42 @@ class HomeController extends Controller
     {
         $query = Product::with('category');
 
-        if ($request->has('search')) {
-            $products = Product::search($request->search)->paginate(9);
+        if ($request->filled('search')) {
+            $query->where(function($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('description', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        if ($request->filled('category')) {
+            $query->whereHas('category', function($q) use ($request) {
+                $q->where('slug', $request->category);
+            });
+        }
+
+        // Sort by sales_count if requested or default
+        if ($request->sort === 'popular') {
+            $query->orderBy('sales_count', 'desc');
         } else {
-            if ($request->has('category')) {
-                $query->whereHas('category', function($q) use ($request) {
-                    $q->where('slug', $request->category);
-                });
-            }
-            $products = $query->paginate(9);
+            $query->latest();
+        }
+
+        $products = $query->paginate(9);
+
+        if ($request->ajax()) {
+            return view('partials.product-grid', compact('products'))->render();
         }
 
         return view('home', compact('products'));
+    }
+
+    public function show($slug)
+    {
+        $product = Product::where('slug', $slug)->with('category')->firstOrFail();
+        $related = Product::where('category_id', $product->category_id)
+                          ->where('id', '!=', $product->id)
+                          ->take(4)
+                          ->get();
+        return view('product.show', compact('product', 'related'));
     }
 }

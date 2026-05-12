@@ -71,13 +71,9 @@
                         </div>
                     </div>
                 @else
-                    <div class="hidden sm:flex items-center space-x-6">
-                        <div class="flex items-center space-x-4 pr-6 border-r border-gray-100">
-                            <a href="https://instagram.com" target="_blank" class="text-gray-400 hover:text-soft-rose transition-colors"><i class="fab fa-instagram"></i></a>
-                            <a href="https://wa.me/628123456789" target="_blank" class="text-gray-400 hover:text-green-500 transition-colors"><i class="fab fa-whatsapp"></i></a>
-                        </div>
-                        <a href="{{ route('login') }}" class="font-bold hover:text-soft-rose transition-colors">Masuk</a>
-                        <a href="{{ route('register') }}" class="btn-premium px-8 py-2.5 shadow-xl shadow-soft-rose/20">Daftar</a>
+                    <div class="hidden sm:flex items-center space-x-4">
+                        <a href="{{ route('login') }}" class="font-bold hover:text-soft-rose transition-colors text-sm">Masuk</a>
+                        <a href="{{ route('register') }}" class="btn-premium px-6 py-2 text-xs shadow-xl shadow-soft-rose/20">Daftar</a>
                     </div>
                 @endauth
 
@@ -89,24 +85,24 @@
         </div>
 
         <!-- Mobile Menu Placeholder -->
-        <div class="lg:hidden hidden bg-white rounded-3xl shadow-2xl mt-4 p-8 animate__animated animate__fadeInDown" id="mobile-menu">
-            <div class="flex flex-col space-y-6 text-center">
-                <a href="{{ route('home') }}" class="text-xl font-bold">Beranda</a>
-                <a href="{{ route('about') }}" class="text-xl font-bold">Tentang</a>
-                <a href="{{ route('home') }}#produk" class="text-xl font-bold">Koleksi</a>
-                <a href="{{ route('blog.index') }}" class="text-xl font-bold">Cerita</a>
-                <a href="{{ route('contact') }}" class="text-xl font-bold">Kontak</a>
+        <div class="lg:hidden hidden bg-white rounded-[2rem] shadow-2xl mt-4 p-6 animate__animated animate__fadeInDown border border-gray-50" id="mobile-menu">
+            <div class="flex flex-col space-y-4 text-center">
+                <a href="{{ route('home') }}" class="text-lg font-bold text-dark-wool">Beranda</a>
+                <a href="{{ route('about') }}" class="text-lg font-bold text-dark-wool">Tentang</a>
+                <a href="{{ route('home') }}#produk" class="text-lg font-bold text-dark-wool">Koleksi</a>
+                <a href="{{ route('blog.index') }}" class="text-lg font-bold text-dark-wool">Cerita</a>
+                <a href="{{ route('contact') }}" class="text-lg font-bold text-dark-wool">Kontak</a>
                 @guest
-                    <hr class="border-gray-100">
-                    <a href="{{ route('login') }}" class="text-xl font-bold">Masuk</a>
-                    <a href="{{ route('register') }}" class="btn-premium py-4">Daftar</a>
+                    <hr class="border-gray-50">
+                    <a href="{{ route('login') }}" class="text-lg font-bold text-dark-wool">Masuk</a>
+                    <a href="{{ route('register') }}" class="btn-premium py-3 text-sm">Daftar</a>
                 @endguest
                 
                 <!-- Social Icons for Mobile -->
-                <div class="flex justify-center space-x-6 pt-4">
-                    <a href="https://instagram.com" target="_blank" class="text-2xl text-gray-400 hover:text-soft-rose transition-colors"><i class="fab fa-instagram"></i></a>
-                    <a href="https://tiktok.com" target="_blank" class="text-2xl text-gray-400 hover:text-soft-rose transition-colors"><i class="fab fa-tiktok"></i></a>
-                    <a href="https://wa.me/628123456789" target="_blank" class="text-2xl text-gray-400 hover:text-green-500 transition-colors"><i class="fab fa-whatsapp"></i></a>
+                <div class="flex justify-center space-x-4 pt-2">
+                    <a href="https://instagram.com" target="_blank" class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 hover:text-soft-rose transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="https://tiktok.com" target="_blank" class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 hover:text-soft-rose transition-colors"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://wa.me/628123456789" target="_blank" class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 hover:text-green-500 transition-colors"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
@@ -117,7 +113,7 @@
     </main>
 
     <!-- Global Toast -->
-    <x-toast />
+    <x-ui.toast />
 
     @if(session('success'))
         <script>
@@ -182,7 +178,6 @@
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script>
         AOS.init({ duration: 1000, once: true });
 

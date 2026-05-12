@@ -16,8 +16,13 @@ return new class extends Migration
             $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
             $table->string('title');
             $table->string('slug')->unique();
+            $table->text('excerpt')->nullable();
             $table->text('content');
             $table->string('image')->nullable();
+            $table->integer('views')->default(0);
+            $table->string('status')->default('draft');
+            $table->string('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });

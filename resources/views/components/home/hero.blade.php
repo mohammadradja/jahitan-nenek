@@ -14,21 +14,21 @@
                     <span class="uppercase tracking-[0.4em] text-[10px] font-bold text-gray-400">Handcrafted Excellence</span>
                 </div>
                 
-                <h1 class="text-6xl lg:text-8xl font-serif font-bold text-dark-wool leading-[1.1] mb-8">
+                <h1 class="text-4xl lg:text-5xl font-serif font-bold text-dark-wool leading-[1.1] mb-6">
                     Rajutan <br>
                     <span class="text-soft-rose italic">Masa Kini</span> <br>
                     Jiwa Tradisi
                 </h1>
                 
-                <p class="text-gray-400 text-lg lg:text-xl leading-relaxed mb-12 max-w-lg">
+                <p class="text-gray-400 text-sm lg:text-base leading-relaxed mb-8 max-w-lg">
                     Menghidupkan kembali warisan nenek melalui desain kontemporer yang elegan. Setiap simpul adalah doa, setiap warna adalah cerita hangat.
                 </p>
                 
-                <div class="flex flex-col sm:flex-row items-center gap-6">
-                    <a href="#produk" class="w-full sm:w-auto btn-premium py-5 px-10 shadow-2xl shadow-soft-rose/20">
-                        Jelajahi Koleksi <i class="fa-solid fa-arrow-right ml-3"></i>
+                <div class="flex flex-col sm:flex-row items-center gap-4">
+                    <a href="#produk" class="w-full sm:w-auto bg-soft-rose text-white font-bold py-3 px-8 rounded-lg shadow-lg shadow-soft-rose/20 text-xs uppercase tracking-widest flex items-center justify-center">
+                        Jelajahi Koleksi <i class="fa-solid fa-arrow-right ml-2"></i>
                     </a>
-                    <a href="{{ route('blog.index') }}" class="w-full sm:w-auto px-10 py-5 rounded-full border-2 border-dark-wool font-bold hover:bg-dark-wool hover:text-white transition-all text-center">
+                    <a href="{{ route('blog.index') }}" class="w-full sm:w-auto px-8 py-3 rounded-lg border border-dark-wool font-bold hover:bg-dark-wool hover:text-white transition-all text-center text-xs uppercase tracking-widest">
                         Baca Cerita
                     </a>
                 </div>

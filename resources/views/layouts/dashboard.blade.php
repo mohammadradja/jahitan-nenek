@@ -13,20 +13,21 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
-<body class="bg-gray-50 font-sans antialiased">
-    <div class="flex min-h-screen">
+<body x-data="{ sidebarOpen: true }">
+    <div class="flex min-h-screen overflow-hidden">
         @include('dashboards.partials.sidebar')
 
-    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
-        @include('dashboards.partials.topbar')
+        <div class="flex-1 flex flex-col min-w-0 bg-gray-50 overflow-y-auto">
+            @include('dashboards.partials.topbar')
 
-        <main class="flex-1 overflow-x-hidden overflow-y-auto p-6 lg:p-12">
-            @yield('dashboard_content')
-        </main>
+            <main class="flex-1 p-6 lg:p-12">
+                @yield('dashboard_content')
+            </main>
+        </div>
     </div>
 
     <!-- Global Toast -->
-    <x-toast />
+    <x-ui.toast />
 
     @if(session('success'))
         <script>
@@ -44,7 +45,6 @@
         </script>
     @endif
 
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     @stack('scripts')
 </body>
 </html>

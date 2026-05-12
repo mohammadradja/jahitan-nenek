@@ -275,6 +275,8 @@ The platform includes advanced business monitoring features.
 - Product performance
 - Visitor behavior analysis
 - Conversion tracking
+- **Detailed Business Intelligence**: Stock mutation, transaction per item, and profitability reports.
+- **Premium Navigation**: Custom-built pagination system for editorial-style catalog browsing.
 
 ## Visitor Tracking
 

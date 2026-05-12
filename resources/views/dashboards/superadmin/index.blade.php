@@ -6,43 +6,42 @@
 @section('dashboard_content')
 <div class="space-y-8">
     <!-- Stats Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="lg:col-span-2 bg-dark-wool p-10 rounded-[3rem] shadow-2xl text-white relative overflow-hidden group">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="lg:col-span-2 bg-dark-wool p-5 rounded-xl shadow-xl text-white relative overflow-hidden group">
             <div class="relative z-10">
-                <p class="text-xs font-bold text-white/50 uppercase tracking-[0.2em] mb-3">Total Pendapatan Global</p>
-                <h2 class="text-5xl font-serif font-bold">Rp{{ number_format($stats['revenue'], 0, ',', '.') }}</h2>
-                <div class="mt-8 flex items-center space-x-3">
-                    <span class="flex items-center space-x-1 text-green-400 text-xs font-bold">
+                <p class="text-[8px] font-bold text-white/50 uppercase tracking-[0.2em] mb-1">Total Pendapatan Global</p>
+                <h2 class="text-2xl font-serif font-bold">Rp{{ number_format($stats['revenue'], 0, ',', '.') }}</h2>
+                <div class="mt-2 flex items-center space-x-2">
+                    <span class="flex items-center space-x-1 text-green-400 text-[9px] font-bold">
                         <i class="fas fa-arrow-trend-up"></i>
                         <span>+12.5%</span>
                     </span>
-                    <span class="text-white/30 text-xs font-bold uppercase tracking-widest">Bulan ini</span>
+                    <span class="text-white/30 text-[8px] font-bold uppercase tracking-widest">Bulan ini</span>
                 </div>
             </div>
-            <!-- Decorative Icon -->
-            <i class="fas fa-coins absolute -right-10 -bottom-10 text-9xl text-white/5 group-hover:scale-110 transition-transform duration-700"></i>
+            <i class="fas fa-coins absolute -right-4 -bottom-4 text-5xl text-white/5 group-hover:scale-105 transition-transform duration-700"></i>
         </div>
 
-        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 group hover:border-soft-rose transition-all duration-300">
-            <div class="w-12 h-12 bg-soft-rose/10 rounded-2xl flex items-center justify-center text-soft-rose mb-6 group-hover:scale-110 transition-transform">
-                <i class="fas fa-users"></i>
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 group hover:border-soft-rose transition-all duration-300">
+            <div class="w-8 h-8 bg-soft-rose/10 rounded-lg flex items-center justify-center text-soft-rose mb-3 group-hover:scale-105 transition-transform">
+                <i class="fas fa-users text-[10px]"></i>
             </div>
-            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Total Pengguna</p>
-            <h3 class="text-3xl font-bold text-dark-wool">{{ $stats['total_users'] }}</h3>
+            <p class="text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1">Total Pengguna</p>
+            <h3 class="text-xl font-bold text-dark-wool">{{ $stats['total_users'] }}</h3>
         </div>
 
-        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 group hover:border-blue-500 transition-all duration-300">
-            <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 transition-transform">
-                <i class="fas fa-newspaper"></i>
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 group hover:border-blue-500 transition-all duration-300">
+            <div class="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-500 mb-3 group-hover:scale-105 transition-transform">
+                <i class="fas fa-newspaper text-[10px]"></i>
             </div>
-            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Artikel Blog</p>
-            <h3 class="text-3xl font-bold text-dark-wool">{{ $stats['total_blogs'] }}</h3>
+            <p class="text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1">Artikel Blog</p>
+            <h3 class="text-xl font-bold text-dark-wool">{{ $stats['total_blogs'] }}</h3>
         </div>
     </div>
 
     <!-- Charts Section -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="lg:col-span-2 bg-white p-10 rounded-[3rem] shadow-sm border border-gray-100">
+        <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
             <div class="flex items-center justify-between mb-10">
                 <h4 class="text-xl font-bold text-dark-wool">Pengunjung & Traffic</h4>
                 <div class="flex items-center space-x-6">
@@ -57,7 +56,7 @@
             </div>
         </div>
 
-        <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center">
             <div class="w-24 h-24 bg-vintage-cream rounded-full flex items-center justify-center text-dark-wool mb-8">
                 <i class="fas fa-globe text-3xl"></i>
             </div>
@@ -70,7 +69,7 @@
     </div>
 
     <!-- Latest Transactions -->
-    <div class="bg-white rounded-[3rem] shadow-sm border border-gray-100 overflow-hidden">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div class="px-10 py-8 border-b border-gray-50 flex justify-between items-center">
             <h4 class="text-xl font-bold text-dark-wool">Transaksi Global Terbaru</h4>
             <a href="#" class="text-[10px] font-bold text-soft-rose uppercase tracking-widest hover:underline">Download Laporan</a>

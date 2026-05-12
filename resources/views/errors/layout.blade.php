@@ -30,11 +30,11 @@
         </div>
 
         <div class="pt-8 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-            <a href="{{ url('/') }}" class="btn-premium px-12 py-5 text-lg shadow-2xl shadow-soft-rose/20">
-                <i class="fas fa-home mr-2"></i> Kembali ke Beranda
+            <a href="{{ url('/') }}" class="btn-premium px-10 py-4 shadow-2xl shadow-soft-rose/20 text-base">
+                <i class="fas fa-home mr-2 text-sm"></i> Kembali ke Beranda
             </a>
-            <button onclick="window.history.back()" class="px-12 py-5 text-lg font-bold text-dark-wool hover:text-soft-rose transition-colors flex items-center">
-                <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
+            <button onclick="window.history.back()" class="px-10 py-4 font-bold text-dark-wool hover:text-soft-rose transition-colors flex items-center text-base">
+                <i class="fas fa-arrow-left mr-2 text-sm"></i> Halaman Sebelumnya
             </button>
         </div>
 

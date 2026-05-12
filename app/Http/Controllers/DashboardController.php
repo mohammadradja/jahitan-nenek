@@ -13,7 +13,7 @@ class DashboardController extends Controller
 {
     public function user()
     {
-        $orders = Order::where('user_id', Auth::id())->latest()->get();
+        $orders = Order::where('user_id', Auth::id())->latest()->paginate(10);
         return view('dashboards.user.index', compact('orders'));
     }
 

@@ -15,12 +15,14 @@ class SiteSettingController extends Controller
 
     public function update(Request $request)
     {
-        $data = $request->except('_token');
+        $section = $request->input('section');
+        $data = $request->except(['_token', 'section']);
         
         foreach ($data as $key => $value) {
             \App\Models\SiteSetting::set($key, $value);
         }
 
-        return redirect()->back()->with('success', 'Pengaturan sistem berhasil diperbarui.');
+        $message = 'Pengaturan ' . ($section ?? 'sistem') . ' berhasil diperbarui.';
+        return redirect()->back()->with('success', $message);
     }
 }

@@ -19,8 +19,13 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->integer('price');
             $table->integer('stock')->default(0);
+            $table->integer('weight')->default(500);
             $table->string('image_url')->nullable();
             $table->decimal('rating', 3, 1)->default(5.0);
+            $table->integer('sales_count')->default(0);
+            $table->integer('view_count')->default(0);
+            $table->string('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
             $table->timestamps();
         });
     }

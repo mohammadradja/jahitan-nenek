@@ -10,9 +10,22 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orders = \App\Models\Order::with('user')->latest()->paginate(10);
+        $query = \App\Models\Order::with('user');
+
+        if ($request->filled('search')) {
+            $query->where('id', 'like', '%' . $request->search . '%')
+                  ->orWhereHas('user', function($q) use ($request) {
+                      $q->where('name', 'like', '%' . $request->search . '%');
+                  });
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $orders = $query->latest()->paginate(10);
         return view('admin.orders.index', compact('orders'));
     }
 

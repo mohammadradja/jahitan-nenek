@@ -17,99 +17,101 @@
     <!-- Contact Content -->
     <section class="pb-32">
         <div class="max-w-7xl mx-auto px-6 lg:px-20">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+            <!-- Row 1: Info & FAQ -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
                 <!-- Info Column -->
                 <div class="lg:col-span-5" data-aos="fade-right">
-                    <div class="bg-dark-wool text-white rounded-[3rem] p-12 lg:p-16 shadow-2xl h-full relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-64 h-64 bg-soft-rose/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                    <div class="bg-dark-wool text-white rounded-3xl p-8 shadow-xl h-full relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-soft-rose/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
                         
-                        <h3 class="text-3xl font-serif font-bold mb-8">Informasi Kontak</h3>
-                        <p class="text-white/60 leading-relaxed mb-12">
-                            Ada pertanyaan tentang koleksi kami atau ingin memesan rajutan kustom yang spesial? Kami siap membantu Anda dengan sepenuh hati.
-                        </p>
+                        <h3 class="text-xl font-serif font-bold mb-6">Informasi Kontak</h3>
                         
-                        <div class="space-y-10">
-                            <div class="flex items-start space-x-6">
-                                <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center shrink-0 text-soft-rose border border-white/10">
-                                    <i class="fas fa-location-dot"></i>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0 text-soft-rose border border-white/10">
+                                    <i class="fas fa-location-dot text-sm"></i>
                                 </div>
                                 <div>
-                                    <h6 class="font-bold text-sm uppercase tracking-widest text-white/40 mb-1">Workshop</h6>
-                                    <p class="text-lg">Jl. Benang No. 123, Bandung, Jawa Barat</p>
+                                    <h6 class="font-bold text-[9px] uppercase tracking-widest text-white/40 mb-1">Workshop</h6>
+                                    <p class="text-sm">Jl. Benang No. 123, Bandung</p>
                                 </div>
                             </div>
 
-                            <div class="flex items-start space-x-6">
-                                <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center shrink-0 text-soft-rose border border-white/10">
-                                    <i class="fas fa-phone"></i>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0 text-soft-rose border border-white/10">
+                                    <i class="fas fa-envelope text-sm"></i>
                                 </div>
                                 <div>
-                                    <h6 class="font-bold text-sm uppercase tracking-widest text-white/40 mb-1">Telepon</h6>
-                                    <p class="text-lg">+62 812 3456 7890</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start space-x-6">
-                                <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center shrink-0 text-soft-rose border border-white/10">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div>
-                                    <h6 class="font-bold text-sm uppercase tracking-widest text-white/40 mb-1">Email</h6>
-                                    <p class="text-lg">halo@jahitannenek.com</p>
+                                    <h6 class="font-bold text-[9px] uppercase tracking-widest text-white/40 mb-1">Email</h6>
+                                    <p class="text-sm">halo@jahitannenek.com</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mt-20">
-                            <h5 class="text-xs font-bold uppercase tracking-[0.3em] text-white/30 mb-8">Ikuti Jejak Kami</h5>
-                            <div class="flex space-x-4">
-                                <a href="#" class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-white hover:bg-soft-rose transition-all border border-white/10"><i class="fab fa-instagram"></i></a>
-                                <a href="#" class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-white hover:bg-soft-rose transition-all border border-white/10"><i class="fab fa-tiktok"></i></a>
-                                <a href="#" class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-white hover:bg-green-500 transition-all border border-white/10"><i class="fab fa-whatsapp"></i></a>
+                        <div class="mt-12">
+                            <div class="flex space-x-3">
+                                <a href="#" class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-white hover:bg-soft-rose transition-all border border-white/10"><i class="fab fa-instagram text-sm"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-white hover:bg-green-500 transition-all border border-white/10"><i class="fab fa-whatsapp text-sm"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Form Column -->
+                <!-- FAQ Column -->
                 <div class="lg:col-span-7" data-aos="fade-left">
-                    <div class="bg-white rounded-[3rem] p-12 lg:p-16 shadow-sm border border-gray-50 h-full">
-                        <h3 class="text-3xl font-serif font-bold text-dark-wool mb-10">Kirim Pesan</h3>
-                        <form action="#" method="POST" class="space-y-8">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <div>
-                                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Nama Lengkap</label>
-                                    <input type="text" class="input-premium" placeholder="Contoh: Budi Santoso">
+                    <div class="bg-white rounded-3xl p-8 shadow-sm border border-gray-50 h-full">
+                        <h3 class="text-xl font-serif font-bold text-dark-wool mb-6">Sering Ditanyakan</h3>
+                        <div class="space-y-3" x-data="{ active: 1 }">
+                            <div class="group bg-gray-50 rounded-2xl overflow-hidden border border-transparent" :class="active === 1 ? 'border-soft-rose/20 bg-white shadow-sm' : ''">
+                                <button @click="active = active === 1 ? null : 1" class="w-full px-6 py-4 flex items-center justify-between text-left">
+                                    <span class="text-xs font-bold text-dark-wool">Cara pesan kustom?</span>
+                                    <i class="fas fa-chevron-down text-[10px] transition-transform" :class="active === 1 ? 'rotate-180 text-soft-rose' : ''"></i>
+                                </button>
+                                <div x-show="active === 1" class="px-6 pb-4 text-[11px] text-gray-500 leading-relaxed">
+                                    Hubungi kami via WhatsApp atau form di bawah untuk diskusi desain & ukuran.
                                 </div>
-                                <div>
-                                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Alamat Email</label>
-                                    <input type="email" class="input-premium" placeholder="budi@email.com">
+                            </div>
+                            <div class="group bg-gray-50 rounded-2xl overflow-hidden border border-transparent" :class="active === 2 ? 'border-soft-rose/20 bg-white shadow-sm' : ''">
+                                <button @click="active = active === 2 ? null : 2" class="w-full px-6 py-4 flex items-center justify-between text-left">
+                                    <span class="text-xs font-bold text-dark-wool">Lama pengerjaan?</span>
+                                    <i class="fas fa-chevron-down text-[10px] transition-transform" :class="active === 2 ? 'rotate-180 text-soft-rose' : ''"></i>
+                                </button>
+                                <div x-show="active === 2" class="px-6 pb-4 text-[11px] text-gray-500 leading-relaxed">
+                                    3-14 hari kerja tergantung kerumitan dan antrian.
                                 </div>
                             </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Subjek</label>
-                                <input type="text" class="input-premium" placeholder="Apa yang ingin Anda tanyakan?">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Pesan Anda</label>
-                                <textarea rows="5" class="input-premium py-5 resize-none" placeholder="Tuliskan pesan Anda di sini..."></textarea>
-                            </div>
-                            <button type="submit" class="btn-premium w-full py-5 text-lg shadow-2xl shadow-soft-rose/20">
-                                Kirim Pesan Sekarang <i class="fas fa-paper-plane ml-3 text-sm"></i>
-                            </button>
-                        </form>
+                        </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Row 2: Form Below -->
+            <div class="max-w-3xl mx-auto" data-aos="fade-up">
+                <div class="bg-white rounded-3xl p-8 lg:p-12 shadow-sm border border-gray-100">
+                    <h3 class="text-xl font-serif font-bold text-dark-wool mb-8 text-center">Kirim Pesan</h3>
+                    <form action="#" method="POST" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nama</label>
+                                <input type="text" class="input-premium py-2 text-sm" placeholder="Nama Anda">
+                            </div>
+                            <div>
+                                <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">Email</label>
+                                <input type="email" class="input-premium py-2 text-sm" placeholder="email@anda.com">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">Pesan</label>
+                            <textarea rows="4" class="input-premium py-3 text-sm resize-none" placeholder="Tuliskan pesan Anda..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-premium w-full py-3 text-sm shadow-xl shadow-soft-rose/20">
+                            Kirim Pesan <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Map -->
-    <section class="h-[500px] w-full relative">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126748.56347862248!2d107.57311640925292!3d-6.903444341688536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e6398252477f%3A0x146077167e76979!2sBandung%2C%20Bandung%20City%2C%20West%20Java!5e0!3m2!1sen!2sid!4v1715150000000!5m2!1sen!2sid" 
-                class="absolute inset-0 w-full h-full grayscale opacity-80" 
-                style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-        <div class="absolute inset-0 pointer-events-none shadow-[inset_0_0_100px_rgba(0,0,0,0.1)]"></div>
-    </section>
+</div>
 </div>
 @endsection

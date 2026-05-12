@@ -5,18 +5,27 @@
 
 @section('dashboard_content')
 <div class="space-y-8">
-    <div class="flex justify-between items-center">
-        <h3 class="text-xl font-bold text-dark-wool">Riwayat Transaksi</h3>
-        <div class="flex space-x-3">
-            <button class="bg-white border border-gray-100 px-6 py-3 rounded-2xl font-bold text-sm hover:bg-gray-50 transition-all flex items-center space-x-2 shadow-sm">
-                <i class="fas fa-filter"></i>
-                <span>Filter</span>
-            </button>
-            <button class="bg-white border border-gray-100 px-6 py-3 rounded-2xl font-bold text-sm hover:bg-gray-50 transition-all flex items-center space-x-2 shadow-sm">
-                <i class="fas fa-file-export"></i>
-                <span>Ekspor</span>
-            </button>
-        </div>
+    <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 mb-8">
+        <form action="{{ route('admin.orders.index') }}" method="GET" class="flex flex-wrap gap-4 items-end">
+            <div class="flex-1 min-w-[200px]">
+                <label class="block text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1">Search Order</label>
+                <input type="text" name="search" value="{{ request('search') }}" class="input-premium py-1.5 text-xs" placeholder="ID or Customer Name">
+            </div>
+            <div class="w-40">
+                <label class="block text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1">Status</label>
+                <select name="status" class="input-premium py-1.5 text-xs appearance-none">
+                    <option value="">All Status</option>
+                    <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="processing" {{ request('status') === 'processing' ? 'selected' : '' }}>Processing</option>
+                    <option value="shipped" {{ request('status') === 'shipped' ? 'selected' : '' }}>Shipped</option>
+                    <option value="completed" {{ request('status') === 'completed' ? 'selected' : '' }}>Completed</option>
+                </select>
+            </div>
+            <div class="flex gap-2">
+                <button type="submit" class="btn-premium px-6 py-2 text-[10px]">Filter</button>
+                <a href="{{ route('admin.orders.index') }}" class="px-6 py-2 rounded-lg bg-gray-50 text-dark-wool text-[10px] font-bold border border-gray-100 hover:bg-gray-100 transition-all flex items-center">Reset</a>
+            </div>
+        </form>
     </div>
 
     <!-- Table Container -->
@@ -59,8 +68,22 @@
                                 </div>
                             </td>
                             <td class="px-8 py-6">
-                                <div class="flex justify-end">
-                                    <a href="{{ route('admin.orders.show', $order->id) }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-dark-wool hover:bg-dark-wool hover:text-white transition-all shadow-sm">
+                                <div class="flex justify-end space-x-2">
+                                    @if($order->status === 'pending' || $order->payment_status === 'unpaid')
+                                        <form action="{{ route('admin.orders.approve', $order->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="w-10 h-10 flex items-center justify-center rounded-xl bg-green-50 text-green-600 hover:bg-green-600 hover:text-white transition-all shadow-sm" title="Approve">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                        </form>
+                                        <form action="{{ route('admin.orders.reject', $order->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="w-10 h-10 flex items-center justify-center rounded-xl bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all shadow-sm" title="Reject">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                    <a href="{{ route('admin.orders.show', $order->id) }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-dark-wool hover:bg-dark-wool hover:text-white transition-all shadow-sm" title="View Detail">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </div>

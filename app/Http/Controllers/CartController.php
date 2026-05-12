@@ -37,6 +37,20 @@ class CartController extends Controller
         return redirect()->back()->with('success', 'Produk ditambahkan ke keranjang!');
     }
 
+    public function buyNow(Product $product)
+    {
+        $cart = session()->get('cart', []);
+        $cart[$product->id] = [
+            "name" => $product->name,
+            "quantity" => 1,
+            "price" => $product->price,
+            "image" => $product->image_url,
+            "category" => $product->category->name
+        ];
+        session()->put('cart', $cart);
+        return redirect()->route('checkout.index');
+    }
+
     public function remove($id)
     {
         $cart = session()->get('cart', []);

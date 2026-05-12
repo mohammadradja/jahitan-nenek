@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply font-sans bg-vintage-cream text-dark-wool antialiased overflow-x-hidden;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-serif;
+    }
+}
+
+@layer components {
+    .glass-effect {
+        @apply backdrop-blur-2xl bg-white/70 border border-white/40;
+    }
+    
+    .premium-gradient {
+        @apply bg-gradient-to-br from-soft-rose via-[#E8A0BF] to-[#D183A7];
+    }
+
+    .stat-card {
+        @apply bg-white rounded-[3rem] p-8 shadow-sm hover:shadow-2xl hover:shadow-soft-rose/5 transition-all duration-500 border border-transparent hover:border-soft-rose/20;
+    }
+    
+    .btn-premium {
+        @apply premium-gradient text-white font-bold py-4 px-10 rounded-2xl shadow-xl shadow-soft-rose/20 hover:shadow-2xl hover:shadow-soft-rose/30 hover:-translate-y-1 active:scale-95 transition-all duration-300 inline-flex items-center justify-center text-center;
+    }
+
+    .input-premium {
+        @apply w-full rounded-[2rem] py-4 px-8 bg-white border border-gray-100 font-bold text-dark-wool placeholder:text-gray-300 focus:border-soft-rose focus:ring-8 focus:ring-soft-rose/5 outline-none transition-all duration-300;
+    }
+
+    .table-premium {
+        @apply w-full text-left border-separate border-spacing-y-4;
+    }
+
+    .card-premium {
+        @apply bg-white rounded-[4rem] p-12 shadow-sm border border-gray-50;
+    }
+}

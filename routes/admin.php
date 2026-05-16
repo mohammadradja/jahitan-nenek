@@ -17,7 +17,13 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->name('adm
     Route::resource('orders', OrderController::class);
     Route::post('/orders/{order}/approve', [OrderController::class, 'approve'])->name('orders.approve');
     Route::post('/orders/{order}/reject', [OrderController::class, 'reject'])->name('orders.reject');
+    Route::post('/orders/{order}/stages', [OrderController::class, 'addStage'])->name('orders.stages.add');
+    Route::delete('/stages/{stage}', [OrderController::class, 'deleteStage'])->name('orders.stages.delete');
     Route::resource('measurements', \App\Http\Controllers\Admin\MeasurementController::class);
     Route::resource('blogs', BlogController::class);
-    Route::get('/reports', function() { return view('dashboards.superadmin.reports'); })->name('reports.index');
+    Route::prefix('reports')->name('reports.')->group(function() {
+        Route::get('/sales', [\App\Http\Controllers\Admin\ReportController::class, 'sales'])->name('sales');
+        Route::get('/stock', [\App\Http\Controllers\Admin\ReportController::class, 'stock'])->name('stock');
+        Route::get('/customers', [\App\Http\Controllers\Admin\ReportController::class, 'customers'])->name('customers');
+    });
 });

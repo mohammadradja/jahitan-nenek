@@ -31,11 +31,7 @@ class HomeController extends Controller
             $query->latest();
         }
 
-        $products = $query->paginate(9);
-
-        if ($request->ajax()) {
-            return view('partials.product-grid', compact('products'))->render();
-        }
+        $products = $query->paginate(9)->withQueryString();
 
         return view('home', compact('products'));
     }

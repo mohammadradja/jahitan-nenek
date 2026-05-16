@@ -1,8 +1,8 @@
 <section class="py-32 bg-white">
     <div class="max-w-7xl mx-auto px-6 lg:px-20">
         <div class="text-center mb-20" data-aos="fade-up">
-            <span class="text-soft-rose font-bold uppercase tracking-[0.3em] text-xs">Cerita Di Balik Jarum</span>
-            <h2 class="text-5xl font-serif font-bold mt-4">Catatan Nenek</h2>
+            <span class="text-soft-rose font-bold uppercase tracking-[0.3em] text-xs">{{ __('messages.stories_behind') }}</span>
+            <h2 class="text-5xl font-serif font-bold mt-4">{{ __('messages.nenek_notes') }}</h2>
             <div class="w-16 h-1 bg-soft-rose mx-auto mt-6 rounded-full"></div>
         </div>
         
@@ -32,7 +32,7 @@
                                 {{ Str::limit(strip_tags($blog->content), 120) }}
                             </p>
                             <a href="{{ route('blog.show', $blog->slug) }}" class="inline-flex items-center text-dark-wool font-bold text-sm group-hover:translate-x-2 transition-transform duration-300">
-                                Baca Selengkapnya <i class="fas fa-arrow-right ml-3 text-soft-rose text-xs"></i>
+                                {{ __('messages.read_more') }} <i class="fas fa-arrow-right ml-3 text-soft-rose text-xs"></i>
                             </a>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
         
         <div class="text-center mt-20">
             <a href="{{ route('blog.index') }}" class="inline-flex items-center justify-center px-12 py-4 rounded-full border-2 border-dark-wool font-bold hover:bg-dark-wool hover:text-white transition-all duration-300">
-                Lihat Semua Cerita
+                {{ __('messages.view_all_stories') }}
             </a>
         </div>
     </div>

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\SiteSetting;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class RajaOngkirService
 {
@@ -13,45 +14,75 @@ class RajaOngkirService
 
     public function __construct()
     {
-        $this->apiKey = SiteSetting::get('rajaongkir_api_key');
-        $this->baseUrl = 'https://api.rajaongkir.com/starter'; // Default to starter
-        $this->origin = SiteSetting::get('rajaongkir_origin_city', '152'); // Default to Jakarta Barat
+        $this->apiKey = SiteSetting::get('rajaongkir_api_key') ?? config('services.rajaongkir.key');
+        $this->baseUrl = SiteSetting::get('rajaongkir_base_url') ?? config('services.rajaongkir.base_url', 'https://api.rajaongkir.com/starter');
+        $this->origin = SiteSetting::get('rajaongkir_origin_city') ?? config('services.rajaongkir.origin', '152');
     }
 
     public function getProvinces()
     {
-        $response = Http::withHeaders([
-            'key' => $this->apiKey
-        ])->get("{$this->baseUrl}/province");
+        try {
+            $response = Http::withHeaders([
+                'key' => $this->apiKey
+            ])->timeout(10)->get("{$this->baseUrl}/province");
 
-        return $response->json()['rajaongkir']['results'] ?? [];
+            if ($response->failed()) {
+                Log::error('RajaOngkir Province Error: ' . $response->body());
+                return [];
+            }
+
+            return $response->json()['rajaongkir']['results'] ?? [];
+        } catch (\Exception $e) {
+            Log::error('RajaOngkir Connection Error (Provinces): ' . $e->getMessage());
+            return [];
+        }
     }
 
     public function getCities($provinceId = null)
     {
-        $url = "{$this->baseUrl}/city";
-        if ($provinceId) {
-            $url .= "?province={$provinceId}";
+        try {
+            $url = "{$this->baseUrl}/city";
+            if ($provinceId) {
+                $url .= "?province={$provinceId}";
+            }
+
+            $response = Http::withHeaders([
+                'key' => $this->apiKey
+            ])->timeout(10)->get($url);
+
+            if ($response->failed()) {
+                Log::error('RajaOngkir City Error: ' . $response->body());
+                return [];
+            }
+
+            return $response->json()['rajaongkir']['results'] ?? [];
+        } catch (\Exception $e) {
+            Log::error('RajaOngkir Connection Error (Cities): ' . $e->getMessage());
+            return [];
         }
-
-        $response = Http::withHeaders([
-            'key' => $this->apiKey
-        ])->get($url);
-
-        return $response->json()['rajaongkir']['results'] ?? [];
     }
 
     public function getCost($destination, $weight, $courier = 'jne')
     {
-        $response = Http::withHeaders([
-            'key' => $this->apiKey
-        ])->post("{$this->baseUrl}/cost", [
-            'origin' => $this->origin,
-            'destination' => $destination,
-            'weight' => $weight,
-            'courier' => $courier
-        ]);
+        try {
+            $response = Http::withHeaders([
+                'key' => $this->apiKey
+            ])->timeout(10)->post("{$this->baseUrl}/cost", [
+                'origin' => $this->origin,
+                'destination' => $destination,
+                'weight' => $weight,
+                'courier' => $courier
+            ]);
 
-        return $response->json()['rajaongkir']['results'] ?? [];
+            if ($response->failed()) {
+                Log::error('RajaOngkir Cost Error: ' . $response->body());
+                return [];
+            }
+
+            return $response->json()['rajaongkir']['results'] ?? [];
+        } catch (\Exception $e) {
+            Log::error('RajaOngkir Connection Error (Cost): ' . $e->getMessage());
+            return [];
+        }
     }
 }

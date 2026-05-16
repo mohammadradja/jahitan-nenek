@@ -44,12 +44,12 @@
             </div>
         </div>
 
-        <div class="pt-6 flex items-center justify-between border-t border-gray-50">
-            <p class="text-[9px] text-gray-400">
-                <i class="fas fa-shield-alt mr-1 text-green-500"></i> Data Anda aman.
+        <div class="pt-8 flex items-center justify-between border-t border-gray-50 mt-8">
+            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest flex items-center">
+                <i class="fas fa-shield-halved mr-2 text-soft-rose"></i> Data is encrypted and secure.
             </p>
-            <button type="submit" class="btn-premium px-8 py-2 text-[10px] shadow-lg shadow-soft-rose/10">
-                Simpan
+            <button type="submit" class="btn-premium">
+                Save Changes
             </button>
         </div>
     </form>

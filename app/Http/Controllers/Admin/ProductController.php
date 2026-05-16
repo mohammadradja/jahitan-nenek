@@ -10,9 +10,20 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = \App\Models\Product::with('category')->latest()->paginate(10);
+        $query = \App\Models\Product::with('category');
+
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('slug', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        $products = $query->latest()->paginate(10);
         $categories = \App\Models\Category::all();
         return view('admin.products.index', compact('products', 'categories'));
     }

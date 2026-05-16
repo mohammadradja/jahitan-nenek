@@ -22,7 +22,7 @@
     </div>
 
     <!-- Table Container -->
-    <div class="bg-white rounded-5xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left">
                 <thead class="bg-gray-50/50 border-b border-gray-100">

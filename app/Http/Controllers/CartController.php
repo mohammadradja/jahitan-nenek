@@ -17,37 +17,47 @@ class CartController extends Controller
         return view('cart.index', compact('cart', 'total'));
     }
 
-    public function add(Product $product)
+    public function add(Request $request, Product $product)
     {
         $cart = session()->get('cart', []);
+        
+        $measurements = null;
+        if ($product->is_customizable) {
+            $measurements = $request->only(['chest', 'waist', 'hip', 'shoulder', 'sleeve_length', 'body_length', 'notes']);
+        }
 
-        if(isset($cart[$product->id])) {
-            $cart[$product->id]['quantity']++;
+        // To support multiple customizations, we create a unique key
+        $cartKey = $product->id;
+        if ($measurements) {
+            $cartKey .= '-' . md5(json_encode($measurements));
+        }
+
+        if(isset($cart[$cartKey])) {
+            $cart[$cartKey]['quantity']++;
         } else {
-            $cart[$product->id] = [
+            $cart[$cartKey] = [
+                "product_id" => $product->id,
                 "name" => $product->name,
                 "quantity" => 1,
                 "price" => $product->price,
                 "image" => $product->image_url,
-                "category" => $product->category->name
+                "category" => $product->category->name,
+                "measurements" => $measurements
             ];
         }
 
         session()->put('cart', $cart);
+        
+        if ($request->wantsJson()) {
+            return response()->json(['message' => 'Produk ditambahkan ke keranjang!', 'cart_count' => count($cart)]);
+        }
+
         return redirect()->back()->with('success', 'Produk ditambahkan ke keranjang!');
     }
 
-    public function buyNow(Product $product)
+    public function buyNow(Request $request, Product $product)
     {
-        $cart = session()->get('cart', []);
-        $cart[$product->id] = [
-            "name" => $product->name,
-            "quantity" => 1,
-            "price" => $product->price,
-            "image" => $product->image_url,
-            "category" => $product->category->name
-        ];
-        session()->put('cart', $cart);
+        $this->add($request, $product);
         return redirect()->route('checkout.index');
     }
 

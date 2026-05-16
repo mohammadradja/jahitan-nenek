@@ -96,12 +96,22 @@ class CheckoutController extends Controller
         foreach($cart as $id => $details) {
             OrderItem::create([
                 'order_id' => $order->id,
-                'product_id' => $id,
+                'product_id' => $details['product_id'],
                 'product_name' => $details['name'],
                 'product_price' => $details['price'],
                 'quantity' => $details['quantity'],
+                'measurements' => $details['measurements'] ?? null,
                 'subtotal' => $details['price'] * $details['quantity'],
             ]);
+        }
+
+        // Check Transaction Mode
+        $mode = \App\Models\SiteSetting::get('transaction_mode', 'prod');
+
+        if ($mode === 'dev') {
+            $order->update(['payment_status' => 'pending_manual_approval']);
+            session()->forget('cart');
+            return redirect()->route('checkout.success', $order->id)->with('success', 'Pesanan berhasil dibuat (Dev Mode). Silakan hubungi admin untuk konfirmasi pembayaran manual.');
         }
 
         // Midtrans Logic
@@ -136,6 +146,7 @@ class CheckoutController extends Controller
             session()->forget('cart');
             return view('checkout.payment', compact('order', 'snapToken'));
         } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Midtrans Snap Token Error: " . $e->getMessage());
             return redirect()->back()->with('error', 'Gagal memproses pembayaran: ' . $e->getMessage());
         }
     }
@@ -198,6 +209,15 @@ class CheckoutController extends Controller
                 }
             } else if ($transaction == 'settlement') {
                 $order->update(['payment_status' => 'paid', 'status' => 'processing']);
+                
+                // Notify Customer
+                try {
+                    $wa = new \App\Services\WhatsAppService();
+                    $wa->sendOrderStatusUpdate($order);
+                    \Illuminate\Support\Facades\Mail::to($order->customer_email)->send(new \App\Mail\OrderReceipt($order));
+                } catch (\Exception $e) {
+                    Log::error("Webhook Notification failed: " . $e->getMessage());
+                }
             } else if ($transaction == 'pending') {
                 $order->update(['payment_status' => 'pending']);
             } else if ($transaction == 'deny') {

@@ -13,7 +13,7 @@
     });
     setTimeout(() => remove(id), 5000);
 "
-class="fixed bottom-10 right-10 z-[200] flex flex-col space-y-4 max-w-sm w-full pointer-events-none">
+class="fixed bottom-10 right-10 z-70 flex flex-col space-y-4 max-w-sm w-full pointer-events-none">
     <template x-for="msg in messages" :key="msg.id">
         <div x-show="true" 
              x-transition:enter="transition ease-out duration-300"

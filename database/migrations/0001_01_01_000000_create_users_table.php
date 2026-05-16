@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('province_id')->nullable();
             $table->integer('city_id')->nullable();
             $table->string('postal_code', 10)->nullable();
+            $table->integer('loyalty_points')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

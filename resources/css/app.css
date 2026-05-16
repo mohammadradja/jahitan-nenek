@@ -4,7 +4,7 @@
 
 @layer base {
     body {
-        @apply font-sans bg-vintage-cream text-dark-wool antialiased overflow-x-hidden;
+        @apply font-outfit bg-vintage-cream text-dark-wool antialiased overflow-x-hidden;
     }
     h1, h2, h3, h4, h5, h6 {
         @apply font-serif;
@@ -25,7 +25,31 @@
     }
     
     .btn-premium {
-        @apply premium-gradient text-white font-bold py-3 px-8 rounded-xl shadow-xl shadow-soft-rose/20 hover:shadow-2xl hover:shadow-soft-rose/30 hover:-translate-y-1 active:scale-95 transition-all duration-300 inline-flex items-center justify-center text-center;
+        @apply premium-gradient text-white font-bold py-3.5 px-10 rounded-2xl shadow-xl shadow-soft-rose/20 hover:shadow-2xl hover:shadow-soft-rose/30 hover:-translate-y-1 active:scale-95 transition-all duration-300 inline-flex items-center justify-center text-center uppercase tracking-[0.2em] text-[10px] min-w-[160px];
+    }
+
+    .btn-primary {
+        @apply bg-dark-wool text-white font-bold py-3.5 px-10 rounded-2xl shadow-xl shadow-dark-wool/10 hover:shadow-2xl hover:shadow-dark-wool/20 hover:-translate-y-1 active:scale-95 transition-all duration-300 inline-flex items-center justify-center text-center uppercase tracking-[0.2em] text-[10px] min-w-[160px];
+    }
+
+    .btn-secondary {
+        @apply bg-white/80 backdrop-blur-sm text-gray-400 font-bold py-3.5 px-10 rounded-2xl border border-gray-100 hover:bg-gray-100 hover:text-dark-wool hover:-translate-y-1 active:scale-95 transition-all duration-300 inline-flex items-center justify-center text-center uppercase tracking-[0.2em] text-[10px] min-w-[160px];
+    }
+
+    .btn-danger {
+        @apply bg-red-50 text-red-500 font-bold py-3.5 px-10 rounded-2xl border border-red-100 hover:bg-red-500 hover:text-white hover:-translate-y-1 active:scale-95 transition-all duration-300 inline-flex items-center justify-center text-center uppercase tracking-[0.2em] text-[10px] min-w-[160px];
+    }
+
+    .btn-accent {
+        @apply bg-soft-rose text-white font-bold py-3.5 px-10 rounded-2xl shadow-xl shadow-soft-rose/10 hover:shadow-2xl hover:shadow-soft-rose/20 hover:-translate-y-1 active:scale-95 transition-all duration-300 inline-flex items-center justify-center text-center uppercase tracking-[0.15em] text-[11px];
+    }
+    
+    .btn-lg {
+        @apply py-4.5 px-12 text-xs tracking-[0.2em] rounded-[1.5rem];
+    }
+
+    .btn-sm {
+        @apply py-2.5 px-6 text-[10px] tracking-[0.1em] rounded-xl;
     }
 
     .input-premium {

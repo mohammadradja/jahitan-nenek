@@ -1,0 +1,21 @@
+<?php
+return [
+    'main' => 'Utama',
+    'business' => 'Bisnis',
+    'reports' => 'Laporan',
+    'authority' => 'Otoritas',
+    'account' => 'Akun',
+    'dashboard' => 'Dasbor Utama',
+    'catalog' => 'Katalog Produk',
+    'orders' => 'Kelola Pesanan',
+    'blog' => 'Catatan Blog',
+    'sales' => 'Laporan Penjualan',
+    'stock' => 'Laporan Stok & Inventaris',
+    'customer_report' => 'Analisis Pelanggan',
+    'financial_report' => 'Laporan Keuangan',
+    'staff' => 'Manajemen Staf',
+    'customers' => 'Data Pelanggan',
+    'settings' => 'Pengaturan',
+    'profile' => 'Profil Saya',
+    'logout' => 'Keluar',
+];

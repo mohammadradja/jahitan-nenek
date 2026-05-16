@@ -1,0 +1,21 @@
+<?php
+return [
+    'main' => 'Main',
+    'business' => 'Business',
+    'reports' => 'Reports',
+    'authority' => 'Authority',
+    'account' => 'Account',
+    'dashboard' => 'Main Dashboard',
+    'catalog' => 'Product Catalog',
+    'orders' => 'Manage Orders',
+    'blog' => 'Blog Notes',
+    'sales' => 'Sales Reports',
+    'stock' => 'Stock & Inventory',
+    'customer_report' => 'Customer Analytics',
+    'financial_report' => 'Financial Reports',
+    'staff' => 'Staff Management',
+    'customers' => 'Customer Data',
+    'settings' => 'Settings',
+    'profile' => 'My Profile',
+    'logout' => 'Logout',
+];

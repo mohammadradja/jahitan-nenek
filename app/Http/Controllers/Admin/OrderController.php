@@ -101,8 +101,9 @@ class OrderController extends Controller
         try {
             $wa = new \App\Services\WhatsAppService();
             $wa->sendOrderStatusUpdate($order);
+            \Illuminate\Support\Facades\Mail::to($order->customer_email)->send(new \App\Mail\OrderReceipt($order));
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error("WhatsApp Notification failed: " . $e->getMessage());
+            \Illuminate\Support\Facades\Log::error("Manual Approval Notification failed: " . $e->getMessage());
         }
 
         return redirect()->back()->with('success', 'Pembayaran pesanan berhasil dikonfirmasi secara manual.');
@@ -114,5 +115,30 @@ class OrderController extends Controller
         $order->reject();
 
         return redirect()->back()->with('success', 'Pesanan berhasil ditolak/dibatalkan.');
+    }
+
+    public function addStage(Request $request, string $id)
+    {
+        $request->validate([
+            'stage' => 'required',
+            'notes' => 'nullable',
+        ]);
+
+        \App\Models\ProductionStage::create([
+            'order_id' => $id,
+            'stage' => $request->stage,
+            'notes' => $request->notes,
+            'started_at' => now(),
+        ]);
+
+        return redirect()->back()->with('success', 'Tahap produksi berhasil ditambahkan.');
+    }
+
+    public function deleteStage(string $id)
+    {
+        $stage = \App\Models\ProductionStage::findOrFail($id);
+        $stage->delete();
+
+        return redirect()->back()->with('success', 'Tahap produksi berhasil dihapus.');
     }
 }

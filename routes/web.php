@@ -23,6 +23,17 @@ Route::get('/shipping/provinces', [CheckoutController::class, 'getProvinces'])->
 Route::get('/shipping/cities/{province_id}', [CheckoutController::class, 'getCities'])->name('shipping.cities');
 Route::post('/shipping/cost', [CheckoutController::class, 'getCost'])->name('shipping.cost');
 
+// Locale Switcher
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'id'])) {
+        session()->put('locale', $locale);
+        session()->save();
+    }
+    return redirect()->back();
+})->name('lang.switch');
+
+Route::get('/feed/instagram', [\App\Http\Controllers\FeedController::class, 'instagram'])->name('feed.instagram');
+
 // Dashboard redirect based on role
 Route::get('/dashboard', function () {
     $user = auth()->user();

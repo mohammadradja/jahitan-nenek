@@ -29,7 +29,23 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|unique:blogs,slug',
+            'content' => 'required',
+            'image_url' => 'nullable|url'
+        ]);
+
+        \App\Models\Blog::create([
+            'author_id' => auth()->id(),
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'content' => $request->content,
+            'image' => $request->image_url,
+            'published_at' => $request->is_published ? now() : null,
+        ]);
+
+        return redirect()->back()->with('success', 'Artikel berhasil dibuat!');
     }
 
     /**
@@ -53,7 +69,24 @@ class BlogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $blog = \App\Models\Blog::findOrFail($id);
+        
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|unique:blogs,slug,' . $id,
+            'content' => 'required',
+            'image_url' => 'nullable|url'
+        ]);
+
+        $blog->update([
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'content' => $request->content,
+            'image' => $request->image_url,
+            'published_at' => $request->is_published ? ($blog->published_at ?? now()) : null,
+        ]);
+
+        return redirect()->back()->with('success', 'Artikel berhasil diperbarui!');
     }
 
     /**
@@ -61,6 +94,9 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $blog = \App\Models\Blog::findOrFail($id);
+        $blog->delete();
+
+        return redirect()->back()->with('success', 'Artikel berhasil dihapus!');
     }
 }

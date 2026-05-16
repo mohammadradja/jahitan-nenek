@@ -15,14 +15,37 @@
 }">
     <div class="flex justify-between items-center mb-8">
         <h3 class="text-xl font-bold text-dark-wool">Semua Koleksi Produk</h3>
-        <button @click="showCreateModal = true" class="btn-premium flex items-center space-x-2">
-            <i class="fas fa-plus"></i>
+        <button @click="showCreateModal = true" class="btn-primary">
+            <i class="fas fa-plus mr-2 text-[8px]"></i>
             <span>Tambah Produk</span>
         </button>
     </div>
 
+    <!-- Filters -->
+    <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 mb-8">
+        <form action="{{ route('admin.products.index') }}" method="GET" class="flex flex-wrap gap-4 items-end">
+            <div class="flex-1 min-w-[200px]">
+                <label class="block text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1">Cari Produk</label>
+                <input type="text" name="search" value="{{ request('search') }}" class="input-premium py-1.5 text-xs" placeholder="Nama Produk atau SKU">
+            </div>
+            <div class="w-48">
+                <label class="block text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1">Kategori</label>
+                <select name="category" class="input-premium py-1.5 text-xs appearance-none">
+                    <option value="">Semua Kategori</option>
+                    @foreach($categories as $cat)
+                        <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="flex gap-2">
+                <button type="submit" class="btn-premium btn-sm">Filter</button>
+                <a href="{{ route('admin.products.index') }}" class="btn-secondary btn-sm">Reset</a>
+            </div>
+        </form>
+    </div>
+
     <!-- Table Container -->
-    <div class="bg-white rounded-5xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left">
                 <thead class="bg-gray-50/50 border-b border-gray-100">
@@ -86,7 +109,7 @@
 
     <!-- Pagination -->
     <div class="mt-8">
-        {{ $products->links() }}
+        {{ $products->withQueryString()->links() }}
     </div>
 
     <!-- Create Modal -->
@@ -134,9 +157,9 @@
                             <textarea name="description" class="input-premium h-32 resize-none"></textarea>
                         </div>
                     </div>
-                    <div class="mt-10 flex space-x-4">
-                        <button type="submit" class="btn-premium flex-1 py-4">Simpan Produk</button>
-                        <button type="button" @click="showCreateModal = false" class="flex-1 bg-gray-50 font-bold rounded-full hover:bg-gray-100 transition-colors">Batal</button>
+                    <div class="mt-10 flex justify-center space-x-4">
+                        <button type="submit" class="btn-primary">Simpan Produk</button>
+                        <button type="button" @click="showCreateModal = false" class="btn-secondary">Batal</button>
                     </div>
                 </form>
             </div>
@@ -188,9 +211,9 @@
                             <textarea name="description" x-model="editData.description" class="input-premium h-32 resize-none"></textarea>
                         </div>
                     </div>
-                    <div class="mt-10 flex space-x-4">
-                        <button type="submit" class="btn-premium flex-1 py-4">Perbarui</button>
-                        <button type="button" @click="showEditModal = false" class="flex-1 bg-gray-50 font-bold rounded-full hover:bg-gray-100 transition-colors">Batal</button>
+                    <div class="mt-10 flex justify-center space-x-4">
+                        <button type="submit" class="btn-accent">Perbarui Data</button>
+                        <button type="button" @click="showEditModal = false" class="btn-secondary">Batal</button>
                     </div>
                 </form>
             </div>

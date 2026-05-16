@@ -28,22 +28,40 @@
     </div>
 
     <!-- Quick Stats -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div class="bg-dark-wool p-5 rounded-xl text-white shadow-lg">
-            <p class="text-[8px] font-bold text-white/50 uppercase tracking-widest mb-1">Paid Revenue</p>
-            <h3 class="text-xl font-bold">Rp{{ number_format(\App\Models\Order::where('payment_status', 'paid')->sum('total_price'), 0, ',', '.') }}</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-dark-wool p-8 rounded-[2.5rem] shadow-xl text-white relative overflow-hidden group border border-white/10">
+            <div class="relative z-10">
+                <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center mb-6 backdrop-blur-md">
+                    <i class="fas fa-dollar-sign text-soft-rose"></i>
+                </div>
+                <p class="text-[9px] font-bold text-white/50 uppercase tracking-[0.2em] mb-2">Paid Revenue</p>
+                <h3 class="text-2xl font-bold tracking-tight">Rp{{ number_format(\App\Models\Order::where('payment_status', 'paid')->sum('total_price'), 0, ',', '.') }}</h3>
+            </div>
+            <div class="absolute -right-6 -top-6 w-24 h-24 bg-soft-rose/5 rounded-full blur-2xl group-hover:bg-soft-rose/10 transition-all duration-700"></div>
         </div>
-        <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
-            <p class="text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1">Orders Count</p>
-            <h3 class="text-xl font-bold text-dark-wool">{{ \App\Models\Order::count() }}</h3>
+
+        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 group hover:border-soft-rose transition-all duration-500">
+            <div class="w-10 h-10 bg-soft-rose/10 rounded-xl flex items-center justify-center text-soft-rose mb-6 group-hover:bg-soft-rose group-hover:text-white transition-all duration-500 shadow-inner">
+                <i class="fas fa-shopping-bag text-xs"></i>
+            </div>
+            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">Orders Count</p>
+            <h3 class="text-2xl font-bold text-dark-wool tracking-tight">{{ number_format(\App\Models\Order::count(), 0, ',', '.') }}</h3>
         </div>
-        <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
-            <p class="text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1">Avg. Ticket</p>
-            <h3 class="text-xl font-bold text-dark-wool">Rp{{ number_format(\App\Models\Order::where('payment_status', 'paid')->avg('total_price') ?? 0, 0, ',', '.') }}</h3>
+
+        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 group hover:border-blue-500 transition-all duration-500">
+            <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-500 mb-6 group-hover:bg-blue-500 group-hover:text-white transition-all duration-500 shadow-inner">
+                <i class="fas fa-receipt text-xs"></i>
+            </div>
+            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">Avg. Ticket</p>
+            <h3 class="text-2xl font-bold text-dark-wool tracking-tight">Rp{{ number_format(\App\Models\Order::where('payment_status', 'paid')->avg('total_price') ?? 0, 0, ',', '.') }}</h3>
         </div>
-        <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
-            <p class="text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1">Stock Level</p>
-            <h3 class="text-xl font-bold text-dark-wool">{{ \App\Models\Product::sum('stock') }} <span class="text-[10px] font-medium">Items</span></h3>
+
+        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 group hover:border-emerald-500 transition-all duration-500">
+            <div class="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-500 mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-500 shadow-inner">
+                <i class="fas fa-boxes text-xs"></i>
+            </div>
+            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">Stock Level</p>
+            <h3 class="text-2xl font-bold text-dark-wool tracking-tight">{{ number_format(\App\Models\Product::sum('stock'), 0, ',', '.') }} <span class="text-[10px] font-bold text-gray-300 ml-1">ITEMS</span></h3>
         </div>
     </div>
 

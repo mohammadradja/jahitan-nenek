@@ -5,7 +5,7 @@
 
 @section('dashboard_content')
 <div class="space-y-8">
-    <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 mb-8">
+    <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 mb-8">
         <form action="{{ route('admin.orders.index') }}" method="GET" class="flex flex-wrap gap-4 items-end">
             <div class="flex-1 min-w-[200px]">
                 <label class="block text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1">Search Order</label>
@@ -22,14 +22,14 @@
                 </select>
             </div>
             <div class="flex gap-2">
-                <button type="submit" class="btn-premium px-6 py-2 text-[10px]">Filter</button>
-                <a href="{{ route('admin.orders.index') }}" class="px-6 py-2 rounded-lg bg-gray-50 text-dark-wool text-[10px] font-bold border border-gray-100 hover:bg-gray-100 transition-all flex items-center">Reset</a>
+                <button type="submit" class="btn-primary">Filter</button>
+                <a href="{{ route('admin.orders.index') }}" class="btn-secondary">Reset</a>
             </div>
         </form>
     </div>
 
     <!-- Table Container -->
-    <div class="bg-white rounded-5xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left">
                 <thead class="bg-gray-50/50 border-b border-gray-100">
@@ -101,7 +101,7 @@
 
     <!-- Pagination -->
     <div class="mt-8">
-        {{ $orders->links() }}
+        {{ $orders->withQueryString()->links() }}
     </div>
 </div>
 @endsection

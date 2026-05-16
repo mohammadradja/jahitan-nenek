@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('product_name')->nullable();
             $table->integer('product_price')->nullable();
             $table->integer('quantity');
+            $table->json('measurements')->nullable();
             $table->integer('price');
             $table->integer('subtotal')->nullable();
             $table->timestamps();

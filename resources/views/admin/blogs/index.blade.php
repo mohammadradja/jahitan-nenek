@@ -86,38 +86,66 @@
     <!-- Create Modal -->
     <template x-if="showCreateModal">
         <div class="fixed inset-0 z-[100] flex items-center justify-center p-6 overflow-y-auto">
-            <div class="absolute inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="showCreateModal = false"></div>
-            <div class="relative bg-white w-full max-w-4xl rounded-5xl shadow-2xl p-10 animate__animated animate__zoomIn animate__faster my-auto">
-                <h3 class="text-2xl font-serif font-bold mb-8">Tulis Artikel Baru</h3>
-                <form action="{{ route('admin.blogs.store') }}" method="POST">
+            <div class="absolute inset-0 bg-dark-wool/60 backdrop-blur-md" @click="showCreateModal = false"></div>
+            <div class="relative bg-white w-full max-w-2xl rounded-[3rem] shadow-2xl p-12 animate__animated animate__zoomIn animate__faster my-auto overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-soft-rose"></div>
+                <h3 class="text-3xl font-serif font-bold mb-10 text-dark-wool">Tulis Artikel Baru</h3>
+                <form action="{{ route('admin.blogs.store') }}" method="POST" x-data="{ imgUrl: '' }">
                     @csrf
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="col-span-2 md:col-span-1">
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Judul Artikel</label>
-                            <input type="text" name="title" required class="input-premium">
+                    <div class="space-y-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Judul Artikel</label>
+                                <input type="text" name="title" required class="input-premium w-full bg-gray-50/50 border-gray-100 focus:bg-white transition-all rounded-2xl p-4 text-sm font-bold" placeholder="Judul yang memikat...">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Slug (URL)</label>
+                                <input type="text" name="slug" required class="input-premium w-full bg-gray-50/50 border-gray-100 focus:bg-white transition-all rounded-2xl p-4 text-sm font-mono" placeholder="judul-artikel-anda">
+                            </div>
                         </div>
-                        <div class="col-span-2 md:col-span-1">
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Slug (URL)</label>
-                            <input type="text" name="slug" required class="input-premium">
+
+                        <div>
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Gambar Sampul (URL)</label>
+                            <div class="relative group">
+                                <input type="text" name="image_url" x-model="imgUrl" class="input-premium w-full bg-gray-50/50 border-gray-100 focus:bg-white transition-all rounded-2xl p-4 text-sm pr-12" placeholder="https://images.unsplash.com/...">
+                                <div class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-soft-rose transition-colors">
+                                    <i class="fas fa-link"></i>
+                                </div>
+                            </div>
+                            <!-- Image Preview & Dropzone -->
+                            <div class="mt-4 rounded-3xl overflow-hidden bg-gray-50 border-2 border-dashed border-gray-100 h-48 flex items-center justify-center relative transition-all hover:border-soft-rose/50 group/dropzone"
+                                 @dragover.prevent="$el.classList.add('border-soft-rose', 'bg-soft-rose/5')"
+                                 @dragleave.prevent="$el.classList.remove('border-soft-rose', 'bg-soft-rose/5')"
+                                 @drop.prevent="$el.classList.remove('border-soft-rose', 'bg-soft-rose/5'); alert('Fitur upload langsung akan segera hadir. Gunakan URL gambar untuk saat ini.')">
+                                <template x-if="imgUrl">
+                                    <img :src="imgUrl" class="w-full h-full object-cover transition-all duration-700 hover:scale-105" alt="Preview">
+                                </template>
+                                <template x-if="!imgUrl">
+                                    <div class="text-center group-hover/dropzone:scale-110 transition-transform">
+                                        <i class="fas fa-cloud-upload-alt text-3xl text-gray-200 mb-2 group-hover/dropzone:text-soft-rose transition-colors"></i>
+                                        <p class="text-[10px] font-bold text-gray-300 uppercase tracking-widest">Klik atau Drag & Drop Gambar</p>
+                                    </div>
+                                </template>
+                            </div>
                         </div>
-                        <div class="col-span-2">
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">URL Gambar Sampul</label>
-                            <input type="text" name="image_url" class="input-premium" placeholder="https://...">
+
+                        <div>
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Konten Artikel</label>
+                            <textarea name="content" required class="input-premium w-full bg-gray-50/50 border-gray-100 focus:bg-white transition-all rounded-3xl p-6 text-sm h-48 resize-none leading-relaxed" placeholder="Ceritakan kehangatan di balik rajutan ini..."></textarea>
                         </div>
-                        <div class="col-span-2">
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Konten Artikel</label>
-                            <textarea name="content" required class="input-premium h-64 resize-none" placeholder="Ceritakan kehangatan di balik rajutan ini..."></textarea>
-                        </div>
-                        <div class="col-span-2">
-                            <label class="flex items-center space-x-3 cursor-pointer">
-                                <input type="checkbox" name="is_published" value="1" class="w-5 h-5 rounded border-gray-200 text-soft-rose focus:ring-soft-rose">
-                                <span class="text-sm font-bold text-dark-wool uppercase tracking-widest">Publikasikan Langsung</span>
+
+                        <div class="flex items-center space-x-3 bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" name="is_published" value="1" class="sr-only peer">
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-soft-rose"></div>
+                                <span class="ml-3 text-[10px] font-bold text-dark-wool uppercase tracking-widest">Publikasikan Langsung</span>
                             </label>
                         </div>
                     </div>
-                    <div class="mt-10 flex space-x-4">
-                        <button type="submit" class="btn-premium flex-1 py-4">Simpan Artikel</button>
-                        <button type="button" @click="showCreateModal = false" class="flex-1 bg-gray-50 font-bold rounded-full hover:bg-gray-100 transition-colors">Batal</button>
+
+                    <div class="mt-12 flex gap-4">
+                        <button type="submit" class="flex-[2] bg-dark-wool text-white py-5 rounded-2xl font-bold uppercase tracking-[0.2em] text-xs hover:bg-dark-wool/90 transition-all shadow-xl shadow-dark-wool/10">Simpan Artikel</button>
+                        <button type="button" @click="showCreateModal = false" class="flex-1 bg-gray-50 text-dark-wool py-5 rounded-2xl font-bold uppercase tracking-[0.2em] text-xs hover:bg-gray-100 transition-all border border-gray-100">Batal</button>
                     </div>
                 </form>
             </div>
@@ -127,33 +155,67 @@
     <!-- Edit Modal -->
     <template x-if="showEditModal">
         <div class="fixed inset-0 z-[100] flex items-center justify-center p-6 overflow-y-auto">
-            <div class="absolute inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="showEditModal = false"></div>
-            <div class="relative bg-white w-full max-w-4xl rounded-5xl shadow-2xl p-10 animate__animated animate__zoomIn animate__faster my-auto">
-                <h3 class="text-2xl font-serif font-bold mb-8">Edit Artikel</h3>
+            <div class="absolute inset-0 bg-dark-wool/60 backdrop-blur-md" @click="showEditModal = false"></div>
+            <div class="relative bg-white w-full max-w-2xl rounded-[3rem] shadow-2xl p-12 animate__animated animate__zoomIn animate__faster my-auto overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-soft-rose"></div>
+                <h3 class="text-3xl font-serif font-bold mb-10 text-dark-wool">Edit Artikel</h3>
                 <form :action="`/admin/blogs/${editData.id}`" method="POST">
                     @csrf
                     @method('PUT')
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="col-span-2 md:col-span-1">
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Judul Artikel</label>
-                            <input type="text" name="title" x-model="editData.title" required class="input-premium">
+                    <div class="space-y-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Judul Artikel</label>
+                                <input type="text" name="title" x-model="editData.title" required class="input-premium w-full bg-gray-50/50 border-gray-100 focus:bg-white transition-all rounded-2xl p-4 text-sm font-bold">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Slug (URL)</label>
+                                <input type="text" name="slug" x-model="editData.slug" required class="input-premium w-full bg-gray-50/50 border-gray-100 focus:bg-white transition-all rounded-2xl p-4 text-sm font-mono">
+                            </div>
                         </div>
-                        <div class="col-span-2 md:col-span-1">
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Slug (URL)</label>
-                            <input type="text" name="slug" x-model="editData.slug" required class="input-premium">
+
+                        <div>
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Gambar Sampul (URL)</label>
+                            <div class="relative group">
+                                <input type="text" name="image_url" x-model="editData.image" class="input-premium w-full bg-gray-50/50 border-gray-100 focus:bg-white transition-all rounded-2xl p-4 text-sm pr-12">
+                                <div class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-soft-rose transition-colors">
+                                    <i class="fas fa-link"></i>
+                                </div>
+                            </div>
+                            <!-- Image Preview & Dropzone -->
+                            <div class="mt-4 rounded-3xl overflow-hidden bg-gray-50 border-2 border-dashed border-gray-100 h-48 flex items-center justify-center relative transition-all hover:border-soft-rose/50 group/dropzone"
+                                 @dragover.prevent="$el.classList.add('border-soft-rose', 'bg-soft-rose/5')"
+                                 @dragleave.prevent="$el.classList.remove('border-soft-rose', 'bg-soft-rose/5')"
+                                 @drop.prevent="$el.classList.remove('border-soft-rose', 'bg-soft-rose/5'); alert('Fitur upload langsung akan segera hadir. Gunakan URL gambar untuk saat ini.')">
+                                <template x-if="editData.image">
+                                    <img :src="editData.image" class="w-full h-full object-cover transition-all duration-700 hover:scale-105" alt="Preview">
+                                </template>
+                                <template x-if="!editData.image">
+                                    <div class="text-center group-hover/dropzone:scale-110 transition-transform">
+                                        <i class="fas fa-cloud-upload-alt text-3xl text-gray-200 mb-2 group-hover/dropzone:text-soft-rose transition-colors"></i>
+                                        <p class="text-[10px] font-bold text-gray-300 uppercase tracking-widest">Klik atau Drag & Drop Gambar</p>
+                                    </div>
+                                </template>
+                            </div>
                         </div>
-                        <div class="col-span-2">
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">URL Gambar Sampul</label>
-                            <input type="text" name="image_url" x-model="editData.image_url" class="input-premium">
+
+                        <div>
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Konten Artikel</label>
+                            <textarea name="content" x-model="editData.content" required class="input-premium w-full bg-gray-50/50 border-gray-100 focus:bg-white transition-all rounded-3xl p-6 text-sm h-48 resize-none leading-relaxed"></textarea>
                         </div>
-                        <div class="col-span-2">
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Konten Artikel</label>
-                            <textarea name="content" x-model="editData.content" required class="input-premium h-64 resize-none"></textarea>
+
+                        <div class="flex items-center space-x-3 bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" name="is_published" value="1" class="sr-only peer" :checked="editData.published_at">
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-soft-rose"></div>
+                                <span class="ml-3 text-[10px] font-bold text-dark-wool uppercase tracking-widest">Publikasikan Langsung</span>
+                            </label>
                         </div>
                     </div>
-                    <div class="mt-10 flex space-x-4">
-                        <button type="submit" class="btn-premium flex-1 py-4">Perbarui Artikel</button>
-                        <button type="button" @click="showEditModal = false" class="flex-1 bg-gray-50 font-bold rounded-full hover:bg-gray-100 transition-colors">Batal</button>
+
+                    <div class="mt-12 flex gap-4">
+                        <button type="submit" class="flex-[2] bg-soft-rose text-white py-5 rounded-2xl font-bold uppercase tracking-[0.2em] text-xs hover:bg-soft-rose/90 transition-all shadow-xl shadow-soft-rose/10">Perbarui Artikel</button>
+                        <button type="button" @click="showEditModal = false" class="flex-1 bg-gray-50 text-dark-wool py-5 rounded-2xl font-bold uppercase tracking-[0.2em] text-xs hover:bg-gray-100 transition-all border border-gray-100">Batal</button>
                     </div>
                 </form>
             </div>

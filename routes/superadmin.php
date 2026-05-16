@@ -11,10 +11,18 @@ Route::middleware(['auth', 'role:superadmin'])->prefix('superadmin')->name('supe
     // Site Settings & Management
     Route::get('/settings', [SiteSettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SiteSettingController::class, 'update'])->name('settings.update');
+    Route::post('/settings/test-connection', [SiteSettingController::class, 'testConnection'])->name('settings.test');
 
     // Reports
-    Route::get('/reports', function() { return view('dashboards.superadmin.reports'); })->name('reports.index');
+    Route::prefix('reports')->name('reports.')->group(function() {
+        Route::get('/sales', [\App\Http\Controllers\Admin\ReportController::class, 'sales'])->name('sales');
+        Route::get('/stock', [\App\Http\Controllers\Admin\ReportController::class, 'stock'])->name('stock');
+        Route::get('/customers', [\App\Http\Controllers\Admin\ReportController::class, 'customers'])->name('customers');
+    });
 
     // Staff Management
-    Route::get('/staff', function() { return view('dashboards.superadmin.staff'); })->name('staff.index');
+    Route::resource('staff', \App\Http\Controllers\Superadmin\StaffController::class)->except(['create', 'show', 'edit']);
+
+    // Customer Management
+    Route::get('/customers', [\App\Http\Controllers\Superadmin\CustomerController::class, 'index'])->name('customers.index');
 });

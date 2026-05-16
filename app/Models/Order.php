@@ -50,6 +50,8 @@ class Order extends Model
             'payment_status' => 'paid',
             'status' => 'processing',
         ]);
+
+        \App\Services\LoyaltyService::awardPoints($this);
     }
 
     public function markAsShipped()
@@ -68,6 +70,8 @@ class Order extends Model
             'payment_status' => 'paid',
             'status' => 'processing',
         ]);
+
+        \App\Services\LoyaltyService::awardPoints($this);
     }
 
     public function reject()

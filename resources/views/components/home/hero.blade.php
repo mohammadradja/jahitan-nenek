@@ -11,25 +11,23 @@
             <div data-aos="fade-right">
                 <div class="flex items-center space-x-3 mb-8">
                     <div class="w-10 h-[1px] bg-soft-rose"></div>
-                    <span class="uppercase tracking-[0.4em] text-[10px] font-bold text-gray-400">Handcrafted Excellence</span>
+                    <span class="uppercase tracking-[0.4em] text-[10px] font-bold text-gray-400">{{ __('messages.handcrafted_excellence') }}</span>
                 </div>
                 
                 <h1 class="text-4xl lg:text-5xl font-serif font-bold text-dark-wool leading-[1.1] mb-6">
-                    Rajutan <br>
-                    <span class="text-soft-rose italic">Masa Kini</span> <br>
-                    Jiwa Tradisi
+                    {!! __('messages.hero_title') !!}
                 </h1>
                 
                 <p class="text-gray-400 text-sm lg:text-base leading-relaxed mb-8 max-w-lg">
-                    Menghidupkan kembali warisan nenek melalui desain kontemporer yang elegan. Setiap simpul adalah doa, setiap warna adalah cerita hangat.
+                    {{ __('messages.hero_subtitle') }}
                 </p>
                 
                 <div class="flex flex-col sm:flex-row items-center gap-4">
                     <a href="#produk" class="w-full sm:w-auto bg-soft-rose text-white font-bold py-3 px-8 rounded-lg shadow-lg shadow-soft-rose/20 text-xs uppercase tracking-widest flex items-center justify-center">
-                        Jelajahi Koleksi <i class="fa-solid fa-arrow-right ml-2"></i>
+                        {{ __('messages.explore_collection') }} <i class="fa-solid fa-arrow-right ml-2"></i>
                     </a>
                     <a href="{{ route('blog.index') }}" class="w-full sm:w-auto px-8 py-3 rounded-lg border border-dark-wool font-bold hover:bg-dark-wool hover:text-white transition-all text-center text-xs uppercase tracking-widest">
-                        Baca Cerita
+                        {{ __('messages.read_stories') }}
                     </a>
                 </div>
 
@@ -40,7 +38,7 @@
                         @endfor
                     </div>
                     <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">
-                        Dipercaya oleh <span class="text-dark-wool">500+</span> Pecinta Rajutan
+                        {{ __('messages.trusted_by') }} <span class="text-dark-wool">500+</span> {{ __('messages.knit_lovers') }}
                     </p>
                 </div>
             </div>
@@ -61,8 +59,8 @@
                                 <i class="fas fa-heart"></i>
                             </div>
                             <div>
-                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Kualitas Utama</p>
-                                <p class="text-sm font-bold text-dark-wool">100% Buatan Tangan</p>
+                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{{ __('messages.premium_quality') }}</p>
+                                <p class="text-sm font-bold text-dark-wool">{{ __('messages.handmade_100') }}</p>
                             </div>
                         </div>
                     </div>
@@ -72,7 +70,7 @@
                 <div class="absolute -top-10 -right-10 hidden lg:block animate-pulse">
                     <div class="bg-dark-wool text-white p-8 rounded-[2rem] shadow-2xl border-4 border-white">
                         <i class="fas fa-star text-soft-rose text-3xl mb-4"></i>
-                        <p class="text-2xl font-serif font-bold">Limited <br>Edition</p>
+                        <p class="text-2xl font-serif font-bold">{!! str_replace(' ', '<br>', __('messages.limited_edition')) !!}</p>
                     </div>
                 </div>
             </div>

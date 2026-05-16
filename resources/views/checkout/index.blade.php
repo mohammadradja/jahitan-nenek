@@ -12,17 +12,17 @@
                         <span class="text-xs font-sans font-bold bg-soft-rose/10 text-soft-rose px-3 py-1 rounded-full uppercase tracking-widest">{{ count($cart) }} Item</span>
                     </h4>
                     
-                    <div class="space-y-6 mb-10">
+                    <div class="space-y-6 mb-10 overflow-y-auto max-h-[400px] pr-2 custom-scrollbar">
                         @foreach($cart as $item)
                             <div class="flex items-center space-x-4">
                                 <div class="w-16 h-16 rounded-2xl bg-gray-50 flex items-center justify-center shrink-0 overflow-hidden border border-gray-100">
                                     <img src="{{ $item['image'] ?? 'https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&q=80&w=100' }}" class="w-full h-full object-cover" alt="">
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <h6 class="font-bold text-dark-wool truncate">{{ $item['name'] }}</h6>
-                                    <p class="text-xs text-gray-400 font-bold uppercase tracking-widest">{{ $item['quantity'] }} x Rp{{ number_format($item['price'], 0, ',', '.') }}</p>
+                                    <h6 class="font-bold text-dark-wool truncate text-sm">{{ $item['name'] }}</h6>
+                                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{{ $item['quantity'] }} x Rp{{ number_format($item['price'], 0, ',', '.') }}</p>
                                 </div>
-                                <p class="font-bold text-dark-wool">Rp{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }}</p>
+                                <p class="font-bold text-dark-wool text-sm">Rp{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }}</p>
                             </div>
                         @endforeach
                     </div>
@@ -36,7 +36,7 @@
                             <span>Biaya Pengiriman</span>
                             <span x-text="shippingCost > 0 ? 'Rp' + new Intl.NumberFormat('id-ID').format(shippingCost) : 'Dihitung otomatis'"></span>
                         </div>
-                        <div class="flex justify-between items-end pt-4">
+                        <div class="flex justify-between items-end pt-4 border-t border-gray-50 mt-4">
                             <span class="text-lg font-serif font-bold text-dark-wool">Total Akhir</span>
                             <span class="text-3xl font-serif font-bold text-soft-rose" x-text="'Rp' + new Intl.NumberFormat('id-ID').format(subtotal + parseInt(shippingCost))"></span>
                         </div>
@@ -58,19 +58,6 @@
                 <h2 class="text-4xl font-serif font-bold text-dark-wool mb-4">Detail Pengiriman</h2>
                 <p class="text-gray-400 leading-relaxed">Silakan isi informasi alamat lengkap Anda untuk pengiriman rajutan kasih sayang kami.</p>
             </header>
-
-            @if(!auth()->user()->address || !auth()->user()->phone)
-                <div class="mb-10 p-6 bg-yellow-50 border border-yellow-100 rounded-3xl flex items-start space-x-4">
-                    <div class="w-10 h-10 rounded-full bg-yellow-500 text-white flex items-center justify-center shrink-0">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <div>
-                        <p class="font-bold text-yellow-800 text-sm mb-1">Profil Belum Lengkap</p>
-                        <p class="text-xs text-yellow-700 leading-relaxed mb-3">Anda belum melengkapi alamat pengiriman utama di profil Anda.</p>
-                        <a href="{{ route('profile.edit') }}" class="text-xs font-bold text-yellow-800 underline decoration-yellow-500/50 decoration-2 underline-offset-4">Lengkapi Profil Sekarang →</a>
-                    </div>
-                </div>
-            @endif
 
             <form action="{{ route('checkout.process') }}" method="POST" class="space-y-10">
                 @csrf
@@ -97,29 +84,51 @@
                         <textarea name="customer_address" rows="4" class="input-premium py-4" required>{{ auth()->user()->address }}</textarea>
                     </div>
                     
-                    <div>
+                    <!-- Provinces (Searchable Dropdown Alternative) -->
+                    <div class="relative" x-data="{ open: false, search: '' }">
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Provinsi</label>
-                        <select name="province_id" class="input-premium appearance-none" @change="loadCities($event.target.value)" required>
-                            <option value="">Pilih Provinsi...</option>
-                            <template x-for="province in provinces" :key="province.province_id">
-                                <option :value="province.province_id" x-text="province.province"></option>
-                            </template>
-                        </select>
+                        <div @click="open = !open" class="input-premium flex justify-between items-center cursor-pointer min-h-[58px]">
+                            <span x-text="selectedProvinceName || 'Pilih Provinsi...'" :class="selectedProvinceName ? 'text-dark-wool' : 'text-gray-300'"></span>
+                            <i class="fas fa-chevron-down text-[10px] text-gray-400 transition-transform" :class="open ? 'rotate-180' : ''"></i>
+                        </div>
+                        <input type="hidden" name="province_id" x-model="selectedProvince">
+
+                        <div x-show="open" @click.away="open = false" class="absolute z-50 w-full mt-2 bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden animate__animated animate__fadeInUp animate__faster">
+                            <div class="p-4 border-b border-gray-50">
+                                <input type="text" x-model="search" placeholder="Cari provinsi..." class="w-full bg-gray-50 rounded-xl px-4 py-2 text-xs font-bold outline-none border border-transparent focus:border-soft-rose/30 transition-all">
+                            </div>
+                            <div class="max-h-60 overflow-y-auto custom-scrollbar">
+                                <template x-for="province in filteredProvinces(search)" :key="province.province_id">
+                                    <div @click="selectProvince(province); open = false" class="px-6 py-3 text-xs font-bold text-dark-wool hover:bg-soft-rose/5 hover:text-soft-rose cursor-pointer transition-colors" x-text="province.province"></div>
+                                </template>
+                            </div>
+                        </div>
                     </div>
 
-                    <div>
+                    <!-- Cities (Searchable Dropdown Alternative) -->
+                    <div class="relative" x-data="{ open: false, search: '' }">
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Kota / Kabupaten</label>
-                        <select name="city_id" class="input-premium appearance-none" @change="calculateShipping()" x-model="selectedCity" required>
-                            <option value="">Pilih Kota...</option>
-                            <template x-for="city in cities" :key="city.city_id">
-                                <option :value="city.city_id" x-text="city.type + ' ' + city.city_name"></option>
-                            </template>
-                        </select>
+                        <div @click="if(selectedProvince) open = !open" class="input-premium flex justify-between items-center cursor-pointer min-h-[58px]" :class="!selectedProvince ? 'opacity-50 cursor-not-allowed bg-gray-50' : ''">
+                            <span x-text="selectedCityName || 'Pilih Kota...'" :class="selectedCityName ? 'text-dark-wool' : 'text-gray-300'"></span>
+                            <i class="fas fa-chevron-down text-[10px] text-gray-400 transition-transform" :class="open ? 'rotate-180' : ''"></i>
+                        </div>
+                        <input type="hidden" name="city_id" x-model="selectedCity">
+
+                        <div x-show="open && selectedProvince" @click.away="open = false" class="absolute z-50 w-full mt-2 bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden animate__animated animate__fadeInUp animate__faster">
+                            <div class="p-4 border-b border-gray-50">
+                                <input type="text" x-model="search" placeholder="Cari kota..." class="w-full bg-gray-50 rounded-xl px-4 py-2 text-xs font-bold outline-none border border-transparent focus:border-soft-rose/30 transition-all">
+                            </div>
+                            <div class="max-h-60 overflow-y-auto custom-scrollbar">
+                                <template x-for="city in filteredCities(search)" :key="city.city_id">
+                                    <div @click="selectCity(city); open = false" class="px-6 py-3 text-xs font-bold text-dark-wool hover:bg-soft-rose/5 hover:text-soft-rose cursor-pointer transition-colors" x-text="city.type + ' ' + city.city_name"></div>
+                                </template>
+                            </div>
+                        </div>
                     </div>
 
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Ekspedisi</label>
-                        <select name="courier" class="input-premium appearance-none" @change="calculateShipping()" x-model="selectedCourier" required>
+                        <select name="courier" class="input-premium appearance-none" x-model="selectedCourier" required>
                             <option value="jne">JNE (Reguler)</option>
                             <option value="tiki">TIKI</option>
                             <option value="pos">POS Indonesia</option>
@@ -133,7 +142,7 @@
                 </div>
 
                 <div class="pt-10 flex flex-col items-center border-t border-gray-50">
-                    <button type="submit" class="w-full btn-premium py-6 text-xl shadow-2xl shadow-soft-rose/30" :disabled="loading">
+                    <button type="submit" class="w-full btn-premium py-6 text-xl shadow-2xl shadow-soft-rose/30" :disabled="loading || !shippingCost">
                         <span x-show="!loading">Buat Pesanan Sekarang <i class="fas fa-arrow-right ml-2 text-sm"></i></span>
                         <span x-show="loading"><i class="fas fa-circle-notch fa-spin mr-2"></i> Memproses...</span>
                     </button>
@@ -148,7 +157,10 @@
                     return {
                         provinces: [],
                         cities: [],
+                        selectedProvince: '',
+                        selectedProvinceName: '',
                         selectedCity: '',
+                        selectedCityName: '',
                         selectedCourier: 'jne',
                         shippingCost: 0,
                         loading: false,
@@ -156,6 +168,10 @@
 
                         init() {
                             this.loadProvinces();
+                            
+                            // Instant shipping cost update when city or courier changes
+                            this.$watch('selectedCity', () => this.calculateShipping());
+                            this.$watch('selectedCourier', () => this.calculateShipping());
                         },
 
                         async loadProvinces() {
@@ -163,12 +179,34 @@
                             this.provinces = await res.json();
                         },
 
+                        async selectProvince(province) {
+                            this.selectedProvince = province.province_id;
+                            this.selectedProvinceName = province.province;
+                            this.selectedCity = '';
+                            this.selectedCityName = '';
+                            this.shippingCost = 0;
+                            this.loadCities(province.province_id);
+                        },
+
                         async loadCities(provinceId) {
                             if (!provinceId) return;
                             const res = await fetch(`/shipping/cities/${provinceId}`);
                             this.cities = await res.json();
-                            this.selectedCity = '';
-                            this.shippingCost = 0;
+                        },
+
+                        async selectCity(city) {
+                            this.selectedCity = city.city_id;
+                            this.selectedCityName = city.type + ' ' + city.city_name;
+                        },
+
+                        filteredProvinces(search) {
+                            if (!search) return this.provinces;
+                            return this.provinces.filter(p => p.province.toLowerCase().includes(search.toLowerCase()));
+                        },
+
+                        filteredCities(search) {
+                            if (!search) return this.cities;
+                            return this.cities.filter(c => c.city_name.toLowerCase().includes(search.toLowerCase()));
                         },
 
                         async calculateShipping() {
@@ -188,7 +226,6 @@
                                     })
                                 });
                                 const data = await res.json();
-                                // Assuming take the first service cost
                                 if (data.length > 0 && data[0].costs.length > 0) {
                                     this.shippingCost = data[0].costs[0].cost[0].value;
                                 }

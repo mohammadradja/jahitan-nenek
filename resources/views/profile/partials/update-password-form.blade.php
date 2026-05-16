@@ -18,8 +18,8 @@
             </div>
         </div>
 
-        <div class="flex items-center space-x-4 pt-4 border-t border-gray-50">
-            <button type="submit" class="btn-premium px-8 py-2 text-[10px] shadow-lg shadow-soft-rose/10">
+        <div class="flex items-center space-x-6 pt-8 border-t border-gray-50 mt-8">
+            <button type="submit" class="btn-premium">
                 Update Password
             </button>
 

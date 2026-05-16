@@ -140,9 +140,28 @@ max-w-7xl mx-auto px-6 lg:px-10
 
 ## Grid Gap
 
-```txt
-gap-6 md:gap-10
-```
+| Type            | Tailwind Utility   |
+| --------------- | ------------------ |
+| Section Gap     | `gap-16 md:gap-24` |
+| Grid Gap        | `gap-8 md:gap-10`  |
+| Component Gap   | `gap-4 md:gap-6`   |
+| Content Gap     | `gap-2 md:gap-4`   |
+
+---
+
+# 📑 Layering & Z-Index System
+
+To avoid visual overlaps and ensure proper interaction flows:
+
+| Layer           | Z-Index    | Usage                         |
+| --------------- | ---------- | ----------------------------- |
+| Base            | `0`        | Backgrounds, static content   |
+| Sticky Header   | `z-[100]`  | Table headers, sticky sub-nav |
+| Sidebar Overlay | `z-[99999]` | Sidebar (Dashboard)           |
+| Navbar Overlay  | `z-[99999]` | Navbar (Guest)                |
+| Backdrop        | `z-[99998]` | Mobile menu backdrop          |
+| Modal           | `z-[100000]`| System popups, forms          |
+| Toast           | `z-[200000]`| Success/Error notifications   |
 
 ---
 
@@ -195,23 +214,34 @@ The platform uses subtle motion for premium interaction feedback.
 ---
 
 ## Primary Premium Button
-- **Size**: `py-1.5 px-4 rounded-lg`.
+- **Structure**: `inline-flex items-center justify-center gap-2 font-bold uppercase tracking-widest transition-all`.
+- **Proper Padding**: Padding MUST be proportional to text size to prevent "tight" text.
+    - **XS (Action Icons)**: `w-10 h-10 rounded-xl` (No text).
+    - **SM (Secondary Actions)**: `py-2.5 px-6 text-[10px] rounded-xl`.
+    - **MD (Standard CTA)**: `py-3.5 px-10 text-[11px] rounded-2xl`.
+    - **LG (Primary Hero)**: `py-4.5 px-12 text-xs rounded-[1.5rem]`.
 - **Style**: High-contrast shadow, elegant transition, premium gradient.
-- **Micro-interactions**: Hover: `-translate-y-0.5`, Active: `scale-95`.
+- **Micro-interactions**: Hover: `-translate-y-0.5 shadow-xl`, Active: `scale-95`.
 
 ## Secondary Button
-- **Size**: `py-1.5 px-4 rounded-lg`.
-- **Style**: `border border-soft-rose`, `text-soft-rose`, transparent background.
-- **Hover**: `bg-soft-rose`, `text-white`.
+- **Standard Size**: Same as MD/LG above.
+- **Style**: `border border-soft-rose/20 bg-white/50 backdrop-blur-sm text-soft-rose`.
+- **Hover**: `bg-soft-rose text-white shadow-lg shadow-soft-rose/20`.
 
 ---
 
 # 📊 Dashboard Standards
-- **Stats Cards**: `p-4 rounded-xl shadow-sm`.
-- **Typography**: Value: `text-xl font-bold`, Label: `text-[8px] font-bold uppercase tracking-widest`.
-- **Layout**: 4-column grid for overview, 3-column flex for user summary.
-- **Boxes/Containers**: `rounded-2xl` for most containers, `rounded-xl` for small cards.
-- **Paddings**: Use `p-4` to `p-6` for main sections, avoid `p-12`.
+
+## Data Consolidation (Command Center)
+All critical KPIs—including Sales (Revenue, Orders), Inventory (Stock, Low Stock), and Customer Growth—MUST be centralized on the main Dashboard index. Module-specific pages (Sales/Inventory) should focus on detailed tables and filters, not redundant summary cards.
+- **Stats Cards (Overview)**: `p-8 rounded-[2.5rem] shadow-2xl border border-white/10`. Use for high-level summaries like Revenue.
+- **Stats Cards (Standard)**: `p-6 rounded-[2rem] shadow-sm border border-gray-100 hover:border-soft-rose transition-all`.
+- **Typography**: 
+    - Value: `text-2xl md:text-4xl font-serif font-bold tracking-tight`.
+    - Label: `text-[10px] font-bold uppercase tracking-[0.2em]`.
+- **Layout**: 4-column grid with `gap-6` for better breathability.
+- **Boxes/Containers**: `rounded-[2.5rem]` for main dashboard widgets to match the soft handcrafted aesthetic.
+- **Micro-interactions**: Subtle `scale-105` on icons and `hover:translate-y-[-4px]` for cards.
 
 ---
 
@@ -362,15 +392,16 @@ hover:border-soft-rose/40
 # 🔢 Pagination System
 
 ## Design
-- Large rounded-2xl buttons
-- Soft-rose active state
-- Elegant shadow interaction
-- Minimalist navigation icons
+- **Dimensions**: Square buttons (`w-11 h-11` or `w-12 h-12`).
+- **Radius**: `rounded-xl` or `rounded-2xl`.
+- **Active State**: `bg-soft-rose text-white shadow-lg shadow-soft-rose/20`.
+- **Inactive State**: `bg-white text-gray-400 hover:bg-gray-50 hover:text-dark-wool border border-gray-100`.
+- **Icons**: Use minimalist FontAwesome icons (`fa-chevron-left`, `fa-chevron-right`).
+- **Interaction**: Subtle `hover:-translate-y-0.5` and `active:scale-95`.
 
-## Tailwind Classes
-```txt
-w-12 h-12 flex items-center justify-center rounded-2xl
-```
+## Implementation
+- All paginated links MUST be wrapped in a container with `flex items-center justify-center gap-2`.
+- Ensure appropriate spacing (`mt-12`) from the content grid or table.
 
 ---
 

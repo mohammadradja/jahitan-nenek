@@ -15,16 +15,16 @@
                 </div>
                 
                 <h1 class="text-4xl lg:text-5xl font-serif font-bold text-dark-wool leading-[1.1] mb-6">
-                    {!! __('messages.hero_title') !!}
+                    {!! \App\Models\SiteSetting::getTranslatabled('cms_hero_title', __('messages.hero_title')) !!}
                 </h1>
                 
                 <p class="text-gray-400 text-sm lg:text-base leading-relaxed mb-8 max-w-lg">
-                    {{ __('messages.hero_subtitle') }}
+                    {{ \App\Models\SiteSetting::getTranslatabled('cms_hero_subtitle', __('messages.hero_subtitle')) }}
                 </p>
                 
                 <div class="flex flex-col sm:flex-row items-center gap-4">
                     <a href="#produk" class="w-full sm:w-auto bg-soft-rose text-white font-bold py-3 px-8 rounded-lg shadow-lg shadow-soft-rose/20 text-xs uppercase tracking-widest flex items-center justify-center">
-                        {{ __('messages.explore_collection') }} <i class="fa-solid fa-arrow-right ml-2"></i>
+                        {{ \App\Models\SiteSetting::getTranslatabled('cms_hero_cta', __('messages.explore_collection')) }} <i class="fa-solid fa-arrow-right ml-2"></i>
                     </a>
                     <a href="{{ route('blog.index') }}" class="w-full sm:w-auto px-8 py-3 rounded-lg border border-dark-wool font-bold hover:bg-dark-wool hover:text-white transition-all text-center text-xs uppercase tracking-widest">
                         {{ __('messages.read_stories') }}
@@ -48,7 +48,7 @@
                 <div class="absolute -inset-10 bg-white/50 rounded-[4rem] rotate-6 -z-10 blur-sm"></div>
                 
                 <div class="relative rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-white group">
-                    <img src="https://images.unsplash.com/photo-1516573024884-33b8796593d8?q=80&w=1000&auto=format&fit=crop" 
+                    <img src="{{ \App\Models\SiteSetting::get('cms_hero_image') ? asset(\App\Models\SiteSetting::get('cms_hero_image')) : 'https://images.unsplash.com/photo-1516573024884-33b8796593d8?q=80&w=1000&auto=format&fit=crop' }}" 
                          class="w-full aspect-[4/5] object-cover transition-transform duration-[2s] group-hover:scale-110" 
                          alt="Jahitan Nenek Collection">
                     

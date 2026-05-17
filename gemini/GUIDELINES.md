@@ -17,7 +17,7 @@
 - **Buttons**:
     - **Large (Hero/Primary)**: `py-4.5 px-12 text-xs tracking-[0.2em] rounded-[1.5rem]`
     - **Standard (CTA/Main)**: `py-3.5 px-10 text-[11px] tracking-[0.1em] rounded-2xl`
-    - **Small (Secondary)**: `py-2.5 px-6 text-[10px] tracking-[0.1em] rounded-xl`
+    - **Small (Secondary)**: `py-2.5 px-6 text-[10px] tracking-[0.1em] rounded-xl` (must include `.btn-sm` modifier which forces `min-w-0` to prevent horizontal stretching)
     - **Icon Only**: `w-10 h-10 rounded-xl`
     - **Aesthetics**: Padding MUST be proportional to text. Avoid "tight" buttons. Always include hover (`-translate-y-0.5 shadow-lg`) and active (`scale-95`) states.
 - **Modals**: Must be centered, use glassmorphism effects, and have a `max-w-2xl` or `max-w-4xl` width.
@@ -27,12 +27,14 @@
     - **Dashboard Grid**: Use `gap-8 md:gap-10` for main card layouts.
     - **Dashboard Cards**: Use `p-8` for desktop and `p-6` for mobile.
     - **Guest Grid**: Use `gap-12 md:gap-16` for sections and `gap-8` for product grids.
-- **Sidebar Behavior**:
-    - Must be fully collapsible on both mobile and desktop.
-    - MUST be the topmost layer on the dashboard (`z-[99999]`).
-    - On desktop, use a `fixed` positioning with a responsive padding/margin on the content area to prevent overlap unless intended.
-    - Ensure the parent container of the sidebar does NOT have `relative` or `transform` if the sidebar is `fixed`, to avoid stacking context traps.
-    - When hidden, the main content MUST expand to fill the entire viewport.
+- **Sidebar & Mobile Navigation Behavior**:
+    - **Desktop Sidebar**: Collapsible. Transitions from `w-[280px]` (expanded) to `w-[80px]` (minimized) using the vertical gliding toggle button centered on the edge at `left: 264px` or `left: 64px`. Shows centered icons and tooltips in minimized state.
+    - **Mobile Sidebar**: Completely disabled and hidden (`hidden lg:block`). Do not render a sidebar or side drawer on mobile.
+    - **Mobile Menu Overlay**: Mobile navigation is handled via a premium full-screen sliding glassmorphism hamburger dropdown overlay triggered by the header hamburger button.
+    - **Stacking & Layering**: Fixed sidebar uses `z-index: 2147483640` and edge toggle button uses `z-index: 2147483647` to ensure it floats on top of the border line.
+- **Content Management System (CMS)**:
+    - Dedicated split-screen editor: Form on the left (`w-[45%]`), device mock frame on the right (`w-[55%]`) containing an iframe of the home route.
+    - Submissions must be handled asynchronously via AJAX/fetch to update settings and reload the iframe without refreshing the editor page.
 - **Localization**:
     - Use pill-style toggles for language switching.
     - Forbid hardcoded strings in Blade views; always use `__('messages.key')`.
@@ -49,14 +51,11 @@
 - **Soft Deletes**: Enable `SoftDeletes` for critical models (Products, Orders, Blogs).
 - **Indexing**: Always index slugs and foreign keys used in frequent lookups.
 
-## API Integration Standards
-- **Service Encapsulation**: Third-party APIs (RajaOngkir, QRISLY, Midtrans) must be encapsulated in the `app/Services` namespace.
-- **SiteSetting Integration**: Always fetch API keys via `SiteSetting::get('key')` instead of `env()`.
-- **Response Format**: Use the unified JSON format for internal AJAX calls:
-    ```json
-    { "success": true, "message": "...", "data": { ... } }
-    ```
-- **Error Handling**: Implement try-catch blocks in services with logging to `failed_jobs` or `activity_logs`.
+## Payment & Shipping Standards
+- **Manual Bank Transfer**: The application uses manual bank transfers as the primary payment method. All payment gateway APIs are deprecated. The bank information is managed dynamically through SiteSettings (`bank_transfer_info`).
+- **Manual Shipping Calculation**: Shipping cost calculations are flat rates based on courier selection (JNE: Rp 15,000, TIKI: Rp 14,000, POS: Rp 12,000) managed dynamically on the client-side. The RajaOngkir API is completely deprecated.
+- **SiteSetting Integration**: Always fetch CMS parameters and settings via `SiteSetting::get('key')` instead of hardcoding or calling external APIs.
+- **Error Handling**: Implement try-catch blocks in manual upload controllers with logging to `activity_logs` or system error handlers.
 
 ## Documentation Hierarchy & Interconnection
 Before performing any task, the agent MUST review the following documentation in order:

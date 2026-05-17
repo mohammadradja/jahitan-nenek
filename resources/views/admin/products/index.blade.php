@@ -15,7 +15,7 @@
 }">
     <div class="flex justify-between items-center mb-8">
         <h3 class="text-xl font-bold text-dark-wool">Semua Koleksi Produk</h3>
-        <button @click="showCreateModal = true" class="btn-primary">
+        <button @click="showCreateModal = true" class="btn-primary btn-sm">
             <i class="fas fa-plus mr-2 text-[8px]"></i>
             <span>Tambah Produk</span>
         </button>
@@ -114,7 +114,7 @@
 
     <!-- Create Modal -->
     <template x-if="showCreateModal">
-        <div class="fixed inset-0 z-[100] flex items-center justify-center p-6 overflow-y-auto">
+        <div class="fixed inset-0 z-[200000] flex items-center justify-center p-6 overflow-y-auto">
             <div class="absolute inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="showCreateModal = false"></div>
             <div class="relative bg-white w-full max-w-2xl rounded-5xl shadow-2xl p-10 animate__animated animate__zoomIn animate__faster my-auto">
                 <h3 class="text-2xl font-serif font-bold mb-8">Tambah Produk Baru</h3>
@@ -158,8 +158,8 @@
                         </div>
                     </div>
                     <div class="mt-10 flex justify-center space-x-4">
-                        <button type="submit" class="btn-primary">Simpan Produk</button>
-                        <button type="button" @click="showCreateModal = false" class="btn-secondary">Batal</button>
+                        <button type="submit" class="btn-primary btn-sm">Simpan Produk</button>
+                        <button type="button" @click="showCreateModal = false" class="btn-secondary btn-sm">Batal</button>
                     </div>
                 </form>
             </div>
@@ -168,7 +168,7 @@
 
     <!-- Edit Modal -->
     <template x-if="showEditModal">
-        <div class="fixed inset-0 z-[100] flex items-center justify-center p-6 overflow-y-auto">
+        <div class="fixed inset-0 z-[200000] flex items-center justify-center p-6 overflow-y-auto">
             <div class="absolute inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="showEditModal = false"></div>
             <div class="relative bg-white w-full max-w-2xl rounded-5xl shadow-2xl p-10 animate__animated animate__zoomIn animate__faster my-auto">
                 <h3 class="text-2xl font-serif font-bold mb-8">Edit Produk</h3>
@@ -212,8 +212,8 @@
                         </div>
                     </div>
                     <div class="mt-10 flex justify-center space-x-4">
-                        <button type="submit" class="btn-accent">Perbarui Data</button>
-                        <button type="button" @click="showEditModal = false" class="btn-secondary">Batal</button>
+                        <button type="submit" class="btn-accent btn-sm">Perbarui Data</button>
+                        <button type="button" @click="showEditModal = false" class="btn-secondary btn-sm">Batal</button>
                     </div>
                 </form>
             </div>

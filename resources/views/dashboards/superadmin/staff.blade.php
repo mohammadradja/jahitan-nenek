@@ -96,9 +96,8 @@
         {{ $staff->withQueryString()->links() }}
     </div>
 
-    <!-- Create Modal -->
     <template x-if="showCreateModal">
-        <div class="fixed inset-0 z-[100] flex items-center justify-center p-6 overflow-y-auto">
+        <div class="fixed inset-0 z-[200000] flex items-center justify-center p-6 overflow-y-auto">
             <div class="absolute inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="showCreateModal = false"></div>
             <div class="relative bg-white w-full max-w-lg rounded-5xl shadow-2xl p-10 animate__animated animate__zoomIn animate__faster my-auto">
                 <div class="mb-8">
@@ -130,7 +129,6 @@
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Role Akses</label>
                         <select name="role" required class="input-premium py-3 text-sm appearance-none">
                             <option value="admin">Admin (Operasional)</option>
-                            <option value="superadmin">Superadmin (Global)</option>
                         </select>
                     </div>
 
@@ -143,9 +141,8 @@
         </div>
     </template>
 
-    <!-- Edit Modal -->
     <template x-if="showEditModal">
-        <div class="fixed inset-0 z-[100] flex items-center justify-center p-6 overflow-y-auto">
+        <div class="fixed inset-0 z-[200000] flex items-center justify-center p-6 overflow-y-auto">
             <div class="absolute inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="showEditModal = false"></div>
             <div class="relative bg-white w-full max-w-lg rounded-5xl shadow-2xl p-10 animate__animated animate__zoomIn animate__faster my-auto">
                 <div class="mb-8">
@@ -168,7 +165,6 @@
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Role Akses</label>
                         <select name="role" x-model="editData.role" required class="input-premium py-3 text-sm appearance-none">
                             <option value="admin">Admin (Operasional)</option>
-                            <option value="superadmin">Superadmin (Global)</option>
                         </select>
                     </div>
 

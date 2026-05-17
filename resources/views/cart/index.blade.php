@@ -4,7 +4,7 @@
 <div class="max-w-7xl mx-auto px-6 lg:px-20 py-20">
     <div class="mb-16 text-center" data-aos="fade-down">
         <span class="text-soft-rose font-bold uppercase tracking-[0.3em] text-xs">Pilihan Anda</span>
-        <h2 class="text-5xl font-serif font-bold mt-4">Keranjang <span class="italic text-soft-rose">Belanja</span></h2>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold mt-4">Keranjang <span class="italic text-soft-rose">Belanja</span></h2>
         <div class="w-24 h-1.5 bg-soft-rose mx-auto mt-8 rounded-full"></div>
     </div>
 
@@ -89,7 +89,7 @@
                         </div>
                         <div class="pt-8 border-t border-gray-100 flex justify-between items-end mb-10">
                             <span class="text-lg font-serif font-bold text-dark-wool">Total Akhir</span>
-                            <span class="text-3xl font-serif font-bold text-soft-rose">Rp{{ number_format($total, 0, ',', '.') }}</span>
+                            <span class="text-xl sm:text-2xl lg:text-3xl font-serif font-bold text-soft-rose">Rp{{ number_format($total, 0, ',', '.') }}</span>
                         </div>
                         <a href="{{ route('checkout.index') }}" class="btn-premium w-full py-5 shadow-2xl shadow-soft-rose/20">
                             Lanjut ke Checkout

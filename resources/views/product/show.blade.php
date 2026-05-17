@@ -30,7 +30,7 @@
             <div class="lg:col-span-5" data-aos="fade-left">
                 <div class="sticky top-32">
                     <span class="text-soft-rose font-bold uppercase tracking-[0.4em] text-[10px] mb-4 block">{{ $product->category->name }}</span>
-                    <h1 class="text-5xl font-serif font-bold text-dark-wool mb-6 leading-[1.1]">{{ $product->name }}</h1>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-dark-wool mb-6 leading-[1.1]">{{ $product->name }}</h1>
                     
                     <div class="flex items-center space-x-6 mb-10">
                         <p class="text-3xl font-serif font-bold text-dark-wool">Rp{{ number_format($product->price, 0, ',', '.') }}</p>

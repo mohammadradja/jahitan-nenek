@@ -20,7 +20,7 @@ To become the leading destination for luxury handmade knitwear, empowering local
 ## Business Model
 - Direct-to-consumer (D2C) sales through the platform.
 - Multi-role management system (Superadmin, Admin, Customer).
-- Integrated logistics (RajaOngkir) and payments (QRISLY/Midtrans).
+- Manual Bank Transfer payments and Flat Rate logistics for reliable, offline-independent order processing.
 
 ## Current Project Focus
 - Optimizing the administrative experience (Dashboards).

@@ -13,11 +13,16 @@ Route::middleware(['auth', 'role:superadmin'])->prefix('superadmin')->name('supe
     Route::post('/settings', [SiteSettingController::class, 'update'])->name('settings.update');
     Route::post('/settings/test-connection', [SiteSettingController::class, 'testConnection'])->name('settings.test');
 
+    // Dedicated Content Management System (CMS)
+    Route::get('/cms', [\App\Http\Controllers\CMSController::class, 'index'])->name('cms.index');
+    Route::post('/cms', [\App\Http\Controllers\CMSController::class, 'update'])->name('cms.update');
+
     // Reports
     Route::prefix('reports')->name('reports.')->group(function() {
         Route::get('/sales', [\App\Http\Controllers\Admin\ReportController::class, 'sales'])->name('sales');
         Route::get('/stock', [\App\Http\Controllers\Admin\ReportController::class, 'stock'])->name('stock');
         Route::get('/customers', [\App\Http\Controllers\Admin\ReportController::class, 'customers'])->name('customers');
+        Route::get('/finance', [\App\Http\Controllers\Admin\ReportController::class, 'finance'])->name('finance');
     });
 
     // Staff Management

@@ -20,7 +20,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                 <div class="relative" data-aos="fade-right">
                     <div class="relative z-10 rounded-[4rem] overflow-hidden shadow-2xl">
-                        <img src="https://images.unsplash.com/photo-1584992236310-6edddc08acff?q=80&w=1000&auto=format&fit=crop" 
+                        <img src="{{ \App\Models\SiteSetting::get('cms_about_image') ? asset(\App\Models\SiteSetting::get('cms_about_image')) : 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?q=80&w=1000&auto=format&fit=crop' }}" 
                              class="w-full aspect-[4/5] object-cover hover:scale-105 transition-transform duration-700" alt="Nenek Menjahit">
                     </div>
                     <!-- Accents -->
@@ -34,16 +34,22 @@
                 </div>
 
                 <div class="space-y-10" data-aos="fade-left">
-                    <h2 class="text-5xl font-serif font-bold text-dark-wool leading-tight">{!! __('about.love_in_every_knot') !!}</h2>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-dark-wool leading-tight">{!! \App\Models\SiteSetting::getTranslatabled('cms_about_title', __('about.love_in_every_knot')) !!}</h2>
                     <p class="text-lg text-gray-500 leading-relaxed italic">
                         {{ __('about.quote') }}
                     </p>
-                    <p class="text-gray-400 leading-relaxed">
-                        {{ __('about.desc_1') }}
-                    </p>
-                    <p class="text-gray-400 leading-relaxed">
-                        {{ __('about.desc_2') }}
-                    </p>
+                    @if(\App\Models\SiteSetting::getTranslatabled('cms_about_text'))
+                        <p class="text-gray-400 leading-relaxed">
+                            {{ \App\Models\SiteSetting::getTranslatabled('cms_about_text') }}
+                        </p>
+                    @else
+                        <p class="text-gray-400 leading-relaxed">
+                            {{ __('about.desc_1') }}
+                        </p>
+                        <p class="text-gray-400 leading-relaxed">
+                            {{ __('about.desc_2') }}
+                        </p>
+                    @endif
                     
                     <div class="grid grid-cols-3 gap-8 pt-10 border-t border-gray-100">
                         <div>

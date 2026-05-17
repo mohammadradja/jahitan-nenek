@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-20">
         <div class="text-center mb-20" data-aos="fade-up">
             <span class="text-soft-rose font-bold uppercase tracking-[0.3em] text-xs">{{ __('messages.stories_behind') }}</span>
-            <h2 class="text-5xl font-serif font-bold mt-4">{{ __('messages.nenek_notes') }}</h2>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold mt-4">{{ __('messages.nenek_notes') }}</h2>
             <div class="w-16 h-1 bg-soft-rose mx-auto mt-6 rounded-full"></div>
         </div>
         

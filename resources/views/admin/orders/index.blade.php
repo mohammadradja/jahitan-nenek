@@ -22,8 +22,8 @@
                 </select>
             </div>
             <div class="flex gap-2">
-                <button type="submit" class="btn-primary">Filter</button>
-                <a href="{{ route('admin.orders.index') }}" class="btn-secondary">Reset</a>
+                <button type="submit" class="btn-primary btn-sm">Filter</button>
+                <a href="{{ route('admin.orders.index') }}" class="btn-secondary btn-sm">Reset</a>
             </div>
         </form>
     </div>
@@ -55,28 +55,48 @@
                             </td>
                             <td class="px-8 py-6">
                                 <div class="flex justify-center">
-                                    <span class="px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest {{ $order->payment_status === 'paid' ? 'bg-green-50 text-green-600' : 'bg-yellow-50 text-yellow-600' }}">
-                                        {{ $order->payment_status }}
+                                    <span class="px-4 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest {{ $order->payment_status === 'paid' ? 'bg-green-50 text-green-600' : ($order->payment_status === 'pending_manual_approval' ? 'bg-amber-50 text-amber-600' : 'bg-red-50 text-red-600') }}">
+                                        @if($order->payment_status === 'pending_manual_approval')
+                                            Verifikasi Manual
+                                        @elseif($order->payment_status === 'unpaid')
+                                            Belum Bayar
+                                        @elseif($order->payment_status === 'paid')
+                                            Lunas
+                                        @else
+                                            {{ strtoupper($order->payment_status) }}
+                                        @endif
                                     </span>
                                 </div>
                             </td>
                             <td class="px-8 py-6">
                                 <div class="flex justify-center">
-                                    <span class="px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest bg-blue-50 text-blue-600">
-                                        {{ $order->status }}
+                                    <span class="px-4 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest bg-blue-50 text-blue-600">
+                                        @if($order->status === 'pending')
+                                            Menunggu
+                                        @elseif($order->status === 'processing')
+                                            Diproses
+                                        @elseif($order->status === 'shipped')
+                                            Dikirim
+                                        @elseif($order->status === 'completed')
+                                            Selesai
+                                        @elseif($order->status === 'cancelled')
+                                            Batal
+                                        @else
+                                            {{ strtoupper($order->status) }}
+                                        @endif
                                     </span>
                                 </div>
                             </td>
                             <td class="px-8 py-6">
                                 <div class="flex justify-end space-x-2">
                                     @if($order->status === 'pending' || $order->payment_status === 'unpaid')
-                                        <form action="{{ route('admin.orders.approve', $order->id) }}" method="POST">
+                                        <form action="{{ route('admin.orders.approve', $order->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menyetujui pesanan ini?')">
                                             @csrf
                                             <button type="submit" class="w-10 h-10 flex items-center justify-center rounded-xl bg-green-50 text-green-600 hover:bg-green-600 hover:text-white transition-all shadow-sm" title="Approve">
                                                 <i class="fas fa-check"></i>
                                             </button>
                                         </form>
-                                        <form action="{{ route('admin.orders.reject', $order->id) }}" method="POST">
+                                        <form action="{{ route('admin.orders.reject', $order->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menolak pesanan ini?')">
                                             @csrf
                                             <button type="submit" class="w-10 h-10 flex items-center justify-center rounded-xl bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all shadow-sm" title="Reject">
                                                 <i class="fas fa-times"></i>

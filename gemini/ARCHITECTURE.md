@@ -8,22 +8,21 @@ Before diving into the architecture, ensure you understand the [CONTEXT](file://
 - **Frontend Logic**: Alpine.js (Lightweight reactive components)
 - **Styling**: Tailwind CSS (Utility-first, customized for premium aesthetic)
 - **Database**: MySQL / SQLite (Development)
-- **Payments**: Midtrans & QRISLY
-- **Logistics**: RajaOngkir (Integrated via Service Layer)
+- **Payments**: Manual Bank Transfer with verification upload
+- **Logistics**: Manual Flat Rate Shipping
 
 ## System Design
 The project follows a modular Laravel architecture with clear separation of concerns.
 
 ### 1. Controllers
 - **Public**: Handles landing page, product catalog, and checkout.
-- **Admin**: Manages inventory, orders, and blogs.
+- **Admin**: Manages inventory, orders (including manual approval/rejection of payment proofs), and blogs.
 - **Superadmin**: Handles site settings, staff management, and global reports.
 
 ### 2. Service Layer (`app/Services`)
-Business logic for third-party integrations is encapsulated in services:
-- `RajaOngkirService`: Shipping cost calculations and tracking.
-- `QrislyService`: QRIS payment generation.
-- `MidtransService`: Gateway integration.
+Business logic for services is encapsulated for reliability:
+- `RajaOngkirService`: Switched to localized static Indonesian geographical lists and configurable flat rate shipping to prevent external API dependency or failure.
+- `MidtransService` & `QrislyService`: Deprecated/Removed in favor of direct bank transfer payments and manual proof upload.
 
 ### 3. Settings System (`SiteSetting`)
 Instead of relying solely on `.env` files, the platform uses a `SiteSetting` model and table to store dynamic configurations (API Keys, SEO meta, general site info). This allows Superadmins to update the system without code changes.

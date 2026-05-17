@@ -27,7 +27,7 @@
             <!-- Left Side: Form -->
             <div class="lg:w-1/2 p-12 lg:p-24 flex flex-col justify-center">
                 <div class="mb-12">
-                    <h3 class="text-4xl font-serif font-bold text-dark-wool mb-3">Buat Akun Baru</h3>
+                    <h3 class="text-3xl md:text-4xl font-serif font-bold text-dark-wool mb-3">Buat Akun Baru</h3>
                     <p class="text-gray-400">Lengkapi data di bawah untuk bergabung dengan komunitas hangat kami.</p>
                 </div>
 

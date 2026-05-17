@@ -25,5 +25,15 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->name('adm
         Route::get('/sales', [\App\Http\Controllers\Admin\ReportController::class, 'sales'])->name('sales');
         Route::get('/stock', [\App\Http\Controllers\Admin\ReportController::class, 'stock'])->name('stock');
         Route::get('/customers', [\App\Http\Controllers\Admin\ReportController::class, 'customers'])->name('customers');
+        Route::get('/finance', [\App\Http\Controllers\Admin\ReportController::class, 'finance'])->name('finance');
     });
+
+    // Site Settings (CMS)
+    Route::get('/settings', [\App\Http\Controllers\Superadmin\SiteSettingController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [\App\Http\Controllers\Superadmin\SiteSettingController::class, 'update'])->name('settings.update');
+    Route::post('/settings/test-connection', [\App\Http\Controllers\Superadmin\SiteSettingController::class, 'testConnection'])->name('settings.test');
+
+    // Dedicated Content Management System (CMS)
+    Route::get('/cms', [\App\Http\Controllers\CMSController::class, 'index'])->name('cms.index');
+    Route::post('/cms', [\App\Http\Controllers\CMSController::class, 'update'])->name('cms.update');
 });

@@ -13,9 +13,11 @@ The platform is currently undergoing a structural and visual refinement phase to
 - **Customer Experience**: Wishlist, tailoring support, and production timeline tracking.
 
 ### 📊 System Health
-- **API Integrations**: Midtrans, RajaOngkir, and Fonnte (WhatsApp) are fully functional and testable via dashboard.
-- **Database**: Migrations have been consolidated (Squashed) for a cleaner schema history.
-- **Email/WA**: Automated receipts and status updates implemented.
+- **Transaction Flow**: Transitioned from Midtrans and dynamic RajaOngkir APIs to a manual Bank Transfer billing system with Flat Rate Shipping, resolving external API validation dependencies.
+- **Geographical Handling**: Replaced live RajaOngkir requests with fully local, static Indonesian province and city maps to maintain dropdown usability with zero external connection requirements.
+- **Database Schema**: Added `payment_proof` to orders table to store transaction receipt paths.
+- **Admin Verification Workspace**: Implemented an order details view that displays customer receipts and provides manual "Approve" (paid) and "Reject" buttons.
+- **Settings Management**: Integrated bank transfer details and flat shipping cost configs inside the Superadmin configuration center.
 - **Sidebar & Layout**: Improved sidebar logic for full collapsible behavior and proper z-index layering.
 
 ### ⚠️ Known Issues & Maintenance

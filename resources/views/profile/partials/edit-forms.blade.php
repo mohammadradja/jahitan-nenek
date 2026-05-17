@@ -18,6 +18,7 @@
     @include('profile.partials.update-password-form')
 </div>
 
+@if(auth()->user()->role === 'user')
 <div class="bg-white rounded-2xl p-6 border border-red-50 shadow-sm">
     <div class="flex items-center space-x-3 mb-8 pb-4 border-b border-gray-50">
         <div class="w-8 h-8 bg-red-50 text-red-500 rounded-lg flex items-center justify-center">
@@ -27,3 +28,4 @@
     </div>
     @include('profile.partials.delete-user-form')
 </div>
+@endif

@@ -31,18 +31,24 @@ class BlogController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
+            'title_en' => 'required|string|max:255',
             'slug' => 'required|string|unique:blogs,slug',
             'content' => 'required',
-            'image_url' => 'nullable|url'
+            'content_en' => 'required',
+            'image_url' => 'nullable|url',
+            'status' => 'required|in:published,draft'
         ]);
 
         \App\Models\Blog::create([
             'author_id' => auth()->id(),
             'title' => $request->title,
+            'title_en' => $request->title_en,
             'slug' => $request->slug,
             'content' => $request->content,
+            'content_en' => $request->content_en,
             'image' => $request->image_url,
-            'published_at' => $request->is_published ? now() : null,
+            'status' => $request->status,
+            'published_at' => $request->status === 'published' ? now() : null,
         ]);
 
         return redirect()->back()->with('success', 'Artikel berhasil dibuat!');
@@ -73,17 +79,23 @@ class BlogController extends Controller
         
         $request->validate([
             'title' => 'required|string|max:255',
+            'title_en' => 'required|string|max:255',
             'slug' => 'required|string|unique:blogs,slug,' . $id,
             'content' => 'required',
-            'image_url' => 'nullable|url'
+            'content_en' => 'required',
+            'image_url' => 'nullable|url',
+            'status' => 'required|in:published,draft'
         ]);
 
         $blog->update([
             'title' => $request->title,
+            'title_en' => $request->title_en,
             'slug' => $request->slug,
             'content' => $request->content,
+            'content_en' => $request->content_en,
             'image' => $request->image_url,
-            'published_at' => $request->is_published ? ($blog->published_at ?? now()) : null,
+            'status' => $request->status,
+            'published_at' => $request->status === 'published' ? ($blog->published_at ?? now()) : null,
         ]);
 
         return redirect()->back()->with('success', 'Artikel berhasil diperbarui!');

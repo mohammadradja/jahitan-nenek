@@ -40,13 +40,8 @@ class User extends Authenticatable
         return $this->hasMany(ActivityLog::class);
     }
 
-    public function wishlists()
+    public function orders()
     {
-        return $this->hasMany(Wishlist::class);
-    }
-
-    public function wishlistProducts()
-    {
-        return $this->belongsToMany(Product::class, 'wishlists');
+        return $this->hasMany(Order::class);
     }
 }

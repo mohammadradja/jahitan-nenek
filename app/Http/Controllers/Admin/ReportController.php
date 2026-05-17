@@ -26,7 +26,7 @@ class ReportController extends Controller
             'avg_ticket' => $orders->avg('total_price') ?? 0,
         ];
 
-        return view('admin.reports.sales', compact('stats', 'startDate', 'endDate'));
+        return view('admin.reports.sales', compact('stats', 'orders', 'startDate', 'endDate'));
     }
 
     public function stock(Request $request)
@@ -64,5 +64,26 @@ class ReportController extends Controller
         ];
 
         return view('admin.reports.customers', compact('customers', 'stats'));
+    }
+
+    public function finance(Request $request)
+    {
+        $startDate = $request->get('start_date', now()->startOfMonth()->toDateString());
+        $endDate = $request->get('end_date', now()->endOfDay()->toDateString());
+
+        $orders = Order::whereBetween('created_at', [
+                $startDate . ' 00:00:00', 
+                $endDate . ' 23:59:59'
+            ])
+            ->where('payment_status', 'paid')
+            ->get();
+
+        $stats = [
+            'gross_revenue' => $orders->sum('total_price'),
+            'shipping_cost' => $orders->sum('shipping_cost'),
+            'net_revenue' => $orders->sum(fn($o) => $o->total_price - $o->shipping_cost),
+        ];
+
+        return view('admin.reports.finance', compact('stats', 'orders', 'startDate', 'endDate'));
     }
 }

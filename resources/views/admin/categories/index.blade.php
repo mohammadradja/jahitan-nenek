@@ -73,9 +73,8 @@
         {{ $categories->links() }}
     </div>
 
-    <!-- Create Modal -->
     <template x-if="showCreateModal">
-        <div class="fixed inset-0 z-[100] flex items-center justify-center p-6">
+        <div class="fixed inset-0 z-[200000] flex items-center justify-center p-6 overflow-y-auto">
             <div class="absolute inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="showCreateModal = false"></div>
             <div class="relative bg-white w-full max-w-lg rounded-5xl shadow-2xl p-10 animate__animated animate__zoomIn animate__faster">
                 <h3 class="text-2xl font-serif font-bold mb-8">Tambah Kategori</h3>
@@ -92,17 +91,16 @@
                         </div>
                     </div>
                     <div class="mt-10 flex space-x-4">
-                        <button type="submit" class="btn-premium flex-1 py-4">Simpan Kategori</button>
-                        <button type="button" @click="showCreateModal = false" class="flex-1 bg-gray-50 font-bold rounded-full hover:bg-gray-100 transition-colors">Batal</button>
+                        <button type="submit" class="btn-premium flex-1">Simpan Kategori</button>
+                        <button type="button" @click="showCreateModal = false" class="btn-secondary flex-1">Batal</button>
                     </div>
                 </form>
             </div>
         </div>
     </template>
 
-    <!-- Edit Modal -->
     <template x-if="showEditModal">
-        <div class="fixed inset-0 z-[100] flex items-center justify-center p-6">
+        <div class="fixed inset-0 z-[200000] flex items-center justify-center p-6 overflow-y-auto">
             <div class="absolute inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="showEditModal = false"></div>
             <div class="relative bg-white w-full max-w-lg rounded-5xl shadow-2xl p-10 animate__animated animate__zoomIn animate__faster">
                 <h3 class="text-2xl font-serif font-bold mb-8">Edit Kategori</h3>
@@ -120,8 +118,8 @@
                         </div>
                     </div>
                     <div class="mt-10 flex space-x-4">
-                        <button type="submit" class="btn-premium flex-1 py-4">Perbarui</button>
-                        <button type="button" @click="showEditModal = false" class="flex-1 bg-gray-50 font-bold rounded-full hover:bg-gray-100 transition-colors">Batal</button>
+                        <button type="submit" class="btn-premium flex-1">Perbarui</button>
+                        <button type="button" @click="showEditModal = false" class="btn-secondary flex-1">Batal</button>
                     </div>
                 </form>
             </div>

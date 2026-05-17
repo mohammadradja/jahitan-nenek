@@ -88,7 +88,7 @@
                                     <td class="px-8 py-5 font-mono font-bold text-dark-wool text-sm">#{{ $order->id }}</td>
                                     <td class="px-8 py-5 text-gray-400 text-xs">{{ $order->created_at->format('d M Y') }}</td>
                                     <td class="px-8 py-5 text-right">
-                                        <a href="{{ route('order.track', ['order_id' => $order->id]) }}" 
+                                        <a href="{{ route('order.track', ['order_id' => $order->id, 'email' => $order->customer_email]) }}" 
                                            class="inline-flex items-center space-x-2 text-[10px] font-bold text-dark-wool hover:text-soft-rose transition-colors">
                                             <span>Lacak</span>
                                             <i class="fas fa-arrow-right"></i>

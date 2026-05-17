@@ -19,23 +19,8 @@ class DashboardController extends Controller
         $userId = Auth::id();
         $orders = Order::where('user_id', $userId)->latest()->paginate(10);
         
-        // AI Recommendations Logic
-        $wishlistCategoryIds = \App\Models\Wishlist::where('user_id', $userId)
-            ->join('products', 'wishlists.product_id', '=', 'products.id')
-            ->pluck('products.category_id')
-            ->unique();
-
-        $recommendations = Product::whereIn('category_id', $wishlistCategoryIds)
-            ->whereNotIn('id', function($q) use ($userId) {
-                $q->select('product_id')->from('wishlists')->where('user_id', $userId);
-            })
-            ->inRandomOrder()
-            ->take(3)
-            ->get();
-
-        if ($recommendations->isEmpty()) {
-            $recommendations = Product::orderBy('sales_count', 'desc')->take(3)->get();
-        }
+        // Dynamic Recommendations: Recommend top-selling products
+        $recommendations = Product::orderBy('sales_count', 'desc')->take(3)->get();
 
         return view('dashboards.user.index', compact('orders', 'recommendations'));
     }

@@ -18,6 +18,17 @@ class SiteSetting extends Model
         return $setting ? $setting->value : $default;
     }
 
+    public static function getTranslatabled($key, $default = null)
+    {
+        $locale = app()->getLocale();
+        $localizedKey = $key . '_' . $locale;
+        $val = static::get($localizedKey);
+        if ($val !== null && $val !== '') {
+            return $val;
+        }
+        return static::get($key, $default);
+    }
+
     public static function set($key, $value, $type = 'string', $group = 'general')
     {
         return static::updateOrCreate(

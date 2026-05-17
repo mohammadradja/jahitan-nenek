@@ -17,6 +17,13 @@ class BlogController extends Controller
     {
         $blog = Blog::with('author')->where('slug', $slug)->firstOrFail();
         $blog->increment('views');
-        return view('blog.show', compact('blog'));
+        
+        $otherBlogs = Blog::where('id', '!=', $blog->id)
+            ->whereNotNull('published_at')
+            ->latest()
+            ->take(5)
+            ->get();
+            
+        return view('blog.show', compact('blog', 'otherBlogs'));
     }
 }

@@ -26,12 +26,12 @@
             <h4 class="text-sm font-bold text-dark-wool mb-1 uppercase tracking-widest">Ekspor Laporan Inventaris</h4>
             <p class="text-[10px] text-gray-400 mb-4">Unduh status ketersediaan barang dan nilai aset stok.</p>
             <div class="flex gap-2">
-                <button class="flex-1 py-1.5 bg-white border border-gray-100 text-gray-400 font-bold rounded-lg hover:bg-blue-600 hover:text-white transition-all text-[9px] uppercase tracking-widest flex items-center justify-center space-x-1 shadow-sm">
-                    <i class="fas fa-download"></i>
+                <button class="flex-1 py-2 bg-green-50 text-green-600 border border-green-100 font-bold rounded-xl hover:bg-green-600 hover:text-white transition-all text-[10px] uppercase tracking-widest flex items-center justify-center space-x-2 shadow-sm">
+                    <i class="fas fa-file-excel"></i>
                     <span>Excel</span>
                 </button>
-                <button class="flex-1 py-1.5 bg-white border border-gray-100 text-gray-400 font-bold rounded-lg hover:bg-red-500 hover:text-white transition-all text-[9px] uppercase tracking-widest flex items-center justify-center space-x-1 shadow-sm">
-                    <i class="fas fa-download"></i>
+                <button class="flex-1 py-2 bg-red-50 text-red-600 border border-red-100 font-bold rounded-xl hover:bg-red-500 hover:text-white transition-all text-[10px] uppercase tracking-widest flex items-center justify-center space-x-2 shadow-sm">
+                    <i class="fas fa-file-pdf"></i>
                     <span>PDF</span>
                 </button>
             </div>

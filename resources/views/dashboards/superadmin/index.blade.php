@@ -5,7 +5,7 @@
 
 @section('dashboard_content')
 <div class="space-y-8">
-    <!-- Top KPI Grid -->
+    <!-- Top KPI Grid: Row 1 & Row 2 -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <!-- Global Revenue Card -->
         <div class="lg:col-span-2 bg-dark-wool p-8 rounded-[2.5rem] shadow-2xl text-white relative overflow-hidden group border border-white/10">
@@ -13,7 +13,7 @@
                 <div class="flex flex-col justify-between h-full">
                     <div>
                         <p class="text-[10px] font-bold text-white/50 uppercase tracking-[0.4em] mb-4">Global Revenue</p>
-                        <h2 class="text-5xl font-serif font-bold tracking-tight mb-2">Rp{{ number_format($stats['revenue'], 0, ',', '.') }}</h2>
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-serif font-bold tracking-tight mb-2 break-all">Rp{{ number_format($stats['revenue'], 0, ',', '.') }}</h2>
                         <div class="mt-6 flex items-center space-x-3">
                             <span class="flex items-center space-x-1.5 bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-[10px] font-bold">
                                 <i class="fas fa-arrow-trend-up"></i>
@@ -47,7 +47,7 @@
             </div>
             <div class="mt-8">
                 <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">Total Visitors</p>
-                <h3 class="text-3xl font-bold text-dark-wool tracking-tight">{{ number_format($stats['total_visitors'], 0, ',', '.') }}</h3>
+                <h3 class="text-xl md:text-2xl lg:text-3xl font-bold text-dark-wool tracking-tight">{{ number_format($stats['total_visitors'], 0, ',', '.') }}</h3>
                 <p class="text-[9px] text-gray-400 mt-2 font-bold uppercase tracking-widest">Across All Platforms</p>
             </div>
         </div>
@@ -59,22 +59,58 @@
             </div>
             <div class="mt-8">
                 <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">Total Customers</p>
-                <h3 class="text-3xl font-bold text-dark-wool tracking-tight">{{ number_format($stats['total_customers'], 0, ',', '.') }}</h3>
+                <h3 class="text-xl md:text-2xl lg:text-3xl font-bold text-dark-wool tracking-tight">{{ number_format($stats['total_customers'], 0, ',', '.') }}</h3>
                 <p class="text-[9px] text-gray-400 mt-2 font-bold uppercase tracking-widest">{{ number_format(($stats['total_customers'] / max($stats['total_users'], 1)) * 100, 1) }}% Conversion Rate</p>
             </div>
         </div>
 
-        <!-- Inventory Stats -->
+        <!-- Total Orders Stats -->
+        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 group hover:border-purple-500 transition-all duration-500 flex flex-col justify-between">
+            <div class="w-14 h-14 bg-purple-50 rounded-2xl flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-all duration-500 shadow-inner">
+                <i class="fas fa-shopping-cart text-lg"></i>
+            </div>
+            <div class="mt-8">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">Total Orders</p>
+                <h3 class="text-xl md:text-2xl lg:text-3xl font-bold text-dark-wool tracking-tight">{{ number_format($stats['total_orders'], 0, ',', '.') }}</h3>
+                <p class="text-[9px] text-gray-400 mt-2 font-bold uppercase tracking-widest">Transactions processed</p>
+            </div>
+        </div>
+
+        <!-- Inventory Health Stats -->
         <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 group hover:border-amber-500 transition-all duration-500 flex flex-col justify-between">
             <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-500 group-hover:bg-amber-500 group-hover:text-white transition-all duration-500 shadow-inner">
                 <i class="fas fa-boxes text-lg"></i>
             </div>
             <div class="mt-8">
                 <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">Inventory Health</p>
-                <h3 class="text-3xl font-bold text-dark-wool tracking-tight">{{ number_format($stats['total_products'], 0, ',', '.') }} SKU</h3>
+                <h3 class="text-xl md:text-2xl lg:text-3xl font-bold text-dark-wool tracking-tight">{{ number_format($stats['total_products'], 0, ',', '.') }} SKU</h3>
                 <p class="text-[9px] {{ $stats['low_stock'] > 0 ? 'text-red-500' : 'text-gray-400' }} mt-2 font-bold uppercase tracking-widest">
                     {{ $stats['low_stock'] }} Items Low Stock
                 </p>
+            </div>
+        </div>
+
+        <!-- Inventory Asset Valuation Stats -->
+        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 group hover:border-emerald-500 transition-all duration-500 flex flex-col justify-between">
+            <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-500 shadow-inner">
+                <i class="fas fa-coins text-lg"></i>
+            </div>
+            <div class="mt-8">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">Asset Valuation</p>
+                <h3 class="text-xl md:text-2xl lg:text-3xl font-bold text-dark-wool tracking-tight break-all">Rp{{ number_format($stats['inventory_value'], 0, ',', '.') }}</h3>
+                <p class="text-[9px] text-gray-400 mt-2 font-bold uppercase tracking-widest">Total Inventory Value</p>
+            </div>
+        </div>
+
+        <!-- Blog & CMS Activity Stats -->
+        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 group hover:border-rose-500 transition-all duration-500 flex flex-col justify-between">
+            <div class="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500 group-hover:bg-rose-500 group-hover:text-white transition-all duration-500 shadow-inner">
+                <i class="fas fa-newspaper text-lg"></i>
+            </div>
+            <div class="mt-8">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">Active Content</p>
+                <h3 class="text-xl md:text-2xl lg:text-3xl font-bold text-dark-wool tracking-tight">{{ $stats['total_blogs'] }} Posts</h3>
+                <p class="text-[9px] text-gray-400 mt-2 font-bold uppercase tracking-widest">{{ $stats['total_categories'] }} Product Categories</p>
             </div>
         </div>
     </div>

@@ -153,15 +153,15 @@ max-w-7xl mx-auto px-6 lg:px-10
 
 To avoid visual overlaps and ensure proper interaction flows:
 
-| Layer           | Z-Index    | Usage                         |
-| --------------- | ---------- | ----------------------------- |
-| Base            | `0`        | Backgrounds, static content   |
-| Sticky Header   | `z-[100]`  | Table headers, sticky sub-nav |
-| Sidebar Overlay | `z-[99999]` | Sidebar (Dashboard)           |
-| Navbar Overlay  | `z-[99999]` | Navbar (Guest)                |
-| Backdrop        | `z-[99998]` | Mobile menu backdrop          |
-| Modal           | `z-[100000]`| System popups, forms          |
-| Toast           | `z-[200000]`| Success/Error notifications   |
+| Layer                 | Z-Index    | Usage                                |
+| --------------------- | ---------- | ------------------------------------ |
+| Base                  | `0`        | Backgrounds, static content          |
+| Sticky Dashboard Nav  | `z-30`      | Dashboard Header, Sticky Topbar      |
+| Dashboard Sidebar     | `z-40`      | Left Navigation Sidebar              |
+| Sidebar Toggle Button | `z-45`      | Desktop collapsible toggle trigger    |
+| Modal Backdrop Overlay| `z-50`      | Backdrop for menus/modals            |
+| Modals & Popups       | `z-[100]`  | System dialogs, create/edit forms    |
+| Toast                 | `z-[200]`  | Dynamic toast alerts / notifications |
 
 ---
 
@@ -213,20 +213,49 @@ The platform uses subtle motion for premium interaction feedback.
 
 ---
 
-## Primary Premium Button
-- **Structure**: `inline-flex items-center justify-center gap-2 font-bold uppercase tracking-widest transition-all`.
-- **Proper Padding**: Padding MUST be proportional to text size to prevent "tight" text.
-    - **XS (Action Icons)**: `w-10 h-10 rounded-xl` (No text).
-    - **SM (Secondary Actions)**: `py-2.5 px-6 text-[10px] rounded-xl`.
-    - **MD (Standard CTA)**: `py-3.5 px-10 text-[11px] rounded-2xl`.
-    - **LG (Primary Hero)**: `py-4.5 px-12 text-xs rounded-[1.5rem]`.
-- **Style**: High-contrast shadow, elegant transition, premium gradient.
-- **Micro-interactions**: Hover: `-translate-y-0.5 shadow-xl`, Active: `scale-95`.
+# 🎛️ Unified Button & Interaction System
+To maintain 100% visual consistency, buttons across both the public (guest) pages and admin/superadmin dashboards MUST follow this strict design system. Mixing custom paddings or plain Tailwind color utilities on buttons is strictly FORBIDDEN.
 
-## Secondary Button
-- **Standard Size**: Same as MD/LG above.
-- **Style**: `border border-soft-rose/20 bg-white/50 backdrop-blur-sm text-soft-rose`.
-- **Hover**: `bg-soft-rose text-white shadow-lg shadow-soft-rose/20`.
+## 1. Strict Size Standards
+| Button Scale | Desktop Classes (lg) | Mobile Classes (sm) | Typical Use Cases |
+| :--- | :--- | :--- | :--- |
+| **XS (Icon Only)** | `w-10 h-10 rounded-xl text-xs` | `w-9 h-9 rounded-lg text-xs` | Quick detail actions, chevron navs, reset controls |
+| **SM (Compact)** | `py-2.5 px-6 text-[10px] rounded-xl` | `py-2 px-4 text-[9px] rounded-lg` | Row actions, secondary filters, small form submissions |
+| **MD (Standard CTA)** | `py-3.5 px-10 text-[11px] rounded-2xl` | `py-3 px-6 text-[10px] rounded-xl` | Add to cart, buy now, save settings, primary modals |
+| **LG (Primary Hero)** | `py-4.5 px-12 text-xs rounded-[1.5rem]` | `py-4 px-8 text-[11px] rounded-2xl` | Hero CTA, main landing calls-to-action |
+
+## 2. Cohesive Color Themes
+Buttons must strictly use these pre-defined color schemes:
+- **Primary Premium (Soft Rose)**: `bg-soft-rose text-white hover:bg-dark-wool shadow-md shadow-soft-rose/10 active:scale-95 transition-all`
+- **Primary Accent (Dark Wool)**: `bg-dark-wool text-white hover:bg-soft-rose shadow-md shadow-dark-wool/5 active:scale-95 transition-all`
+- **Secondary / Neutral**: `bg-gray-50/80 text-dark-wool border border-gray-150 hover:bg-soft-rose/5 active:scale-95 transition-all`
+- **Destructive (Danger)**: `bg-red-50 text-red-500 border border-red-100 hover:bg-red-500 hover:text-white active:scale-95 transition-all`
+- **Success / Approve**: `bg-green-50 text-green-600 border border-green-100 hover:bg-green-600 hover:text-white active:scale-95 transition-all`
+
+## 3. Micro-interactions
+All buttons MUST have active feedback. The hover and active transitions must be:
+`transition-all duration-300 ease-out hover:-translate-y-0.5 active:scale-95`
+
+---
+
+# 📱 Mobile-First Layout Constraints
+To guarantee exceptional mobile interface (UI) and user experience (UX), all templates must comply with the following constraints:
+
+1. **Horizontal Margins & Padding**:
+   - Page margins must utilize responsive spacing: `px-4 sm:px-6 md:px-8 lg:px-20`.
+   - Card spacing on mobile should be tighter: `p-5 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem]`.
+
+2. **Responsive Grids & E-commerce Density**:
+   - Product catalogs must display as `grid-cols-2` on mobile (never single-column) for professional density, and scale up to `lg:grid-cols-3` or `xl:grid-cols-4`.
+   - Card information on mobile must fit cleanly without line breaks or cut-offs. Use `line-clamp-1` for product titles.
+
+3. **Responsive Tables & Data Widgets**:
+   - Tables inside dashboards and reports MUST be wrapped inside a responsive container:
+     `<div class="overflow-x-auto rounded-2xl border border-gray-50">`
+   - Table columns should scale down, and cells should decrease padding to `px-4 py-3` on smaller viewports.
+
+4. **Tap Target Guidelines**:
+   - All mobile buttons, drawer close indicators, and hamburger menus must have a minimum tap area of `44px x 44px` to avoid user frustration.
 
 ---
 

@@ -9,8 +9,8 @@ class Blog extends Model
 {
     use Searchable;
     protected $fillable = [
-        'author_id', 'title', 'slug', 'content', 'image', 'published_at',
-        'meta_title', 'meta_description', 'meta_keywords', 'views'
+        'author_id', 'title', 'title_en', 'slug', 'content', 'content_en', 'excerpt', 'excerpt_en', 'image', 'published_at',
+        'meta_title', 'meta_description', 'meta_keywords', 'views', 'status'
     ];
 
     protected $casts = [
@@ -20,5 +20,38 @@ class Blog extends Model
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function getTitleAttribute($value)
+    {
+        if (request()->is('admin/*') || request()->is('superadmin/*')) {
+            return $value;
+        }
+        if (app()->getLocale() === 'en' && $this->title_en) {
+            return $this->title_en;
+        }
+        return $value;
+    }
+
+    public function getContentAttribute($value)
+    {
+        if (request()->is('admin/*') || request()->is('superadmin/*')) {
+            return $value;
+        }
+        if (app()->getLocale() === 'en' && $this->content_en) {
+            return $this->content_en;
+        }
+        return $value;
+    }
+
+    public function getExcerptAttribute($value)
+    {
+        if (request()->is('admin/*') || request()->is('superadmin/*')) {
+            return $value;
+        }
+        if (app()->getLocale() === 'en' && $this->excerpt_en) {
+            return $this->excerpt_en;
+        }
+        return $value;
     }
 }

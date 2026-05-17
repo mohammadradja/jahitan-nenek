@@ -13,7 +13,7 @@
                 <div class="flex flex-col justify-between h-full">
                     <div>
                         <p class="text-[10px] font-bold text-white/50 uppercase tracking-[0.4em] mb-4">Total Revenue (Paid)</p>
-                        <h2 class="text-5xl font-serif font-bold tracking-tight mb-2">Rp{{ number_format($stats['revenue'], 0, ',', '.') }}</h2>
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-serif font-bold tracking-tight mb-2 break-all">Rp{{ number_format($stats['revenue'], 0, ',', '.') }}</h2>
                         <p class="text-white/30 text-[9px] font-bold uppercase tracking-widest">Confirmed & Completed Transactions</p>
                     </div>
                     <div class="mt-10 flex items-center space-x-4">
@@ -47,7 +47,7 @@
             </div>
             <div class="mt-8">
                 <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">Total Orders</p>
-                <h3 class="text-3xl font-bold text-dark-wool tracking-tight">{{ number_format($stats['total_orders'], 0, ',', '.') }}</h3>
+                <h3 class="text-xl md:text-2xl lg:text-3xl font-bold text-dark-wool tracking-tight">{{ number_format($stats['total_orders'], 0, ',', '.') }}</h3>
             </div>
         </div>
 
@@ -63,7 +63,7 @@
             </div>
             <div class="mt-8">
                 <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">Total Customers</p>
-                <h3 class="text-3xl font-bold text-dark-wool tracking-tight">{{ number_format($stats['total_customers'], 0, ',', '.') }}</h3>
+                <h3 class="text-xl md:text-2xl lg:text-3xl font-bold text-dark-wool tracking-tight">{{ number_format($stats['total_customers'], 0, ',', '.') }}</h3>
             </div>
         </div>
     </div>

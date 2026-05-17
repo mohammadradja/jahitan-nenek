@@ -12,8 +12,8 @@
                 <h3 class="text-4xl font-serif font-bold mb-6">Loyalty & Retention</h3>
                 <p class="text-white/60 text-lg leading-relaxed mb-10">Berikut adalah daftar pelanggan dengan kontribusi terbesar pada bisnis Anda. Fokuskan strategi pemasaran Anda pada profil-profil ini untuk pertumbuhan berkelanjutan.</p>
                 <div class="flex gap-4">
-                    <button class="btn-accent px-12">Email Campaign</button>
-                    <button class="bg-white/10 hover:bg-white/20 text-white font-bold py-3.5 px-10 rounded-2xl transition-all uppercase tracking-widest text-[11px]">Download Data</button>
+                    <button class="btn-accent btn-sm">Email Campaign</button>
+                    <button class="btn-secondary btn-sm bg-white/10 hover:bg-white/20 text-white hover:text-dark-wool border-none">Download Data</button>
                 </div>
             </div>
             <div class="hidden lg:flex justify-center">
@@ -26,24 +26,7 @@
         <div class="absolute -right-20 -top-20 w-80 h-80 bg-soft-rose/10 rounded-full blur-[100px]"></div>
     </div>
 
-    <!-- KPI Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100">
-            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Avg. Customer Value (CLV)</p>
-            <h3 class="text-3xl font-serif font-bold text-dark-wool">Rp{{ number_format($stats['avg_clv'], 0, ',', '.') }}</h3>
-            <p class="text-[10px] text-gray-300 mt-2">Lifetime spending per customer</p>
-        </div>
-        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100">
-            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Retention Rate</p>
-            <h3 class="text-3xl font-serif font-bold text-dark-wool">{{ number_format($stats['retention_rate'], 1) }}%</h3>
-            <p class="text-[10px] text-gray-300 mt-2">Customers with repeat orders</p>
-        </div>
-        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100">
-            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Loyalty Strength</p>
-            <h3 class="text-3xl font-serif font-bold text-dark-wool">{{ $stats['total_loyal_customers'] }} High Tier</h3>
-            <p class="text-[10px] text-gray-300 mt-2">Customers with 100+ points</p>
-        </div>
-    </div>
+
 
     <!-- Customers List -->
     <div class="bg-white rounded-[3rem] shadow-sm border border-gray-100 overflow-hidden">

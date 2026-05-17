@@ -5,38 +5,7 @@
 
 @section('dashboard_content')
 <div class="space-y-8">
-    <!-- Stats Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 flex items-center space-x-6">
-            <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-500 shadow-inner">
-                <i class="fas fa-boxes-stacked text-xl"></i>
-            </div>
-            <div>
-                <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Total Item</p>
-                <h4 class="text-2xl font-bold text-dark-wool">{{ number_format($stats['total_items'], 0, ',', '.') }} <span class="text-xs font-normal text-gray-300 ml-1">Unit</span></h4>
-            </div>
-        </div>
 
-        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 flex items-center space-x-6">
-            <div class="w-16 h-16 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-500 shadow-inner">
-                <i class="fas fa-vault text-xl"></i>
-            </div>
-            <div>
-                <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Nilai Inventaris</p>
-                <h4 class="text-2xl font-bold text-dark-wool">Rp{{ number_format($stats['total_value'], 0, ',', '.') }}</h4>
-            </div>
-        </div>
-
-        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 flex items-center space-x-6 {{ $stats['low_stock_count'] > 0 ? 'border-red-100' : '' }}">
-            <div class="w-16 h-16 {{ $stats['low_stock_count'] > 0 ? 'bg-red-50 text-red-500' : 'bg-green-50 text-green-500' }} rounded-2xl flex items-center justify-center shadow-inner">
-                <i class="fas fa-triangle-exclamation text-xl"></i>
-            </div>
-            <div>
-                <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Stok Menipis</p>
-                <h4 class="text-2xl font-bold {{ $stats['low_stock_count'] > 0 ? 'text-red-500' : 'text-green-500' }}">{{ $stats['low_stock_count'] }} <span class="text-xs font-normal text-gray-300 ml-1">Produk</span></h4>
-            </div>
-        </div>
-    </div>
 
     <!-- Inventory Table -->
     <div class="bg-white rounded-[3rem] shadow-sm border border-gray-100 overflow-hidden">

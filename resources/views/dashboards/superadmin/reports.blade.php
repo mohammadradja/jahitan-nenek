@@ -18,10 +18,10 @@
             <p class="text-[10px] text-gray-400 mt-1">Rentang: {{ date('01 M Y') }} - {{ date('d M Y') }}</p>
         </div>
         <div class="flex gap-2">
-            <button class="bg-green-50 text-green-600 px-4 py-1.5 rounded-lg text-[10px] font-bold flex items-center gap-2 hover:bg-green-600 hover:text-white transition-all">
+            <button class="bg-green-50 text-green-600 px-5 py-2.5 rounded-xl text-[10px] font-bold flex items-center gap-2 hover:bg-green-600 hover:text-white transition-all border border-green-100">
                 <i class="fas fa-file-excel"></i> Excel
             </button>
-            <button class="bg-red-50 text-red-600 px-4 py-1.5 rounded-lg text-[10px] font-bold flex items-center gap-2 hover:bg-red-600 hover:text-white transition-all">
+            <button class="bg-red-50 text-red-600 px-5 py-2.5 rounded-xl text-[10px] font-bold flex items-center gap-2 hover:bg-red-600 hover:text-white transition-all border border-red-100">
                 <i class="fas fa-file-pdf"></i> PDF
             </button>
         </div>

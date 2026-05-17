@@ -34,7 +34,9 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.edit')
+            ->with('status', 'profile-updated')
+            ->with('success', 'Informasi profil Anda berhasil diperbarui.');
     }
 
     /**
@@ -56,5 +58,19 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    /**
+     * Verify the current user's password for real-time security.
+     */
+    public function verifyPassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|string',
+        ]);
+
+        return response()->json([
+            'valid' => \Illuminate\Support\Facades\Hash::check($request->password, auth()->user()->password)
+        ]);
     }
 }

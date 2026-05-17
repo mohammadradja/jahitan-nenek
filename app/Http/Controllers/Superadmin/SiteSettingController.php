@@ -22,7 +22,40 @@ class SiteSettingController extends Controller
         $section = $request->input('section');
         $data = $request->except(['_token', 'section']);
         
+        // Handle brand logo and favicon uploads
+        if ($request->hasFile('site_logo')) {
+            $file = $request->file('site_logo');
+            $filename = 'logo-' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('brand', $filename, 'public');
+            SiteSetting::set('site_logo', 'storage/' . $path);
+        }
+        
+        if ($request->hasFile('site_favicon')) {
+            $file = $request->file('site_favicon');
+            $filename = 'favicon-' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('brand', $filename, 'public');
+            SiteSetting::set('site_favicon', 'storage/' . $path);
+        }
+
+        // Handle CMS Landing Page Image Uploads
+        if ($request->hasFile('cms_hero_image')) {
+            $file = $request->file('cms_hero_image');
+            $filename = 'hero-' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('cms', $filename, 'public');
+            SiteSetting::set('cms_hero_image', 'storage/' . $path);
+        }
+
+        if ($request->hasFile('cms_about_image')) {
+            $file = $request->file('cms_about_image');
+            $filename = 'about-' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('cms', $filename, 'public');
+            SiteSetting::set('cms_about_image', 'storage/' . $path);
+        }
+
         foreach ($data as $key => $value) {
+            if (in_array($key, ['site_logo', 'site_favicon', 'cms_hero_image', 'cms_about_image'])) {
+                continue;
+            }
             SiteSetting::set($key, $value);
         }
 
@@ -36,14 +69,6 @@ class SiteSettingController extends Controller
 
         try {
             switch ($type) {
-                case 'rajaongkir':
-                    $service = new \App\Services\RajaOngkirService();
-                    $provinces = $service->getProvinces();
-                    if (!empty($provinces)) {
-                        return response()->json(['success' => true, 'message' => 'Koneksi RajaOngkir Berhasil! ' . count($provinces) . ' provinsi dimuat.']);
-                    }
-                    return response()->json(['success' => false, 'message' => 'Gagal terhubung ke RajaOngkir. Cek API Key.']);
-
                 case 'whatsapp':
                     $service = new \App\Services\WhatsAppService();
                     $result = $service->sendMessage(SiteSetting::get('whatsapp_number'), 'Test koneksi Jahitan Nenek - API Fonnte berhasil!');

@@ -30,17 +30,17 @@
             </div>
 
             <!-- Content -->
-            <div class="p-6 pb-0">
-                <div class="mb-3">
-                    <p class="text-[10px] font-bold text-soft-rose uppercase tracking-widest mb-1">{{ $product->category->name }}</p>
-                    <h3 class="text-lg font-serif font-bold text-dark-wool line-clamp-1 group-hover:text-soft-rose transition-colors">{{ $product->name }}</h3>
+            <div class="p-4 sm:p-6 pb-0">
+                <div class="mb-2 sm:mb-3">
+                    <p class="text-[8px] sm:text-[10px] font-bold text-soft-rose uppercase tracking-widest mb-1">{{ $product->category->name }}</p>
+                    <h3 class="text-xs sm:text-lg font-serif font-bold text-dark-wool line-clamp-1 group-hover:text-soft-rose transition-colors">{{ $product->name }}</h3>
                 </div>
 
-                <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center justify-between mb-3 sm:mb-4">
                     <div>
-                        <p class="text-base font-bold text-dark-wool">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
+                        <p class="text-sm sm:text-base font-bold text-dark-wool">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
                     </div>
-                    <div class="flex text-yellow-400 text-[10px] space-x-0.5">
+                    <div class="hidden sm:flex text-yellow-400 text-[10px] space-x-0.5">
                         @for($i = 1; $i <= 5; $i++)
                             <i class="fas fa-star"></i>
                         @endfor
@@ -50,25 +50,25 @@
         </a>
 
         <!-- Action Row -->
-        <div class="p-6 pt-0 mt-auto">
-            <div class="flex items-center gap-3">
+        <div class="p-4 sm:p-6 pt-0 mt-auto">
+            <div class="flex items-center gap-2 sm:gap-3">
                 @auth
                     <form action="{{ route('cart.buy-now', $product) }}" method="POST" class="flex-[2]">
                         @csrf
-                        <button type="submit" class="w-full h-[52px] flex items-center justify-center gap-3 rounded-2xl bg-dark-wool text-white hover:bg-soft-rose transition-all duration-500 shadow-xl shadow-dark-wool/10 font-bold text-[11px] uppercase tracking-[0.2em] group/btn overflow-hidden relative">
+                        <button type="submit" class="w-full h-[40px] sm:h-[52px] flex items-center justify-center gap-1.5 sm:gap-3 rounded-xl sm:rounded-2xl bg-dark-wool text-white hover:bg-soft-rose transition-all duration-500 shadow-xl shadow-dark-wool/10 font-bold text-[9px] sm:text-[11px] uppercase tracking-wider sm:tracking-[0.2em] group/btn overflow-hidden relative">
                             <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000"></div>
-                            <i class="fas fa-bolt text-xs animate-pulse text-soft-rose group-hover/btn:text-white"></i>
+                            <i class="fas fa-bolt text-[10px] sm:text-xs animate-pulse text-soft-rose group-hover/btn:text-white"></i>
                             <span>{{ __('messages.buy_now') }}</span>
                         </button>
                     </form>
                     <form action="{{ route('cart.add', $product) }}" method="POST" class="flex-1">
                         @csrf
-                        <button type="submit" class="w-full h-[52px] flex items-center justify-center rounded-2xl bg-gray-50 text-dark-wool hover:bg-soft-rose/10 hover:text-soft-rose transition-all duration-300 border border-gray-100 group/cart" title="{{ __('messages.add_to_cart') }}">
-                            <i class="fas fa-shopping-basket text-base group-hover/cart:scale-110 transition-transform"></i>
+                        <button type="submit" class="w-full h-[40px] sm:h-[52px] flex items-center justify-center rounded-xl sm:rounded-2xl bg-gray-50 text-dark-wool hover:bg-soft-rose/10 hover:text-soft-rose transition-all duration-300 border border-gray-100 group/cart" title="{{ __('messages.add_to_cart') }}">
+                            <i class="fas fa-shopping-basket text-xs sm:text-base group-hover/cart:scale-110 transition-transform"></i>
                         </button>
                     </form>
                 @else
-                    <a href="{{ route('login') }}" class="w-full h-[52px] flex items-center justify-center bg-soft-rose text-white rounded-2xl text-[11px] text-center shadow-lg shadow-soft-rose/20 uppercase tracking-[0.2em] font-bold hover:bg-dark-wool hover:-translate-y-1 transition-all duration-500">{{ __('messages.login_to_buy') ?? 'Masuk untuk Membeli' }}</a>
+                    <a href="{{ route('login') }}" class="w-full h-[40px] sm:h-[52px] flex items-center justify-center bg-soft-rose text-white rounded-xl sm:rounded-2xl text-[9px] sm:text-[11px] text-center shadow-lg shadow-soft-rose/20 uppercase tracking-wider sm:tracking-[0.2em] font-bold hover:bg-dark-wool hover:-translate-y-1 transition-all duration-500">{{ __('messages.login_to_buy') ?? 'Masuk untuk Membeli' }}</a>
                 @endauth
             </div>
         </div>

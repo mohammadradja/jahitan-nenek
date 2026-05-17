@@ -14,8 +14,14 @@
                     <div class="w-24 h-24 bg-soft-rose text-white rounded-[2rem] flex items-center justify-center mx-auto mb-10 text-4xl shadow-2xl shadow-soft-rose/30 animate__animated animate__bounceIn">
                         <i class="fas fa-check"></i>
                     </div>
-                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Terima Kasih Atas Kepercayaannya</h2>
-                    <p class="text-white/60 text-sm font-bold uppercase tracking-[0.3em]">Pesanan #{{ $order->invoice_number }} Berhasil Dibuat</p>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white mb-4">Terima Kasih Atas Kepercayaannya</h2>
+                    <div class="flex flex-col items-center justify-center space-y-3 mt-6">
+                        <p class="text-white/60 text-sm font-bold uppercase tracking-[0.3em] mb-0">Pesanan #{{ $order->invoice_number }} Berhasil Dibuat</p>
+                        <div class="inline-flex items-center space-x-2.5 bg-white/10 px-5 py-2 rounded-full text-xs text-white/90 font-bold uppercase tracking-wider border border-white/5 shadow-inner">
+                            <span>ID PESANAN UNTUK LACAK:</span>
+                            <span class="text-soft-rose font-serif text-sm bg-white px-3.5 py-0.5 rounded-lg shadow-sm font-black">{{ $order->id }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -57,7 +63,7 @@
                             </div>
                             <div class="flex justify-between items-center pt-4 border-t border-gray-100 mt-4">
                                 <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Metode</span>
-                                <span class="text-dark-wool font-bold text-[10px] uppercase tracking-widest">Online Payment</span>
+                                <span class="text-dark-wool font-bold text-[10px] uppercase tracking-widest">Transfer Bank</span>
                             </div>
                         </div>
                     </div>
@@ -69,7 +75,7 @@
                         Nenek akan segera mulai merajut pesanan Anda. Anda dapat memantau status pengerjaan melalui halaman lacak pesanan.
                     </p>
                     <div class="flex flex-wrap justify-center gap-6">
-                        <a href="{{ route('checkout.track') }}?order_id={{ $order->id }}&email={{ $order->customer_email }}" class="btn-premium">
+                        <a href="{{ route('order.track') }}?order_id={{ $order->id }}&email={{ $order->customer_email }}" class="btn-premium">
                             <i class="fas fa-search-location mr-2 text-xs"></i> Lacak Pesanan
                         </a>
                         <a href="{{ route('home') }}" class="btn-secondary">

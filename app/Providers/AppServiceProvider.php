@@ -20,5 +20,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         \Illuminate\Pagination\Paginator::defaultView('vendor.pagination.premium');
+
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('site_settings')) {
+                $siteName = \App\Models\SiteSetting::get('site_name');
+                if ($siteName) {
+                    config(['app.name' => $siteName]);
+                }
+            }
+        } catch (\Exception $e) {
+            // Safe guard against database migration issues
+        }
     }
 }

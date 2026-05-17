@@ -1,13 +1,14 @@
 @extends('layouts.dashboard')
 
-@section('role_name', 'Superadmin')
-@section('page_title', 'Konfigurasi Sistem')
+@section('role_name', auth()->user()->role === 'superadmin' ? 'Superadmin' : 'Admin')
+@section('page_title', 'Content Management System (CMS) & Pengaturan')
 
 @section('dashboard_content')
 <div class="max-w-5xl space-y-12 pb-20" x-data="settingsHandler()">
+
     <!-- General Settings -->
     <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
-        <form action="{{ route('superadmin.settings.update') }}" method="POST" class="p-10">
+        <form action="{{ route(auth()->user()->role . '.settings.update') }}" method="POST" class="p-10">
             @csrf
             <input type="hidden" name="section" value="general">
             <div class="flex items-center justify-between mb-8">
@@ -25,135 +26,154 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nama Situs</label>
-                    <input type="text" name="site_name" class="input-premium py-3 text-sm" value="{{ $settings['site_name'] ?? '' }}">
+                    <input type="text" name="site_name" class="input-premium py-3 text-sm" value="{{ $settings['site_name'] ?? 'Jahitan Nenek' }}">
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Tagline</label>
-                    <input type="text" name="site_tagline" class="input-premium py-3 text-sm" value="{{ $settings['site_tagline'] ?? '' }}">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Mode Transaksi</label>
-                    <select name="transaction_mode" class="input-premium py-3 text-sm appearance-none">
-                        <option value="dev" {{ ($settings['transaction_mode'] ?? '') == 'dev' ? 'selected' : '' }}>Development (Bypass Pembayaran)</option>
-                        <option value="prod" {{ ($settings['transaction_mode'] ?? '') == 'prod' ? 'selected' : '' }}>Production (Pembayaran Riil)</option>
-                    </select>
+                    <input type="text" name="site_tagline" class="input-premium py-3 text-sm" value="{{ $settings['site_tagline'] ?? 'Rajutan Kasih Sayang Premium' }}">
                 </div>
             </div>
         </form>
     </div>
 
-    <!-- Payment Gateway (Midtrans) -->
+    <!-- Bank Transfer Settings (Manual Payment) -->
     <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
-        <form action="{{ route('superadmin.settings.update') }}" method="POST" class="p-10">
+        @php
+            $bankTransferRaw = $settings['bank_transfer_info'] ?? "BCA: 123-456-7890 a/n Jahitan Nenek\nMandiri: 987-654-3210 a/n Jahitan Nenek";
+            
+            $banksList = [
+                'BCA' => ['label' => 'BCA (Bank Central Asia)', 'enabled' => false, 'number' => '', 'name' => ''],
+                'MANDIRI' => ['label' => 'Bank Mandiri', 'enabled' => false, 'number' => '', 'name' => ''],
+                'BNI' => ['label' => 'BNI (Bank Negara Indonesia)', 'enabled' => false, 'number' => '', 'name' => ''],
+                'BRI' => ['label' => 'BRI (Bank Rakyat Indonesia)', 'enabled' => false, 'number' => '', 'name' => ''],
+                'BSI' => ['label' => 'BSI (Bank Syariah Indonesia)', 'enabled' => false, 'number' => '', 'name' => ''],
+            ];
+
+            foreach (explode("\n", $bankTransferRaw) as $line) {
+                $line = trim($line);
+                if (!$line) continue;
+                
+                $parts = explode(':', $line, 2);
+                if (count($parts) === 2) {
+                    $bankKey = strtoupper(trim($parts[0]));
+                    $details = trim($parts[1]);
+                    
+                    $name = '';
+                    $number = $details;
+                    if (str_contains($details, ' a/n ')) {
+                        $subparts = explode(' a/n ', $details, 2);
+                        $number = trim($subparts[0]);
+                        $name = trim($subparts[1]);
+                    }
+                    
+                    if (array_key_exists($bankKey, $banksList)) {
+                        $banksList[$bankKey]['enabled'] = true;
+                        $banksList[$bankKey]['number'] = $number;
+                        $banksList[$bankKey]['name'] = $name;
+                    }
+                }
+            }
+        @endphp
+
+        <form action="{{ route(auth()->user()->role . '.settings.update') }}" method="POST" class="p-10" id="bank-settings-form" onsubmit="compileBankInfo(event)">
             @csrf
-            <input type="hidden" name="section" value="payment">
+            <input type="hidden" name="section" value="payment_bank">
+            <!-- Hidden input to store compiled newline text for database compatibility -->
+            <input type="hidden" name="bank_transfer_info" id="bank_transfer_info_compiled">
+
             <div class="flex items-center justify-between mb-8">
                 <div class="flex items-center space-x-4">
                     <div class="w-12 h-12 bg-soft-rose/10 rounded-2xl flex items-center justify-center text-soft-rose shadow-inner">
-                        <i class="fas fa-credit-card"></i>
+                        <i class="fas fa-university"></i>
                     </div>
                     <div>
-                        <h3 class="text-sm font-bold text-dark-wool uppercase tracking-widest">Midtrans Gateway</h3>
-                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Konfigurasi Snap & Pembayaran Online</p>
+                        <h3 class="text-sm font-bold text-dark-wool uppercase tracking-widest">Rekening Transfer Bank</h3>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Daftar Rekening Bank untuk Pembayaran Manual</p>
                     </div>
                 </div>
-                <div class="flex items-center space-x-3">
-                    <button type="button" @click="testConnection('midtrans')" class="btn-secondary btn-sm" :disabled="testing === 'midtrans'">
-                        <i class="fas fa-vial mr-2" x-show="testing !== 'midtrans'"></i>
-                        <i class="fas fa-circle-notch fa-spin mr-2" x-show="testing === 'midtrans'"></i>
-                        Uji Koneksi
-                    </button>
-                    <button type="submit" class="btn-primary btn-sm">Simpan</button>
-                </div>
+                <button type="submit" class="btn-primary btn-sm">Simpan</button>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div x-data="{ show: false }" class="relative">
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Server Key</label>
-                    <input :type="show ? 'text' : 'password'" name="midtrans_server_key" class="input-premium py-3 text-sm pr-12" value="{{ $settings['midtrans_server_key'] ?? '' }}">
-                    <button type="button" @click="show = !show" class="absolute right-4 bottom-3 text-gray-300 hover:text-soft-rose transition-colors">
-                        <i class="fas" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
-                    </button>
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Client Key</label>
-                    <input type="text" name="midtrans_client_key" class="input-premium py-3 text-sm" value="{{ $settings['midtrans_client_key'] ?? '' }}">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Environment</label>
-                    <select name="midtrans_is_production" class="input-premium py-3 text-sm appearance-none">
-                        <option value="0" {{ ($settings['midtrans_is_production'] ?? '') == '0' ? 'selected' : '' }}>Sandbox</option>
-                        <option value="1" {{ ($settings['midtrans_is_production'] ?? '') == '1' ? 'selected' : '' }}>Production</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Base URL</label>
-                    <input type="text" name="midtrans_base_url" class="input-premium py-3 text-sm" value="{{ $settings['midtrans_base_url'] ?? '' }}">
-                </div>
-            </div>
-        </form>
-    </div>
 
-    <!-- Logistics (RajaOngkir) -->
-    <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
-        <form action="{{ route('superadmin.settings.update') }}" method="POST" class="p-10">
-            @csrf
-            <input type="hidden" name="section" value="logistics">
-            <div class="flex items-center justify-between mb-8">
-                <div class="flex items-center space-x-4">
-                    <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-500 shadow-inner">
-                        <i class="fas fa-truck"></i>
+            <div class="space-y-6">
+                @foreach($banksList as $code => $data)
+                    <div class="p-6 rounded-[2rem] border border-gray-150 transition-all flex flex-col lg:flex-row lg:items-center justify-between gap-6"
+                         x-data="{ isEnabled: {{ $data['enabled'] ? 'true' : 'false' }} }"
+                         :class="isEnabled ? 'bg-vintage-cream/10 border-soft-rose/25' : 'bg-gray-50/50 opacity-60'">
+                        
+                        <!-- Toggle and Bank Code info -->
+                        <div class="flex items-center space-x-4 min-w-[220px]">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only peer bank-enable-toggle" data-bank-code="{{ $code }}" x-model="isEnabled">
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-soft-rose"></div>
+                            </label>
+                            <div>
+                                <span class="text-xs font-serif font-black text-dark-wool block">{{ $code }}</span>
+                                <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{{ $data['label'] }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Account Number & Account Name Input Fields -->
+                        <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4" x-show="isEnabled" x-transition>
+                            <div>
+                                <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Nomor Rekening</label>
+                                <input type="text" class="input-premium py-2 text-xs font-mono bank-account-number" 
+                                       data-bank-code="{{ $code }}"
+                                       value="{{ $data['number'] }}" 
+                                       placeholder="Masukkan nomor rekening..."
+                                       :required="isEnabled">
+                            </div>
+                            <div>
+                                <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Nama Pemilik (a/n)</label>
+                                <input type="text" class="input-premium py-2 text-xs bank-account-name" 
+                                       data-bank-code="{{ $code }}"
+                                       value="{{ $data['name'] }}" 
+                                       placeholder="Contoh: Jahitan Nenek"
+                                       :required="isEnabled">
+                            </div>
+                        </div>
+                        <div class="flex-1 flex items-center justify-center py-4 text-xs text-gray-400 font-bold uppercase tracking-widest" x-show="!isEnabled">
+                            <i class="fas fa-ban mr-2 text-gray-300"></i> Rekening {{ $code }} Dinonaktifkan
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="text-sm font-bold text-dark-wool uppercase tracking-widest">RajaOngkir Logistics</h3>
-                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Cek Ongkir & Pengiriman Otomatis</p>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <button type="button" @click="testConnection('rajaongkir')" class="btn-secondary btn-sm" :disabled="testing === 'rajaongkir'">
-                        <i class="fas fa-vial mr-2" x-show="testing !== 'rajaongkir'"></i>
-                        <i class="fas fa-circle-notch fa-spin mr-2" x-show="testing === 'rajaongkir'"></i>
-                        Uji Koneksi
-                    </button>
-                    <button type="submit" class="btn-primary btn-sm">Simpan</button>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="md:col-span-2" x-data="{ show: false }">
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">API Key</label>
-                    <div class="relative">
-                        <input :type="show ? 'text' : 'password'" name="rajaongkir_api_key" class="input-premium py-3 text-sm pr-12" value="{{ $settings['rajaongkir_api_key'] ?? '' }}">
-                        <button type="button" @click="show = !show" class="absolute right-4 bottom-3 text-gray-300 hover:text-soft-rose transition-colors">
-                            <i class="fas" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
-                        </button>
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Tipe Akun</label>
-                    <select name="rajaongkir_type" class="input-premium py-3 text-sm appearance-none">
-                        <option value="starter" {{ ($settings['rajaongkir_type'] ?? '') == 'starter' ? 'selected' : '' }}>Starter</option>
-                        <option value="basic" {{ ($settings['rajaongkir_type'] ?? '') == 'basic' ? 'selected' : '' }}>Basic</option>
-                        <option value="pro" {{ ($settings['rajaongkir_type'] ?? '') == 'pro' ? 'selected' : '' }}>Pro</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">ID Kota Asal (Origin)</label>
-                    <input type="text" name="rajaongkir_origin_city" class="input-premium py-3 text-sm" value="{{ $settings['rajaongkir_origin_city'] ?? '' }}">
-                </div>
-                <div class="md:col-span-2">
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Base URL</label>
-                    <input type="text" name="rajaongkir_base_url" class="input-premium py-3 text-sm" value="{{ $settings['rajaongkir_base_url'] ?? '' }}">
-                </div>
-                <div class="md:col-span-3">
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Kurir Aktif (Pisahkan dengan koma)</label>
-                    <input type="text" name="rajaongkir_couriers" class="input-premium py-3 text-sm" value="{{ $settings['rajaongkir_couriers'] ?? '' }}" placeholder="jne,tiki,pos">
-                </div>
+                @endforeach
             </div>
         </form>
+
+        <script>
+            function compileBankInfo(event) {
+                event.preventDefault();
+                const form = document.getElementById('bank-settings-form');
+                const compiledInput = document.getElementById('bank_transfer_info_compiled');
+                
+                let lines = [];
+                const toggles = document.querySelectorAll('.bank-enable-toggle');
+                
+                toggles.forEach(toggle => {
+                    const code = toggle.getAttribute('data-bank-code');
+                    const isChecked = toggle.checked;
+                    
+                    if (isChecked) {
+                        const numInput = document.querySelector(`.bank-account-number[data-bank-code="${code}"]`);
+                        const nameInput = document.querySelector(`.bank-account-name[data-bank-code="${code}"]`);
+                        
+                        const number = numInput.value.trim();
+                        const name = nameInput.value.trim();
+                        
+                        if (number && name) {
+                            lines.push(`${code}: ${number} a/n ${name}`);
+                        }
+                    }
+                });
+                
+                compiledInput.value = lines.join('\n');
+                form.submit();
+            }
+        </script>
     </div>
 
     <!-- WhatsApp (Fonnte) -->
     <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
-        <form action="{{ route('superadmin.settings.update') }}" method="POST" class="p-10">
+        <form action="{{ route(auth()->user()->role . '.settings.update') }}" method="POST" class="p-10">
             @csrf
             <input type="hidden" name="section" value="whatsapp">
             <div class="flex items-center justify-between mb-8">
@@ -167,11 +187,6 @@
                     </div>
                 </div>
                 <div class="flex items-center space-x-3">
-                    <button type="button" @click="testConnection('whatsapp')" class="btn-secondary btn-sm" :disabled="testing === 'whatsapp'">
-                        <i class="fas fa-vial mr-2" x-show="testing !== 'whatsapp'"></i>
-                        <i class="fas fa-circle-notch fa-spin mr-2" x-show="testing === 'whatsapp'"></i>
-                        Uji Kirim
-                    </button>
                     <button type="submit" class="btn-primary btn-sm">Simpan</button>
                 </div>
             </div>
@@ -206,7 +221,7 @@
 
     <!-- Email (SMTP) -->
     <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
-        <form action="{{ route('superadmin.settings.update') }}" method="POST" class="p-10">
+        <form action="{{ route(auth()->user()->role . '.settings.update') }}" method="POST" class="p-10">
             @csrf
             <input type="hidden" name="section" value="mail">
             <div class="flex items-center justify-between mb-8">
@@ -265,7 +280,7 @@
 
     <!-- Localization Settings -->
     <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
-        <form action="{{ route('superadmin.settings.update') }}" method="POST" class="p-10">
+        <form action="{{ route(auth()->user()->role . '.settings.update') }}" method="POST" class="p-10">
             @csrf
             <input type="hidden" name="section" value="localization">
             <div class="flex items-center justify-between mb-8">
@@ -290,7 +305,7 @@
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Available Languages (Comma separated)</label>
-                    <input type="text" name="available_languages" class="input-premium py-3 text-sm" value="{{ $settings['available_languages'] ?? '' }}" placeholder="id,en">
+                    <input type="text" name="available_languages" class="input-premium py-3 text-sm" value="{{ $settings['available_languages'] ?? 'id,en' }}" placeholder="id,en">
                 </div>
             </div>
         </form>
@@ -304,7 +319,7 @@
             async testConnection(type) {
                 this.testing = type;
                 try {
-                    const res = await fetch('{{ route("superadmin.settings.test") }}', {
+                    const res = await fetch('{{ route(auth()->user()->role . ".settings.test") }}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

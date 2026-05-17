@@ -16,12 +16,6 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::get('/track-order', [CheckoutController::class, 'track'])->name('order.track');
 Route::post('/track-order', [CheckoutController::class, 'trackOrder'])->name('order.track.post');
-Route::post('/payments/midtrans-notification', [CheckoutController::class, 'notification'])->name('payments.midtrans-notification');
-
-// Shipping (RajaOngkir)
-Route::get('/shipping/provinces', [CheckoutController::class, 'getProvinces'])->name('shipping.provinces');
-Route::get('/shipping/cities/{province_id}', [CheckoutController::class, 'getCities'])->name('shipping.cities');
-Route::post('/shipping/cost', [CheckoutController::class, 'getCost'])->name('shipping.cost');
 
 // Locale Switcher
 Route::get('/lang/{locale}', function ($locale) {

@@ -73,7 +73,7 @@ class WhatsAppService
         }
 
         $message .= "Anda dapat memantau detail pesanan di sini:\n";
-        $message .= route('checkout.track') . "?order_id={$order->id}&email={$order->customer_email}\n\n";
+        $message .= route('order.track') . "?order_id={$order->id}&email={$order->customer_email}\n\n";
         $message .= "Terima kasih telah menghargai karya tangan kami! ❤️";
 
         return $this->sendMessage($order->customer_phone, $message);

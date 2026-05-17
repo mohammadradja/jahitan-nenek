@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
-use Midtrans\Config;
-use Midtrans\Snap;
 
 class CheckoutController extends Controller
 {
@@ -25,49 +23,15 @@ class CheckoutController extends Controller
         return view('checkout.index', compact('cart', 'total'));
     }
 
-    public function getProvinces()
-    {
-        $rajaongkir = new \App\Services\RajaOngkirService();
-        return response()->json($rajaongkir->getProvinces());
-    }
-
-    public function getCities($provinceId)
-    {
-        $rajaongkir = new \App\Services\RajaOngkirService();
-        return response()->json($rajaongkir->getCities($provinceId));
-    }
-
-    public function getCost(Request $request)
-    {
-        $request->validate([
-            'city_id' => 'required',
-            'courier' => 'required',
-        ]);
-
-        $cart = session()->get('cart', []);
-        $weight = 0;
-        foreach($cart as $id => $item) {
-            // Assume default weight of 500g if not specified
-            $product = \App\Models\Product::find($id);
-            $weight += ($product->weight ?? 500) * $item['quantity'];
-        }
-
-        $rajaongkir = new \App\Services\RajaOngkirService();
-        $costs = $rajaongkir->getCost($request->city_id, $weight, $request->courier);
-
-        return response()->json($costs);
-    }
-
     public function process(Request $request)
     {
         $request->validate([
-            'customer_name' => 'required',
-            'customer_email' => 'required|email',
-            'customer_phone' => 'required',
-            'customer_address' => 'required',
-            'city_id' => 'required',
+            'customer_name' => 'required|string|max:255',
+            'customer_email' => 'required|email|max:255',
+            'customer_phone' => 'required|string|max:30',
+            'customer_address' => 'required|string',
             'shipping_cost' => 'required|numeric',
-            'courier' => 'required',
+            'courier' => 'required|string',
         ]);
 
         $cart = session()->get('cart', []);
@@ -91,6 +55,7 @@ class CheckoutController extends Controller
             'courier' => $request->courier,
             'status' => 'pending',
             'payment_status' => 'unpaid',
+            'payment_method' => 'bank_transfer',
         ]);
 
         foreach($cart as $id => $details) {
@@ -98,6 +63,7 @@ class CheckoutController extends Controller
                 'order_id' => $order->id,
                 'product_id' => $details['product_id'],
                 'product_name' => $details['name'],
+                'price' => $details['price'],
                 'product_price' => $details['price'],
                 'quantity' => $details['quantity'],
                 'measurements' => $details['measurements'] ?? null,
@@ -105,50 +71,46 @@ class CheckoutController extends Controller
             ]);
         }
 
-        // Check Transaction Mode
-        $mode = \App\Models\SiteSetting::get('transaction_mode', 'prod');
+        session()->forget('cart');
 
-        if ($mode === 'dev') {
-            $order->update(['payment_status' => 'pending_manual_approval']);
-            session()->forget('cart');
-            return redirect()->route('checkout.success', $order->id)->with('success', 'Pesanan berhasil dibuat (Dev Mode). Silakan hubungi admin untuk konfirmasi pembayaran manual.');
+        return redirect()->route('checkout.payment', $order->id)->with('success', 'Pesanan berhasil dibuat. Silakan transfer pembayaran.');
+    }
+
+    public function payment(Order $order)
+    {
+        if ($order->user_id !== auth()->id() && auth()->user()->role === 'user') {
+            abort(403);
         }
 
-        // Midtrans Logic
-        $serverKey = \App\Models\SiteSetting::get('midtrans_server_key', config('midtrans.server_key'));
-        $isProduction = \App\Models\SiteSetting::get('midtrans_is_production', config('midtrans.is_production'));
+        $bankTransferInfo = \App\Models\SiteSetting::get('bank_transfer_info', "BCA: 123-456-7890 a/n Jahitan Nenek\nMandiri: 987-654-3210 a/n Jahitan Nenek");
 
-        if (!$serverKey || $serverKey === 'SB-Mid-server-placeholder' || $serverKey === 'SB-Mid-server-XXXXX') {
-            return redirect()->back()->with('error', 'Konfigurasi pembayaran (Midtrans Server Key) belum diatur. Silakan masukkan Server Key yang valid di dashboard admin.');
+        return view('checkout.payment', compact('order', 'bankTransferInfo'));
+    }
+
+    public function uploadPaymentProof(Request $request, Order $order)
+    {
+        if ($order->user_id !== auth()->id() && auth()->user()->role === 'user') {
+            abort(403);
         }
 
-        Config::$serverKey = $serverKey;
-        Config::$isProduction = $isProduction;
-        Config::$isSanitized = true;
-        Config::$is3ds = true;
+        $request->validate([
+            'payment_proof' => 'required|image|max:2048',
+        ]);
 
-        $params = [
-            'transaction_details' => [
-                'order_id' => $order->invoice_number,
-                'gross_amount' => (int) $total,
-            ],
-            'customer_details' => [
-                'first_name' => $request->customer_name,
-                'email' => $request->customer_email,
-                'phone' => $request->customer_phone,
-            ],
-        ];
+        if ($request->hasFile('payment_proof')) {
+            $file = $request->file('payment_proof');
+            $filename = 'proof-' . $order->id . '-' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('payment_proofs', $filename, 'public');
 
-        try {
-            $snapToken = Snap::getSnapToken($params);
-            $order->update(['snap_token' => $snapToken]);
-            
-            session()->forget('cart');
-            return view('checkout.payment', compact('order', 'snapToken'));
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error("Midtrans Snap Token Error: " . $e->getMessage());
-            return redirect()->back()->with('error', 'Gagal memproses pembayaran: ' . $e->getMessage());
+            $order->update([
+                'payment_proof' => 'storage/' . $path,
+                'payment_status' => 'pending_manual_approval',
+            ]);
+
+            return redirect()->route('checkout.success', $order->id)->with('success', 'Bukti pembayaran berhasil diunggah. Menunggu konfirmasi admin.');
         }
+
+        return redirect()->back()->with('error', 'Gagal mengunggah bukti pembayaran.');
     }
 
     public function success(Order $order)
@@ -156,8 +118,17 @@ class CheckoutController extends Controller
         return view('checkout.success', compact('order'));
     }
 
-    public function track()
+    public function track(Request $request)
     {
+        if ($request->filled('order_id') && $request->filled('email')) {
+            $order = Order::where('id', $request->order_id)
+                ->where('customer_email', $request->email)
+                ->first();
+
+            if ($order) {
+                return view('checkout.track_result', compact('order'));
+            }
+        }
         return view('checkout.track');
     }
 
@@ -177,60 +148,5 @@ class CheckoutController extends Controller
         }
 
         return view('checkout.track_result', compact('order'));
-    }
-
-    public function notification(Request $request)
-    {
-        Config::$serverKey = \App\Models\SiteSetting::get('midtrans_server_key', config('midtrans.server_key'));
-        Config::$isProduction = \App\Models\SiteSetting::get('midtrans_is_production', config('midtrans.is_production'));
-
-        try {
-            $notification = new \Midtrans\Notification();
-            
-            $transaction = $notification->transaction_status;
-            $type = $notification->payment_type;
-            $order_id_raw = $notification->order_id;
-            $order_id = explode('-', $order_id_raw)[0]; // Extract original ID
-            $fraud = $notification->fraud_status;
-
-            $order = Order::find($order_id);
-
-            if (!$order) {
-                return response()->json(['message' => 'Order not found'], 404);
-            }
-
-            if ($transaction == 'capture') {
-                if ($type == 'credit_card') {
-                    if ($fraud == 'challenge') {
-                        $order->update(['payment_status' => 'challenge']);
-                    } else {
-                        $order->update(['payment_status' => 'paid', 'status' => 'processing']);
-                    }
-                }
-            } else if ($transaction == 'settlement') {
-                $order->update(['payment_status' => 'paid', 'status' => 'processing']);
-                
-                // Notify Customer
-                try {
-                    $wa = new \App\Services\WhatsAppService();
-                    $wa->sendOrderStatusUpdate($order);
-                    \Illuminate\Support\Facades\Mail::to($order->customer_email)->send(new \App\Mail\OrderReceipt($order));
-                } catch (\Exception $e) {
-                    Log::error("Webhook Notification failed: " . $e->getMessage());
-                }
-            } else if ($transaction == 'pending') {
-                $order->update(['payment_status' => 'pending']);
-            } else if ($transaction == 'deny') {
-                $order->update(['payment_status' => 'denied']);
-            } else if ($transaction == 'expire') {
-                $order->update(['payment_status' => 'expired']);
-            } else if ($transaction == 'cancel') {
-                $order->update(['payment_status' => 'cancelled']);
-            }
-
-            return response()->json(['message' => 'Notification processed']);
-        } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
-        }
     }
 }

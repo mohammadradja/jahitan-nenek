@@ -7,6 +7,7 @@ return [
     'account' => 'Akun',
     'dashboard' => 'Dasbor Utama',
     'catalog' => 'Katalog Produk',
+    'categories' => 'Kategori Produk',
     'orders' => 'Kelola Pesanan',
     'blog' => 'Catatan Blog',
     'sales' => 'Laporan Penjualan',

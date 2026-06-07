@@ -1,17 +1,11 @@
 @extends('layouts.dashboard')
 
-@section('role_name', 'Admin')
+@section('role_name', auth()->user()->role === 'superadmin' ? 'Superadmin' : 'Admin')
 @section('page_title', 'Manajemen Kategori')
 
 @section('dashboard_content')
 <div x-data="{ 
-    showCreateModal: false, 
-    showEditModal: false,
-    editData: { id: '', name: '', slug: '' },
-    openEdit(category) {
-        this.editData = { ...category };
-        this.showEditModal = true;
-    }
+    showCreateModal: false
 }">
     <div class="flex justify-between items-center mb-8">
         <h3 class="text-xl font-bold text-dark-wool">Daftar Koleksi</h3>
@@ -40,14 +34,14 @@
                             <td class="px-8 py-6 text-gray-400 font-mono text-sm">{{ $category->slug }}</td>
                             <td class="px-8 py-6">
                                 <span class="bg-soft-rose/10 text-soft-rose px-4 py-1.5 rounded-full text-xs font-bold">
-                                    {{ $category->products_count ?? $category->products()->count() }} Produk
+                                    {{ $category->products_count }} Produk
                                 </span>
                             </td>
                             <td class="px-8 py-6">
                                 <div class="flex justify-end space-x-3">
-                                    <button @click="openEdit({{ json_encode($category) }})" class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-dark-wool hover:bg-soft-rose hover:text-white transition-all shadow-sm">
+                                    <a href="{{ route('admin.categories.edit', $category) }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-dark-wool hover:bg-soft-rose hover:text-white transition-all shadow-sm" title="Edit kategori">
                                         <i class="fas fa-edit"></i>
-                                    </button>
+                                    </a>
                                     <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Hapus kategori ini?')">
                                         @csrf
                                         @method('DELETE')
@@ -84,42 +78,17 @@
                         <div>
                             <label class="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Nama Kategori</label>
                             <input type="text" name="name" required class="input-premium" placeholder="Contoh: Cardigan Klasik">
+                            @error('name') <p class="mt-2 text-xs text-red-500 font-bold uppercase tracking-wider">{{ $message }}</p> @enderror
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Slug (URL)</label>
                             <input type="text" name="slug" required class="input-premium" placeholder="cardigan-klasik">
+                            @error('slug') <p class="mt-2 text-xs text-red-500 font-bold uppercase tracking-wider">{{ $message }}</p> @enderror
                         </div>
                     </div>
                     <div class="mt-10 flex space-x-4">
                         <button type="submit" class="btn-premium flex-1">Simpan Kategori</button>
                         <button type="button" @click="showCreateModal = false" class="btn-secondary flex-1">Batal</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </template>
-
-    <template x-if="showEditModal">
-        <div class="fixed inset-0 z-[200000] flex items-center justify-center p-6 overflow-y-auto">
-            <div class="absolute inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="showEditModal = false"></div>
-            <div class="relative bg-white w-full max-w-lg rounded-5xl shadow-2xl p-10 animate__animated animate__zoomIn animate__faster">
-                <h3 class="text-2xl font-serif font-bold mb-8">Edit Kategori</h3>
-                <form :action="`/admin/categories/${editData.id}`" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="space-y-6">
-                        <div>
-                            <label class="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Nama Kategori</label>
-                            <input type="text" name="name" x-model="editData.name" required class="input-premium">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Slug (URL)</label>
-                            <input type="text" name="slug" x-model="editData.slug" required class="input-premium">
-                        </div>
-                    </div>
-                    <div class="mt-10 flex space-x-4">
-                        <button type="submit" class="btn-premium flex-1">Perbarui</button>
-                        <button type="button" @click="showEditModal = false" class="btn-secondary flex-1">Batal</button>
                     </div>
                 </form>
             </div>

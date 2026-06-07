@@ -7,6 +7,7 @@ return [
     'account' => 'Account',
     'dashboard' => 'Main Dashboard',
     'catalog' => 'Product Catalog',
+    'categories' => 'Product Categories',
     'orders' => 'Manage Orders',
     'blog' => 'Blog Notes',
     'sales' => 'Sales Reports',

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -12,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = \App\Models\Category::latest()->paginate(10);
+        $categories = Category::withCount('products')->latest()->paginate(10);
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -23,26 +25,48 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required|unique:categories', 'slug' => 'required|unique:categories']);
-        \App\Models\Category::create($request->all());
+        Category::create($this->validatedCategoryData($request));
+
         return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil dibuat!');
     }
 
-    public function edit(\App\Models\Category $category)
+    public function edit(Category $category)
     {
         return view('admin.categories.edit', compact('category'));
     }
 
-    public function update(Request $request, \App\Models\Category $category)
+    public function update(Request $request, Category $category)
     {
-        $request->validate(['name' => 'required|unique:categories,name,'.$category->id, 'slug' => 'required|unique:categories,slug,'.$category->id]);
-        $category->update($request->all());
+        $category->update($this->validatedCategoryData($request, $category));
+
         return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil diperbarui!');
     }
 
-    public function destroy(\App\Models\Category $category)
+    public function destroy(Category $category)
     {
         $category->delete();
         return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil dihapus!');
+    }
+
+    private function validatedCategoryData(Request $request, ?Category $category = null): array
+    {
+        return $request->validate([
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('categories', 'name')->ignore($category),
+            ],
+            'slug' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('categories', 'slug')->ignore($category),
+            ],
+            'image_url' => ['nullable', 'string', 'max:2048'],
+            'description' => ['nullable', 'string'],
+            'meta_title' => ['nullable', 'string', 'max:255'],
+            'meta_description' => ['nullable', 'string'],
+        ]);
     }
 }

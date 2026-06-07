@@ -42,6 +42,13 @@
                     <i class="fas fa-box text-[14px]" :class="sidebarOpen ? 'w-4' : ''"></i>
                     <span class="font-bold text-sm" :class="sidebarOpen ? '' : 'lg:hidden'">{{ __('dashboard.catalog') }}</span>
                 </a>
+                <a href="{{ route('admin.categories.index') }}"
+                   class="flex items-center rounded-xl transition-all duration-300"
+                   :class="sidebarOpen ? 'space-x-3 px-4 py-2.5 {{ request()->routeIs('admin.categories.*') ? 'bg-soft-rose text-white shadow-md shadow-soft-rose/20' : 'text-dark-wool hover:bg-gray-50 hover:translate-x-1 group' }}' : 'justify-center py-3 {{ request()->routeIs('admin.categories.*') ? 'bg-soft-rose text-white shadow-md shadow-soft-rose/20' : 'text-dark-wool hover:bg-gray-50 group' }}'"
+                   title="{{ __('dashboard.categories') }}">
+                    <i class="fas fa-tags text-[14px]" :class="sidebarOpen ? 'w-4' : ''"></i>
+                    <span class="font-bold text-sm" :class="sidebarOpen ? '' : 'lg:hidden'">{{ __('dashboard.categories') }}</span>
+                </a>
                 <a href="{{ route('admin.orders.index') }}" 
                    class="flex items-center rounded-xl transition-all duration-300"
                    :class="sidebarOpen ? 'space-x-3 px-4 py-2.5 {{ request()->routeIs('admin.orders.*') ? 'bg-soft-rose text-white shadow-md shadow-soft-rose/20' : 'text-dark-wool hover:bg-gray-50 hover:translate-x-1 group' }}' : 'justify-center py-3 {{ request()->routeIs('admin.orders.*') ? 'bg-soft-rose text-white shadow-md shadow-soft-rose/20' : 'text-dark-wool hover:bg-gray-50 group' }}'"

@@ -89,8 +89,8 @@
                         <div class="col-span-2 md:col-span-1">
                             <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Stok
                                 Awal</label>
-                            <input type="number" name="stock" min="0" class="input-premium" placeholder="Contoh: 10"
-                                value="{{ old('stock') }}" required>
+                            <input type="text" inputmode="numeric" name="stock" class="input-premium" placeholder="Contoh: 10"
+                                value="{{ old('stock') }}" required oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                             <p class="mt-2 text-[11px] text-gray-400">Jumlah stok awal yang siap dipesan pelanggan.</p>
                             @error('stock')
                                 <p class="mt-2 text-xs text-red-500 font-bold uppercase tracking-wider">{{ $message }}

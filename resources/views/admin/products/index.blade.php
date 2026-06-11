@@ -168,16 +168,21 @@
         </div>
 
         <!-- Create Modal -->
-        <template x-if="showCreateModal">
-            <div class="fixed inset-0 z-[200000] flex items-center justify-center p-6 overflow-y-auto">
+        <template x-teleport="body">
+            <div x-show="showCreateModal" x-cloak class="fixed inset-0 z-[200000] flex items-center justify-center p-4 sm:p-6">
                 <div class="absolute inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="closeModals()"></div>
                 <div
-                    class="relative bg-white w-full max-w-2xl rounded-5xl shadow-2xl p-10 animate__animated animate__zoomIn animate__faster my-auto">
-                    <h3 class="text-2xl font-serif font-bold mb-8">Tambah Produk Baru</h3>
+                    class="relative bg-white w-full max-w-3xl rounded-[2.5rem] shadow-2xl animate__animated animate__zoomIn animate__faster max-h-[90vh] overflow-hidden flex flex-col">
+                    <div class="px-6 sm:px-10 py-6 border-b border-gray-100 flex items-center justify-between shrink-0">
+                        <h3 class="text-2xl font-serif font-bold">Tambah Produk Baru</h3>
+                        <button type="button" @click="closeModals()" class="w-10 h-10 rounded-xl bg-gray-50 text-gray-400 hover:bg-soft-rose hover:text-white transition-all">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                     <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data"
-                        x-on:submit="syncCreateCurrency()">
+                        x-on:submit="syncCreateCurrency()" class="flex min-h-0 flex-1 flex-col">
                         @csrf
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto px-6 sm:px-10 py-8">
                             <div class="col-span-2 md:col-span-1">
                                 <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nama
                                     Produk</label>
@@ -203,8 +208,8 @@
                             <div class="col-span-2 md:col-span-1">
                                 <label
                                     class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Stok</label>
-                                <input type="number" name="stock" min="0" required class="input-premium"
-                                    placeholder="Contoh: 10">
+                                <input type="text" inputmode="numeric" name="stock" required class="input-premium"
+                                    placeholder="Contoh: 10" @input="$event.target.value = $event.target.value.replace(/[^0-9]/g, '')">
                                 <p class="mt-2 text-[11px] text-gray-400">Jumlah stok awal yang siap dipesan pelanggan.</p>
                             </div>
                             <div class="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -243,7 +248,7 @@
                                     placeholder="Tuliskan detail produk, bahan, dan nuansa yang ingin disampaikan..."></textarea>
                             </div>
                         </div>
-                        <div class="mt-10 flex justify-center space-x-4">
+                        <div class="px-6 sm:px-10 py-6 flex justify-end space-x-4 border-t border-gray-100 shrink-0">
                             <button type="submit" class="btn-primary btn-sm">Simpan Produk</button>
                             <button type="button" @click="closeModals()"
                                 class="btn-secondary btn-sm">Batal</button>
@@ -254,17 +259,22 @@
         </template>
 
         <!-- Edit Modal -->
-        <template x-if="showEditModal">
-            <div class="fixed inset-0 z-[200000] flex items-center justify-center p-6 overflow-y-auto">
+        <template x-teleport="body">
+            <div x-show="showEditModal" x-cloak class="fixed inset-0 z-[200000] flex items-center justify-center p-4 sm:p-6">
                 <div class="absolute inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="closeModals()"></div>
                 <div
-                    class="relative bg-white w-full max-w-2xl rounded-5xl shadow-2xl p-10 animate__animated animate__zoomIn animate__faster my-auto">
-                    <h3 class="text-2xl font-serif font-bold mb-8">Edit Produk</h3>
+                    class="relative bg-white w-full max-w-3xl rounded-[2.5rem] shadow-2xl animate__animated animate__zoomIn animate__faster max-h-[90vh] overflow-hidden flex flex-col">
+                    <div class="px-6 sm:px-10 py-6 border-b border-gray-100 flex items-center justify-between shrink-0">
+                        <h3 class="text-2xl font-serif font-bold">Edit Produk</h3>
+                        <button type="button" @click="closeModals()" class="w-10 h-10 rounded-xl bg-gray-50 text-gray-400 hover:bg-soft-rose hover:text-white transition-all">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                     <form :action="`/admin/products/${editData.id}`" method="POST" enctype="multipart/form-data"
-                        x-on:submit="syncEditCurrency()">
+                        x-on:submit="syncEditCurrency()" class="flex min-h-0 flex-1 flex-col">
                         @csrf
                         @method('PUT')
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto px-6 sm:px-10 py-8">
                             <div class="col-span-2 md:col-span-1">
                                 <label
                                     class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nama
@@ -292,8 +302,8 @@
                             <div class="col-span-2 md:col-span-1">
                                 <label
                                     class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Stok</label>
-                                <input type="number" name="stock" min="0" x-model="editData.stock" required
-                                    class="input-premium" placeholder="Contoh: 10">
+                                <input type="text" inputmode="numeric" name="stock" x-model="editData.stock" required
+                                    class="input-premium" placeholder="Contoh: 10" @input="$event.target.value = $event.target.value.replace(/[^0-9]/g, ''); editData.stock = $event.target.value">
                                 <p class="mt-2 text-[11px] text-gray-400">Perbarui jumlah stok yang tersedia.</p>
                             </div>
                             <div class="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -336,7 +346,7 @@
                                     placeholder="Tuliskan detail produk, bahan, dan nuansa yang ingin disampaikan..."></textarea>
                             </div>
                         </div>
-                        <div class="mt-10 flex justify-center space-x-4">
+                        <div class="px-6 sm:px-10 py-6 flex justify-end space-x-4 border-t border-gray-100 shrink-0">
                             <button type="submit" class="btn-accent btn-sm">Perbarui Data</button>
                             <button type="button" @click="closeModals()"
                                 class="btn-secondary btn-sm">Batal</button>

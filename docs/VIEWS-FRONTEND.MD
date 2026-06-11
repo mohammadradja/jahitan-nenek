@@ -14,7 +14,7 @@
 - `home.blade.php` renders CMS-driven hero/features/gallery sections, optional promo price banner, and product grid.
 - `about.blade.php` and `contact.blade.php` are static public pages.
 - `product/show.blade.php` renders product details with estimated price ranges, related products, cart/buy-now interactions, and measurement fields for customizable products.
-- `blog/index.blade.php` and `blog/show.blade.php` render public blog pages.
+- `blog/index.blade.php` and `blog/show.blade.php` render public blog pages. Blog detail pages include Open Graph/Twitter metadata and horizontal share actions for Facebook, X/Twitter, and WhatsApp.
 - `cart/index.blade.php` renders the session cart.
 - `checkout/*.blade.php` render checkout, manual payment, success, tracking form, and tracking result pages.
 
@@ -23,7 +23,7 @@
 - `dashboards/user/index.blade.php` shows customer order history and product recommendations.
 - `dashboards/admin/index.blade.php` shows operational stats and charts.
 - `dashboards/superadmin/index.blade.php` shows business-wide stats and charts.
-- `admin/products`, `admin/categories`, `admin/orders`, `admin/measurements`, `admin/blogs`, `admin/cms`, and `admin/reports` implement admin screens. The category index links to a dedicated category edit form for category updates.
+- `admin/products`, `admin/categories`, `admin/orders`, `admin/measurements`, `admin/blogs`, `admin/cms`, and `admin/reports` implement admin screens. Product and category index screens use dashboard modals for create/edit workflows.
 - `superadmin/settings/index.blade.php`, `dashboards/superadmin/staff.blade.php`, and `dashboards/superadmin/customers` implement superadmin screens.
 
 ## Blade Components
@@ -82,7 +82,7 @@ Translations live in `lang/en` and `lang/id`. The public layout uses translation
 Views frequently read CMS data through `SiteSetting::get()` and `SiteSetting::getTranslatabled()`. CMS data includes:
 
 - Site name/tagline.
-- Logo/favicon.
+- Logo assets. The favicon is served from `public/assets/logo.png`.
 - Hero/about/features/gallery content.
 - Social links.
 - Section visibility flags.
@@ -90,6 +90,8 @@ Views frequently read CMS data through `SiteSetting::get()` and `SiteSetting::ge
 - Promo display values for storefront estimate display (`promo_original_price` and `promo_real_price` keys).
 
 Dashboard image fields use drag-and-drop file upload controls rather than URL inputs. Product, category, blog, CMS, and payment-proof image inputs accept PNG, JPG/JPEG, WEBP, GIF, or AVIF files up to 5 MB.
+
+Dashboard numeric entry fields are rendered as text inputs with numeric input modes and client-side filtering to avoid browser spinner controls while still accepting numeric-only input.
 
 Product, blog, and category image views use model `imageUrl()` helpers so local uploads under `public/assets/images/...` and legacy external URLs render consistently.
 

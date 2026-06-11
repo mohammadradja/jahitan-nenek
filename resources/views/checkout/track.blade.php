@@ -12,7 +12,7 @@
                         <div class="absolute top-0 right-0 w-32 h-32 bg-soft-rose/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
                         <h2 class="text-4xl font-serif font-bold text-white mb-4">Lacak Pesanan</h2>
                         <p class="text-white/60 text-sm leading-relaxed">
-                            Masukkan ID Pesanan dan Email Anda untuk melihat status terbaru rajutan kasih sayang Anda.
+                            Masukkan ID Pesanan dan Email Anda untuk melihat status terbaru jahitan kasih sayang Anda.
                         </p>
                     </div>
                     

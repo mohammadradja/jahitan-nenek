@@ -9,7 +9,7 @@
         <div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[600px] lg:h-[800px]">
             <div class="md:col-span-4 h-64 md:h-full" data-aos="zoom-in">
                 <div class="relative h-full rounded-[2.5rem] overflow-hidden group">
-                    <img src="{{ \App\Models\SiteSetting::get('cms_gallery_img1') ? (str_starts_with(\App\Models\SiteSetting::get('cms_gallery_img1'), 'http') ? \App\Models\SiteSetting::get('cms_gallery_img1') : asset(\App\Models\SiteSetting::get('cms_gallery_img1'))) : 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=1000' }}" 
+                    <img src="{{ \App\Models\SiteSetting::get('cms_gallery_img1') ? (str_starts_with(\App\Models\SiteSetting::get('cms_gallery_img1'), 'http') ? \App\Models\SiteSetting::get('cms_gallery_img1') : asset(\App\Models\SiteSetting::get('cms_gallery_img1'))) : 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=1000' }}" 
                          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                          alt="Gallery 1">
                     <div class="absolute inset-0 bg-gradient-to-t from-dark-wool/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-10">
@@ -20,7 +20,7 @@
             
             <div class="md:col-span-8 h-64 md:h-full" data-aos="zoom-in" data-aos-delay="100">
                 <div class="relative h-full rounded-[2.5rem] overflow-hidden group">
-                    <img src="{{ \App\Models\SiteSetting::get('cms_gallery_img2') ? (str_starts_with(\App\Models\SiteSetting::get('cms_gallery_img2'), 'http') ? \App\Models\SiteSetting::get('cms_gallery_img2') : asset(\App\Models\SiteSetting::get('cms_gallery_img2'))) : 'https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&q=80&w=1000' }}" 
+                    <img src="{{ \App\Models\SiteSetting::get('cms_gallery_img2') ? (str_starts_with(\App\Models\SiteSetting::get('cms_gallery_img2'), 'http') ? \App\Models\SiteSetting::get('cms_gallery_img2') : asset(\App\Models\SiteSetting::get('cms_gallery_img2'))) : 'https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&q=80&w=1000' }}" 
                          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                          alt="Gallery 2">
                     <div class="absolute inset-0 bg-gradient-to-t from-dark-wool/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-10">
@@ -31,7 +31,7 @@
             
             <div class="md:col-span-7 h-64 md:h-full" data-aos="zoom-in" data-aos-delay="200">
                 <div class="relative h-full rounded-[2.5rem] overflow-hidden group">
-                    <img src="{{ \App\Models\SiteSetting::get('cms_gallery_img3') ? (str_starts_with(\App\Models\SiteSetting::get('cms_gallery_img3'), 'http') ? \App\Models\SiteSetting::get('cms_gallery_img3') : asset(\App\Models\SiteSetting::get('cms_gallery_img3'))) : 'https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&q=80&w=1000' }}" 
+                    <img src="{{ \App\Models\SiteSetting::get('cms_gallery_img3') ? (str_starts_with(\App\Models\SiteSetting::get('cms_gallery_img3'), 'http') ? \App\Models\SiteSetting::get('cms_gallery_img3') : asset(\App\Models\SiteSetting::get('cms_gallery_img3'))) : 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&q=80&w=1000' }}" 
                          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                          alt="Gallery 3">
                     <div class="absolute inset-0 bg-gradient-to-t from-dark-wool/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-10">
@@ -42,7 +42,7 @@
             
             <div class="md:col-span-5 h-64 md:h-full" data-aos="zoom-in" data-aos-delay="300">
                 <div class="relative h-full rounded-[2.5rem] overflow-hidden group">
-                    <img src="{{ \App\Models\SiteSetting::get('cms_gallery_img4') ? (str_starts_with(\App\Models\SiteSetting::get('cms_gallery_img4'), 'http') ? \App\Models\SiteSetting::get('cms_gallery_img4') : asset(\App\Models\SiteSetting::get('cms_gallery_img4'))) : 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&q=80&w=1000' }}" 
+                    <img src="{{ \App\Models\SiteSetting::get('cms_gallery_img4') ? (str_starts_with(\App\Models\SiteSetting::get('cms_gallery_img4'), 'http') ? \App\Models\SiteSetting::get('cms_gallery_img4') : asset(\App\Models\SiteSetting::get('cms_gallery_img4'))) : 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=1000' }}" 
                          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                          alt="Gallery 4">
                     <div class="absolute inset-0 bg-gradient-to-t from-dark-wool/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-10">

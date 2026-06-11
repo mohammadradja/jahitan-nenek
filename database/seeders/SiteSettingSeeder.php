@@ -15,7 +15,7 @@ class SiteSettingSeeder extends Seeder
         $settings = [
             // General
             ['key' => 'site_name', 'value' => 'Jahitan Nenek', 'type' => 'string', 'group' => 'general'],
-            ['key' => 'site_tagline', 'value' => 'Rajutan Kasih Sayang Premium', 'type' => 'string', 'group' => 'general'],
+            ['key' => 'site_tagline', 'value' => 'Jahitan Kasih Sayang Premium', 'type' => 'string', 'group' => 'general'],
             ['key' => 'transaction_mode', 'value' => 'dev', 'type' => 'string', 'group' => 'general'], // dev or prod
             ['key' => 'promo_enabled', 'value' => '0', 'type' => 'boolean', 'group' => 'promo'],
             ['key' => 'promo_label', 'value' => 'Promo Spesial', 'type' => 'string', 'group' => 'promo'],
@@ -71,73 +71,75 @@ class SiteSettingSeeder extends Seeder
             ['key' => 'cms_whatsapp_url', 'value' => 'https://wa.me/628123456789', 'type' => 'string', 'group' => 'cms'],
 
             // Hero Section (ID)
-            ['key' => 'cms_hero_title_id', 'value' => 'Rajutan Kasih Sayang, Warisan Tradisi.', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_hero_subtitle_id', 'value' => 'Setiap benang dirajut dengan sabar dan teliti untuk menciptakan kehangatan yang tak lekang oleh waktu.', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_hero_title_id', 'value' => 'Jahitan Kasih Sayang, Warisan Tradisi.', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_hero_subtitle_id', 'value' => 'Setiap jahitan menyimpan kasih sayang. Setiap pakaian membawa cerita. Dan setiap cerita layak untuk dikenang.', 'type' => 'string', 'group' => 'cms'],
             ['key' => 'cms_hero_cta_id', 'value' => 'Jelajahi Koleksi', 'type' => 'string', 'group' => 'cms'],
 
             // Hero Section (EN)
-            ['key' => 'cms_hero_title_en', 'value' => 'Knitted with Love, Crafted for Heritage.', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_hero_subtitle_en', 'value' => 'Every thread is woven with patience and care to create timeless warmth and elegance.', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_hero_title_en', 'value' => 'Stitched with Love, Crafted for Heritage.', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_hero_subtitle_en', 'value' => 'Every stitch holds affection. Every garment carries a story. And every story deserves to be remembered.', 'type' => 'string', 'group' => 'cms'],
             ['key' => 'cms_hero_cta_en', 'value' => 'Explore Collection', 'type' => 'string', 'group' => 'cms'],
 
-            ['key' => 'cms_hero_image', 'value' => 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&q=80&w=1200', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_hero_image', 'value' => 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=1200', 'type' => 'string', 'group' => 'cms'],
 
             // About Us Section (ID)
             ['key' => 'cms_about_title_id', 'value' => 'Cerita di Balik Jahitan', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_about_text_id', 'value' => 'Dimulai dari sebuah hobi merajut dari Nenek yang menyukai kehangatan benang wol untuk cucu tercintanya. Kini Jahitan Nenek hadir untuk membagikan rajutan berkualitas premium, dibuat manual dengan detail presisi tinggi, dan dikerjakan penuh kasih sayang.', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_about_text_id', 'value' => 'Jahitan Nenek bermula dari sebuah ruang tamu kecil di mana jemari tua namun lincah menjahit potongan-potongan bahan menjadi keindahan.', 'type' => 'string', 'group' => 'cms'],
 
             // About Us Section (EN)
             ['key' => 'cms_about_title_en', 'value' => 'Stories Behind the Needles', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_about_text_en', 'value' => 'It started as a knitting hobby from Grandma, who loved the warmth of wool yarns for her beloved grandchildren. Today, Jahitan Nenek is here to share premium quality knits, crafted manually with high precision and filled with genuine affection.', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_about_text_en', 'value' => 'Jahitan Nenek began in a small living room where old but agile fingers stitched pieces of fabric into beauty.', 'type' => 'string', 'group' => 'cms'],
 
-            ['key' => 'cms_about_image', 'value' => 'https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&q=80&w=1200', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_about_image', 'value' => 'https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&q=80&w=1200', 'type' => 'string', 'group' => 'cms'],
 
             // Features Section (ID)
             ['key' => 'cms_features_title_id', 'value' => 'Mengapa Memilih Kami', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_features_subtitle_id', 'value' => 'Kualitas di Setiap Simpul', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_features_desc_id', 'value' => 'Kami berdedikasi untuk memberikan pengalaman terbaik melalui produk rajutan tangan yang otentik dan layanan yang ramah.', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_features_subtitle_id', 'value' => 'Kualitas di Setiap Jahitan', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_features_desc_id', 'value' => 'Kami berdedikasi untuk memberikan pengalaman terbaik melalui produk jahitan yang otentik dan layanan yang ramah.', 'type' => 'string', 'group' => 'cms'],
             ['key' => 'cms_feature1_title_id', 'value' => 'Dibuat Penuh Cinta', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_feature1_desc_id', 'value' => 'Setiap produk dirajut secara manual untuk memastikan kualitas dan keunikan yang tidak bisa ditiru mesin.', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_feature1_desc_id', 'value' => 'Jahitan Nenek memadukan nilai craftsmanship klasik dengan estetika kontemporer. Hasilnya adalah pakaian yang terasa akrab namun tetap segar, sederhana namun berkarakter.', 'type' => 'string', 'group' => 'cms'],
             ['key' => 'cms_feature2_title_id', 'value' => 'Bahan Premium', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_feature2_desc_id', 'value' => 'Kami menggunakan benang wool pilihan yang lembut di kulit dan tahan lama untuk menemani hari-harimu.', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_feature2_desc_id', 'value' => 'Seperti nenek yang menjahit dengan penuh kesabaran dan kasih sayang, setiap produk dibuat untuk bertahan lama dan memiliki nilai lebih dari sekadar pakaian.', 'type' => 'string', 'group' => 'cms'],
             ['key' => 'cms_feature3_title_id', 'value' => 'Pengiriman Aman', 'type' => 'string', 'group' => 'cms'],
             ['key' => 'cms_feature3_desc_id', 'value' => 'Pengiriman aman ke seluruh Indonesia dengan kemasan ramah lingkungan yang premium.', 'type' => 'string', 'group' => 'cms'],
 
             // Features Section (EN)
             ['key' => 'cms_features_title_en', 'value' => 'Why Choose Us', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_features_subtitle_en', 'value' => 'Quality in Every Knot', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_features_desc_en', 'value' => 'We are dedicated to providing the best experience through authentic hand-knitted products and friendly service.', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_features_subtitle_en', 'value' => 'Quality in Every Stitch', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_features_desc_en', 'value' => 'We are dedicated to providing the best experience through authentic stitched garments and friendly service.', 'type' => 'string', 'group' => 'cms'],
             ['key' => 'cms_feature1_title_en', 'value' => 'Handmade with Love', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_feature1_desc_en', 'value' => 'Each product is hand-knitted to ensure quality and uniqueness that machines cannot replicate.', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_feature1_desc_en', 'value' => 'Jahitan Nenek blends classic craftsmanship with contemporary aesthetics, creating garments that feel familiar yet fresh, simple yet full of character.', 'type' => 'string', 'group' => 'cms'],
             ['key' => 'cms_feature2_title_en', 'value' => 'Premium Material', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_feature2_desc_en', 'value' => 'We use selected wool yarns that are soft on the skin and durable to accompany your days.', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_feature2_desc_en', 'value' => 'Like a grandmother sewing with patience and affection, every product is made to last and hold more value than clothing alone.', 'type' => 'string', 'group' => 'cms'],
             ['key' => 'cms_feature3_title_en', 'value' => 'Safe Delivery', 'type' => 'string', 'group' => 'cms'],
             ['key' => 'cms_feature3_desc_en', 'value' => 'Safe shipping throughout Indonesia with premium eco-friendly packaging.', 'type' => 'string', 'group' => 'cms'],
 
             // Gallery Section (ID)
             ['key' => 'cms_gallery_title_id', 'value' => 'Galeri Karya', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_gallery_desc_id', 'value' => 'Setiap simpul menceritakan dedikasi, kehangatan, dan kesabaran.', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_gallery_subtitle_id', 'value' => 'Mahakarya Jahitan', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_gallery_desc_id', 'value' => 'Setiap jahitan menceritakan dedikasi, kehangatan, dan kesabaran.', 'type' => 'string', 'group' => 'cms'],
 
             // Gallery Section (EN)
             ['key' => 'cms_gallery_title_en', 'value' => 'Work Gallery', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_gallery_desc_en', 'value' => 'Every knot tells a story of dedication, warmth, and patience.', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_gallery_subtitle_en', 'value' => 'Stitched Masterpiece', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_gallery_desc_en', 'value' => 'Every stitch tells a story of dedication, warmth, and patience.', 'type' => 'string', 'group' => 'cms'],
 
             // Gallery Items
-            ['key' => 'cms_gallery_img1', 'value' => 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=1000', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_gallery_title1_id', 'value' => 'Kardigan Klasik', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_gallery_title1_en', 'value' => 'Classic Cardigan', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_gallery_img1', 'value' => 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=1000', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_gallery_title1_id', 'value' => 'Brukat Klasik', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_gallery_title1_en', 'value' => 'Classic Brocade', 'type' => 'string', 'group' => 'cms'],
 
-            ['key' => 'cms_gallery_img2', 'value' => 'https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&q=80&w=1000', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_gallery_title2_id', 'value' => 'Koleksi Amigurumi', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_gallery_title2_en', 'value' => 'Amigurumi Collection', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_gallery_img2', 'value' => 'https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&q=80&w=1000', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_gallery_title2_id', 'value' => 'Atasan Brukat', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_gallery_title2_en', 'value' => 'Brocade Tops', 'type' => 'string', 'group' => 'cms'],
 
-            ['key' => 'cms_gallery_img3', 'value' => 'https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&q=80&w=1000', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_gallery_title3_id', 'value' => 'Dekorasi Rumah', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_gallery_title3_en', 'value' => 'Home Decor', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_gallery_img3', 'value' => 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&q=80&w=1000', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_gallery_title3_id', 'value' => 'Dress Brukat', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_gallery_title3_en', 'value' => 'Brocade Dresses', 'type' => 'string', 'group' => 'cms'],
 
-            ['key' => 'cms_gallery_img4', 'value' => 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&q=80&w=1000', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_gallery_title4_id', 'value' => 'Seri Vintage', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_gallery_title4_en', 'value' => 'Vintage Series', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_gallery_img4', 'value' => 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=1000', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_gallery_title4_id', 'value' => 'Seri Modern', 'type' => 'string', 'group' => 'cms'],
+            ['key' => 'cms_gallery_title4_en', 'value' => 'Modern Series', 'type' => 'string', 'group' => 'cms'],
 
             // Visibilities
             ['key' => 'cms_section_hero_active', 'value' => '1', 'type' => 'boolean', 'group' => 'cms'],

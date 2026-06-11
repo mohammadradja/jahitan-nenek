@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Contact Us | Jahitan Nenek',
-    'hero_title' => 'Let\'s Exchange <br><span class="italic text-soft-rose">Stories & Knits</span>',
+    'hero_title' => 'Let\'s Exchange <br><span class="italic text-soft-rose">Stories & Stitches</span>',
     'contact_info' => 'Contact Information',
     'workshop' => 'Workshop',
     'email' => 'Email',

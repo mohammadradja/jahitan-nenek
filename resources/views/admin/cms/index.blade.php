@@ -156,7 +156,7 @@
 
                                 <div>
                                     <label class="block text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-2">Sub-judul Banner Utama (Hero Subtitle)</label>
-                                    <textarea name="cms_hero_subtitle" rows="3" class="input-premium py-3 text-xs leading-relaxed" placeholder="Tuliskan sub-judul pendek untuk banner utama...">{{ $settings['cms_hero_subtitle'] ?? 'Setiap rajutan dikerjakan dengan tangan terampil yang penuh kasih, menghadirkan kehangatan sejati untuk keluarga Anda.' }}</textarea>
+                                    <textarea name="cms_hero_subtitle" rows="3" class="input-premium py-3 text-xs leading-relaxed" placeholder="Tuliskan sub-judul pendek untuk banner utama...">{{ $settings['cms_hero_subtitle'] ?? 'Setiap jahitan menyimpan kasih sayang. Setiap pakaian membawa cerita. Dan setiap cerita layak untuk dikenang.' }}</textarea>
                                     <p class="mt-2 text-[10px] text-gray-400">Ringkasan singkat untuk menjelaskan nilai utama brand.</p>
                                 </div>
 
@@ -201,7 +201,7 @@
 
                                 <div>
                                     <label class="block text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-2">Isi Cerita Lengkap (About Text)</label>
-                                    <textarea name="cms_about_text" rows="4" class="input-premium py-3 text-xs leading-relaxed" placeholder="Tuliskan cerita singkat tentang Jahitan Nenek...">{{ $settings['cms_about_text'] ?? 'Dimulai dari sebuah hobi merajut dari Nenek yang menyukai kehangatan benang wol untuk cucu tercintanya. Kini Jahitan Nenek hadir untuk membagikan rajutan berkualitas premium, dibuat manual dengan detail presisi tinggi, dan dikerjakan penuh kasih sayang.' }}</textarea>
+                                    <textarea name="cms_about_text" rows="4" class="input-premium py-3 text-xs leading-relaxed" placeholder="Tuliskan cerita singkat tentang Jahitan Nenek...">{{ $settings['cms_about_text'] ?? 'Jahitan Nenek bermula dari sebuah ruang tamu kecil di mana jemari tua namun lincah menjahit potongan-potongan bahan menjadi keindahan.' }}</textarea>
                                     <p class="mt-2 text-[10px] text-gray-400">Teks ini membantu pelanggan mengenal cerita di balik brand.</p>
                                 </div>
 
@@ -275,7 +275,7 @@
                                     </div>
                                     <div>
                                         <span class="block text-[10px] font-bold text-dark-wool uppercase tracking-wider">3. Keunggulan Kami (Features)</span>
-                                        <span class="block text-[8px] text-gray-400 uppercase tracking-widest mt-0.5">Keunikan rajutan kita</span>
+                                        <span class="block text-[8px] text-gray-400 uppercase tracking-widest mt-0.5">Keunikan jahitan kita</span>
                                     </div>
                                 </div>
                                 <label class="relative inline-flex items-center cursor-pointer">
@@ -325,7 +325,7 @@
                                         <i class="fas fa-camera"></i>
                                     </div>
                                     <div>
-                                        <span class="block text-[10px] font-bold text-dark-wool uppercase tracking-wider">6. Galeri Mosaik Rajutan</span>
+                                        <span class="block text-[10px] font-bold text-dark-wool uppercase tracking-wider">6. Galeri Mosaik Jahitan</span>
                                         <span class="block text-[8px] text-gray-400 uppercase tracking-widest mt-0.5">Foto portofolio paling bawah</span>
                                     </div>
                                 </div>

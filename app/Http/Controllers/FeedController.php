@@ -15,7 +15,7 @@ class FeedController extends Controller
         $channel = $xml->addChild('channel');
         $channel->addChild('title', 'Jahitan Nenek Product Feed');
         $channel->addChild('link', route('home'));
-        $channel->addChild('description', 'Handcrafted Premium Knitwear');
+        $channel->addChild('description', 'Handcrafted Premium Stitched Garments');
 
         foreach ($products as $product) {
             $item = $channel->addChild('item');

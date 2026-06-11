@@ -3,7 +3,7 @@
 <article class="group h-full" data-aos="fade-up" data-aos-delay="{{ $delay }}">
     <div class="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-50 h-full flex flex-col">
         <div class="relative aspect-video overflow-hidden">
-            <img src="{{ $blog->image ?? 'https://images.unsplash.com/photo-1544967082-d9d25d867d66?q=80&w=1000&auto=format&fit=crop' }}" 
+            <img src="{{ $blog->imageUrl('https://images.unsplash.com/photo-1544967082-d9d25d867d66?q=80&w=1000&auto=format&fit=crop') }}" 
                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                  alt="{{ $blog->title }}">
             <div class="absolute top-6 left-6">

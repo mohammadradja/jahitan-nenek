@@ -72,7 +72,7 @@
                 <!-- Action Footer -->
                 <div class="mt-20 pt-12 border-t border-gray-50 text-center">
                     <p class="text-gray-400 text-sm mb-10 max-w-lg mx-auto leading-relaxed">
-                        Nenek akan segera mulai merajut pesanan Anda. Anda dapat memantau status pengerjaan melalui halaman lacak pesanan.
+                        Nenek akan segera mulai menjahit pesanan Anda. Anda dapat memantau status pengerjaan melalui halaman lacak pesanan.
                     </p>
                     <div class="flex flex-wrap justify-center gap-6">
                         <a href="{{ route('order.track') }}?order_id={{ $order->id }}&email={{ $order->customer_email }}" class="btn-premium">

@@ -20,7 +20,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                 <div class="relative" data-aos="fade-right">
                     <div class="relative z-10 rounded-[4rem] overflow-hidden shadow-2xl">
-                        <img src="{{ \App\Models\SiteSetting::get('cms_about_image') ? asset(\App\Models\SiteSetting::get('cms_about_image')) : 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?q=80&w=1000&auto=format&fit=crop' }}" 
+                        <img src="{{ \App\Models\SiteSetting::get('cms_about_image') ? asset(\App\Models\SiteSetting::get('cms_about_image')) : 'https://images.unsplash.com/photo-1485968579580-b6d095142e6e?q=80&w=1000&auto=format&fit=crop' }}" 
                              class="w-full aspect-[4/5] object-cover hover:scale-105 transition-transform duration-700" alt="Nenek Menjahit">
                     </div>
                     <!-- Accents -->

@@ -4,7 +4,7 @@ This documentation was generated from the implementation in this repository. Tre
 
 ## Project Summary
 
-Jahitan Nenek is a Laravel storefront and operations dashboard for handmade knitwear. It includes:
+Jahitan Nenek is a Laravel storefront and operations dashboard for handmade stitched garments and brocade clothing. It includes:
 
 - Public product catalog, blog, locale switcher, order tracking, and Instagram/Google-style product feed.
 - Authenticated customer dashboard, profile management, session cart, checkout, manual bank-transfer proof upload, and order history.
@@ -37,4 +37,3 @@ Jahitan Nenek is a Laravel storefront and operations dashboard for handmade knit
 - The application currently uses string roles (`user`, `admin`, `superadmin`) and route middleware rather than policies.
 - The active checkout implementation uses manual bank transfer proof uploads; Midtrans exists as configuration/test-connection support but no live notification route is implemented.
 - Review [Technical Debt and Known Issues](TECHNICAL-DEBT.MD) before changing related areas.
-

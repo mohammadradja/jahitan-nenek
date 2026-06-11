@@ -15,10 +15,10 @@
                 <span class="h-[1px] w-12 bg-soft-rose/30"></span>
             </div>
             <h1 class="text-6xl md:text-8xl font-serif font-bold text-dark-wool mt-4 mb-10 leading-tight">
-                Catatan <span class="italic text-soft-rose font-light">Merajut</span> Cerita
+                Catatan <span class="italic text-soft-rose font-light">Menjahit</span> Cerita
             </h1>
             <p class="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed font-medium">
-                Berbagi inspirasi, tips perawatan kerajinan tangan, dan kisah di balik setiap benang yang kami jalin menjadi karya abadi.
+                Berbagi inspirasi, tips perawatan pemakaian, dan kisah di balik setiap potongan yang kami jalin menjadi karya abadi.
             </p>
         </div>
     </section>
@@ -34,7 +34,7 @@
                         <div class="w-32 h-32 bg-vintage-cream rounded-full flex items-center justify-center mx-auto mb-10 shadow-inner">
                             <i class="fas fa-feather-alt text-4xl text-soft-rose/30"></i>
                         </div>
-                        <h4 class="text-3xl font-serif font-bold text-dark-wool/30 italic">Nenek sedang menyiapkan benang cerita baru...</h4>
+                        <h4 class="text-3xl font-serif font-bold text-dark-wool/30 italic">Nenek sedang menyiapkan cerita jahitan baru...</h4>
                         <div class="mt-12">
                             <a href="{{ route('home') }}" class="btn-primary">Kembali Beranda</a>
                         </div>

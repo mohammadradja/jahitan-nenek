@@ -1,6 +1,6 @@
 <section class="relative min-h-screen flex items-center bg-vintage-cream overflow-hidden py-32 lg:py-0">
     <!-- Decorative background elements -->
-    <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: url('https://www.transparenttextures.com/patterns/knitting-2.png');"></div>
+    <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: url('https://www.transparenttextures.com/patterns/fabric-of-squares.png');"></div>
     
     <!-- Floating Orbs -->
     <div class="absolute top-1/4 -right-20 w-96 h-96 bg-soft-rose/10 rounded-full blur-[100px] animate-pulse"></div>
@@ -48,7 +48,7 @@
                 <div class="absolute -inset-10 bg-white/50 rounded-[4rem] rotate-6 -z-10 blur-sm"></div>
                 
                 <div class="relative rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-white group">
-                    <img src="{{ \App\Models\SiteSetting::get('cms_hero_image') ? asset(\App\Models\SiteSetting::get('cms_hero_image')) : 'https://images.unsplash.com/photo-1516573024884-33b8796593d8?q=80&w=1000&auto=format&fit=crop' }}" 
+                    <img src="{{ \App\Models\SiteSetting::get('cms_hero_image') ? asset(\App\Models\SiteSetting::get('cms_hero_image')) : 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=1000&auto=format&fit=crop' }}" 
                          class="w-full aspect-[4/5] object-cover transition-transform duration-[2s] group-hover:scale-110" 
                          alt="Jahitan Nenek Collection">
                     

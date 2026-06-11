@@ -101,9 +101,9 @@
 
                     <div class="bg-soft-rose/5 border border-soft-rose/20 rounded-[2rem] p-8">
                         <p class="text-xs font-bold text-soft-rose uppercase tracking-[0.2em] mb-4 flex items-center">
-                            <i class="fas fa-heart mr-2"></i> Merajut Kasih Sayang
+                            <i class="fas fa-heart mr-2"></i> Menjahit Kasih Sayang
                         </p>
-                        <p class="text-xs text-gray-500 leading-relaxed">Setiap rajutan Nenek dikerjakan dengan penuh ketelitian dan doa. Terima kasih telah mendukung karya tangan lokal.</p>
+                        <p class="text-xs text-gray-500 leading-relaxed">Setiap jahitan Nenek dikerjakan dengan penuh ketelitian dan doa. Terima kasih telah mendukung karya tangan lokal.</p>
                     </div>
                 </div>
             </div>

@@ -149,7 +149,7 @@
                                 class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Deskripsi
                                 Produk</label>
                             <textarea name="description" class="input-premium h-40 py-4 resize-none"
-                                placeholder="Tuliskan detail keajaiban rajutan ini, bahan yang dipakai, dan nuansa warnanya...">{{ old('description') }}</textarea>
+                                placeholder="Tuliskan detail pakaian, bahan, ukuran, dan nuansa warnanya...">{{ old('description') }}</textarea>
                         </div>
                     </div>
 

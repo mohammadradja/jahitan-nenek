@@ -58,7 +58,7 @@
     <main class="max-w-7xl mx-auto px-6 lg:px-20 py-16">
         <!-- Featured Image -->
         <div class="relative -mt-24 mb-16 rounded-[3rem] overflow-hidden shadow-2xl bg-white p-3" data-aos="zoom-in">
-            <img src="{{ $blog->image ?? 'https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&q=80&w=1200' }}" 
+            <img src="{{ $blog->imageUrl('https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&q=80&w=1200') }}" 
                  class="w-full h-auto rounded-[2.5rem] object-cover aspect-[21/9] max-h-[500px]" 
                  alt="{{ $blog->title }}">
         </div>

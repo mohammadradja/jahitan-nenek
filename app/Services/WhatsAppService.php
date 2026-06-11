@@ -52,7 +52,7 @@ class WhatsAppService
     {
         $statusMap = [
             'pending' => 'Menunggu Pembayaran',
-            'processing' => 'Sedang Dirajut (Diproses)',
+            'processing' => 'Sedang Dijahit (Diproses)',
             'shipped' => 'Dalam Pengiriman',
             'completed' => 'Selesai & Diterima',
             'cancelled' => 'Dibatalkan',

@@ -6,9 +6,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ asset(\App\Models\SiteSetting::get('site_favicon', 'favicon.ico')) }}" type="image/x-icon">
     
-    <title>@hasSection('title') @yield('title') - {{ \App\Models\SiteSetting::get('site_name', 'Jahitan Nenek') }} @else {{ \App\Models\SiteSetting::get('site_name', 'Jahitan Nenek') }} | {{ \App\Models\SiteSetting::get('site_tagline', 'Rajutan Kasih Sayang') }} @endif</title>
-    <meta name="description" content="Jahitan Nenek menyajikan rajutan tangan berkualitas tinggi dengan kasih sayang. Temukan cardigan, amigurumi, dan aksesoris rajut terbaik di sini.">
-    <meta name="keywords" content="rajutan, handmade, knitting, jahitan nenek, fashion vintage, amigurumi indonesia">
+    <title>@hasSection('title') @yield('title') - {{ \App\Models\SiteSetting::get('site_name', 'Jahitan Nenek') }} @else {{ \App\Models\SiteSetting::get('site_name', 'Jahitan Nenek') }} | {{ \App\Models\SiteSetting::get('site_tagline', 'Jahitan Kasih Sayang') }} @endif</title>
+    <meta name="description" content="Jahitan Nenek menyajikan pakaian jahitan dan brukat berkualitas tinggi dengan kasih sayang, karakter, dan detail yang teliti.">
+    <meta name="keywords" content="jahitan, jahitan nenek, brukat, baju brukat, fashion vintage, handmade indonesia">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;600&family=Outfit:wght@400;700&display=swap" rel="stylesheet">

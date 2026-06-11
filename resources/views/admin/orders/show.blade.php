@@ -96,7 +96,7 @@
                                 <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Status Operasional Pesanan</label>
                                 <select name="status" class="input-premium py-2 text-xs">
                                     <option value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>Pending (Menunggu)</option>
-                                    <option value="processing" {{ $order->status === 'processing' ? 'selected' : '' }}>Sedang Diproses (Dirajut)</option>
+                                    <option value="processing" {{ $order->status === 'processing' ? 'selected' : '' }}>Sedang Diproses (Dijahit)</option>
                                     <option value="shipped" {{ $order->status === 'shipped' ? 'selected' : '' }}>Dikirim (Dalam Perjalanan)</option>
                                     <option value="completed" {{ $order->status === 'completed' ? 'selected' : '' }}>Selesai</option>
                                     <option value="cancelled" {{ $order->status === 'cancelled' ? 'selected' : '' }}>Dibatalkan</option>
@@ -299,7 +299,7 @@
                 <select name="stage" class="input-premium py-2 text-xs">
                     <option value="Pemilihan Bahan">Pemilihan Bahan</option>
                     <option value="Pemotongan Pola">Pemotongan Pola</option>
-                    <option value="Proses Perajutan">Proses Perajutan</option>
+                    <option value="Proses Penjahitan">Proses Penjahitan</option>
                     <option value="Penyambungan Bagian">Penyambungan Bagian</option>
                     <option value="Finishing & QC">Finishing & QC</option>
                     <option value="Pengemasan Premium">Pengemasan Premium</option>

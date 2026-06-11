@@ -23,7 +23,7 @@
                         <input type="hidden" name="category" :value="category">
                         <input type="text" name="search" x-model="search"
                                class="w-full bg-gray-50 border border-gray-100 rounded-xl py-3 px-6 focus:ring-4 focus:ring-soft-rose/5 focus:bg-white outline-none transition-all shadow-sm text-xs pr-24" 
-                               placeholder="{{ __('messages.search_placeholder') ?? 'Cari rajutan impianmu...' }}">
+                               placeholder="{{ __('messages.search_placeholder') ?? 'Cari pakaian impianmu...' }}">
                         <button type="submit" class="absolute right-1 top-1 bg-dark-wool text-white py-2 px-6 rounded-lg text-xs font-bold uppercase tracking-widest">{{ __('messages.search') ?? 'Cari' }}</button>
                     </form>
 

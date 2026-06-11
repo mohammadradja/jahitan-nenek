@@ -58,19 +58,19 @@
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-[9px] font-bold text-gray-300 uppercase tracking-widest mb-1.5">Lingkar Dada (cm)</label>
-                                    <input type="number" x-model="measurements.chest" class="input-premium py-2 text-xs" placeholder="0">
+                                    <input type="text" inputmode="decimal" x-model="measurements.chest" class="input-premium py-2 text-xs" placeholder="0" @input="$event.target.value = $event.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'); measurements.chest = $event.target.value">
                                 </div>
                                 <div>
                                     <label class="block text-[9px] font-bold text-gray-300 uppercase tracking-widest mb-1.5">Lingkar Pinggang (cm)</label>
-                                    <input type="number" x-model="measurements.waist" class="input-premium py-2 text-xs" placeholder="0">
+                                    <input type="text" inputmode="decimal" x-model="measurements.waist" class="input-premium py-2 text-xs" placeholder="0" @input="$event.target.value = $event.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'); measurements.waist = $event.target.value">
                                 </div>
                                 <div>
                                     <label class="block text-[9px] font-bold text-gray-300 uppercase tracking-widest mb-1.5">Lingkar Pinggul (cm)</label>
-                                    <input type="number" x-model="measurements.hip" class="input-premium py-2 text-xs" placeholder="0">
+                                    <input type="text" inputmode="decimal" x-model="measurements.hip" class="input-premium py-2 text-xs" placeholder="0" @input="$event.target.value = $event.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'); measurements.hip = $event.target.value">
                                 </div>
                                 <div>
                                     <label class="block text-[9px] font-bold text-gray-300 uppercase tracking-widest mb-1.5">Lebar Bahu (cm)</label>
-                                    <input type="number" x-model="measurements.shoulder" class="input-premium py-2 text-xs" placeholder="0">
+                                    <input type="text" inputmode="decimal" x-model="measurements.shoulder" class="input-premium py-2 text-xs" placeholder="0" @input="$event.target.value = $event.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'); measurements.shoulder = $event.target.value">
                                 </div>
                             </div>
                             <div class="mt-4">

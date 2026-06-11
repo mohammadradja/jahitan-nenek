@@ -47,9 +47,9 @@
                                             <form action="{{ route('cart.update', $id) }}" method="POST" class="flex items-center justify-center">
                                                 @csrf
                                                 @method('PATCH')
-                                                <input type="number" name="quantity" value="{{ $details['quantity'] }}" 
+                                                <input type="text" inputmode="numeric" name="quantity" value="{{ $details['quantity'] }}"
                                                        class="w-12 h-8 rounded-lg bg-gray-50 border-0 text-center font-bold text-xs focus:ring-2 focus:ring-soft-rose/10 outline-none transition-all" 
-                                                       min="1" onchange="this.form.submit()">
+                                                       oninput="this.value = this.value.replace(/[^0-9]/g, '')" onchange="if (this.value !== '') this.form.submit()">
                                             </form>
                                         </td>
                                         <td class="px-8 py-4 font-bold text-soft-rose text-sm">

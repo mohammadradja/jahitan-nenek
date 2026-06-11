@@ -35,42 +35,42 @@
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Lingkar Dada (Chest)</label>
                         <div class="relative">
-                            <input type="number" step="0.01" name="chest" class="input-premium pr-12" placeholder="0.00">
+                            <input type="text" inputmode="decimal" name="chest" class="input-premium pr-12" placeholder="0.00" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')">
                             <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-300">CM</span>
                         </div>
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Lingkar Pinggang (Waist)</label>
                         <div class="relative">
-                            <input type="number" step="0.01" name="waist" class="input-premium pr-12" placeholder="0.00">
+                            <input type="text" inputmode="decimal" name="waist" class="input-premium pr-12" placeholder="0.00" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')">
                             <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-300">CM</span>
                         </div>
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Lingkar Pinggul (Hip)</label>
                         <div class="relative">
-                            <input type="number" step="0.01" name="hip" class="input-premium pr-12" placeholder="0.00">
+                            <input type="text" inputmode="decimal" name="hip" class="input-premium pr-12" placeholder="0.00" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')">
                             <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-300">CM</span>
                         </div>
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Lebar Bahu (Shoulder)</label>
                         <div class="relative">
-                            <input type="number" step="0.01" name="shoulder" class="input-premium pr-12" placeholder="0.00">
+                            <input type="text" inputmode="decimal" name="shoulder" class="input-premium pr-12" placeholder="0.00" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')">
                             <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-300">CM</span>
                         </div>
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Panjang Lengan</label>
                         <div class="relative">
-                            <input type="number" step="0.01" name="sleeve_length" class="input-premium pr-12" placeholder="0.00">
+                            <input type="text" inputmode="decimal" name="sleeve_length" class="input-premium pr-12" placeholder="0.00" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')">
                             <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-300">CM</span>
                         </div>
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Panjang Badan</label>
                         <div class="relative">
-                            <input type="number" step="0.01" name="body_length" class="input-premium pr-12" placeholder="0.00">
+                            <input type="text" inputmode="decimal" name="body_length" class="input-premium pr-12" placeholder="0.00" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')">
                             <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-300">CM</span>
                         </div>
                     </div>

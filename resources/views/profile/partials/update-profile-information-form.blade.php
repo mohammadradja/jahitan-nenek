@@ -40,7 +40,7 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1">Kota ID</label>
-                        <input type="number" name="city_id" class="input-premium py-2 text-xs" value="{{ old('city_id', $user->city_id) }}" placeholder="Contoh: 152">
+                        <input type="text" inputmode="numeric" name="city_id" class="input-premium py-2 text-xs" value="{{ old('city_id', $user->city_id) }}" placeholder="Contoh: 152" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         <p class="mt-1.5 text-[10px] text-gray-400">ID kota dari layanan ongkir bila tersedia.</p>
                     </div>
                     <div>

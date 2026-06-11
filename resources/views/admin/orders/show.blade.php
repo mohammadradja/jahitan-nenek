@@ -175,7 +175,7 @@
                             <div class="flex items-center justify-between group">
                                 <div class="flex items-center space-x-6">
                                     <div class="w-24 h-24 rounded-[2rem] bg-vintage-cream overflow-hidden shadow-inner group-hover:scale-105 transition-transform duration-500 border border-white p-2">
-                                        <img src="{{ $item->product->image_url ?? 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=1072&auto=format&fit=crop' }}" class="w-full h-full object-cover rounded-[1.5rem]">
+                                        <img src="{{ $item->product?->imageUrl('https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=1072&auto=format&fit=crop') ?? 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=1072&auto=format&fit=crop' }}" class="w-full h-full object-cover rounded-[1.5rem]">
                                     </div>
                                     <div>
                                         <h5 class="text-lg font-bold text-dark-wool mb-1">{{ $item->product_name }}</h5>

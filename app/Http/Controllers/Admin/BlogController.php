@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
@@ -29,26 +31,26 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'title_en' => 'required|string|max:255',
             'slug' => 'required|string|unique:blogs,slug',
             'content' => 'required',
             'content_en' => 'required',
-            'image_url' => 'nullable|url',
+            'image_file' => 'nullable|file|mimes:jpg,jpeg,png,webp,gif,avif|max:5120',
             'status' => 'required|in:published,draft'
         ]);
 
         \App\Models\Blog::create([
             'author_id' => auth()->id(),
-            'title' => $request->title,
-            'title_en' => $request->title_en,
-            'slug' => $request->slug,
-            'content' => $request->content,
-            'content_en' => $request->content_en,
-            'image' => $request->image_url,
-            'status' => $request->status,
-            'published_at' => $request->status === 'published' ? now() : null,
+            'title' => $validated['title'],
+            'title_en' => $validated['title_en'],
+            'slug' => $validated['slug'],
+            'content' => $validated['content'],
+            'content_en' => $validated['content_en'],
+            'image' => $this->storeImage($request),
+            'status' => $validated['status'],
+            'published_at' => $validated['status'] === 'published' ? now() : null,
         ]);
 
         return redirect()->back()->with('success', 'Artikel berhasil dibuat!');
@@ -77,25 +79,25 @@ class BlogController extends Controller
     {
         $blog = \App\Models\Blog::findOrFail($id);
         
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'title_en' => 'required|string|max:255',
             'slug' => 'required|string|unique:blogs,slug,' . $id,
             'content' => 'required',
             'content_en' => 'required',
-            'image_url' => 'nullable|url',
+            'image_file' => 'nullable|file|mimes:jpg,jpeg,png,webp,gif,avif|max:5120',
             'status' => 'required|in:published,draft'
         ]);
 
         $blog->update([
-            'title' => $request->title,
-            'title_en' => $request->title_en,
-            'slug' => $request->slug,
-            'content' => $request->content,
-            'content_en' => $request->content_en,
-            'image' => $request->image_url,
-            'status' => $request->status,
-            'published_at' => $request->status === 'published' ? ($blog->published_at ?? now()) : null,
+            'title' => $validated['title'],
+            'title_en' => $validated['title_en'],
+            'slug' => $validated['slug'],
+            'content' => $validated['content'],
+            'content_en' => $validated['content_en'],
+            'image' => $this->storeImage($request, $blog->image),
+            'status' => $validated['status'],
+            'published_at' => $validated['status'] === 'published' ? ($blog->published_at ?? now()) : null,
         ]);
 
         return redirect()->back()->with('success', 'Artikel berhasil diperbarui!');
@@ -110,5 +112,22 @@ class BlogController extends Controller
         $blog->delete();
 
         return redirect()->back()->with('success', 'Artikel berhasil dihapus!');
+    }
+
+    private function storeImage(Request $request, ?string $currentImage = null): ?string
+    {
+        if (!$request->hasFile('image_file')) {
+            return $currentImage;
+        }
+
+        File::ensureDirectoryExists(public_path('assets/images/blogs'));
+
+        $file = $request->file('image_file');
+        $filename = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+        $filename = ($filename ?: 'blog') . '-' . time() . '.' . $file->getClientOriginalExtension();
+
+        $file->move(public_path('assets/images/blogs'), $filename);
+
+        return 'assets/images/blogs/' . $filename;
     }
 }

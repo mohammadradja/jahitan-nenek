@@ -109,20 +109,22 @@
                     @csrf
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nama Lengkap</label>
-                        <input type="text" name="name" required class="input-premium py-3 text-sm">
+                        <input type="text" name="name" required class="input-premium py-3 text-sm" placeholder="Contoh: Admin Operasional">
+                        <p class="mt-2 text-[10px] text-gray-400">Nama ini akan tampil pada data staf sistem.</p>
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Alamat Email</label>
-                        <input type="email" name="email" required class="input-premium py-3 text-sm">
+                        <input type="email" name="email" required class="input-premium py-3 text-sm" placeholder="admin@jahitannenek.com">
+                        <p class="mt-2 text-[10px] text-gray-400">Email dipakai untuk login dashboard.</p>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Password</label>
-                            <input type="password" name="password" required class="input-premium py-3 text-sm">
+                            <input type="password" name="password" required class="input-premium py-3 text-sm" placeholder="Min. 8 karakter">
                         </div>
                         <div>
                             <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Konfirmasi</label>
-                            <input type="password" name="password_confirmation" required class="input-premium py-3 text-sm">
+                            <input type="password" name="password_confirmation" required class="input-premium py-3 text-sm" placeholder="Ulangi password">
                         </div>
                     </div>
                     <div>
@@ -155,11 +157,13 @@
                     @method('PUT')
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nama Lengkap</label>
-                        <input type="text" name="name" x-model="editData.name" required class="input-premium py-3 text-sm">
+                        <input type="text" name="name" x-model="editData.name" required class="input-premium py-3 text-sm" placeholder="Contoh: Admin Operasional">
+                        <p class="mt-2 text-[10px] text-gray-400">Perbarui nama staf yang tampil di dashboard.</p>
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Alamat Email</label>
-                        <input type="email" name="email" x-model="editData.email" required class="input-premium py-3 text-sm">
+                        <input type="email" name="email" x-model="editData.email" required class="input-premium py-3 text-sm" placeholder="admin@jahitannenek.com">
+                        <p class="mt-2 text-[10px] text-gray-400">Pastikan email valid karena dipakai untuk login.</p>
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Role Akses</label>
@@ -173,11 +177,11 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Password Baru</label>
-                                <input type="password" name="password" class="input-premium py-2 text-xs">
+                                <input type="password" name="password" class="input-premium py-2 text-xs" placeholder="Min. 8 karakter">
                             </div>
                             <div>
                                 <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Konfirmasi</label>
-                                <input type="password" name="password_confirmation" class="input-premium py-2 text-xs">
+                                <input type="password" name="password_confirmation" class="input-premium py-2 text-xs" placeholder="Ulangi password baru">
                             </div>
                         </div>
                     </div>

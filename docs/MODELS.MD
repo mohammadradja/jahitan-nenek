@@ -31,6 +31,9 @@ Relationships:
 Notes:
 
 - Uses Laravel Scout `Searchable`, but controllers currently use SQL `like` searches.
+- `price` is the checkout/cart transaction price; `price_min` and `price_max` are optional display estimates for storefront price ranges.
+- `formattedEstimatedPrice()` returns a formatted single price or range label.
+- `imageUrl()` resolves external URLs and local `public/assets/images/...` paths for Blade views.
 - Fillable includes `meta_keywords`, but the migration does not create a `meta_keywords` column.
 - No `status` column exists, but `FeedController` queries `Product::where('status', 'published')`.
 
@@ -45,6 +48,7 @@ Relationships:
 Notes:
 
 - Fillable fields are aligned with the migration: `name`, `slug`, `image_url`, `description`, `meta_title`, and `meta_description`.
+- `imageUrl()` resolves external URLs and local `public/assets/images/categories` paths for Blade views.
 
 ## `Order`
 
@@ -105,6 +109,7 @@ These return English values on public pages when locale is `en` and fallback val
 Notes:
 
 - Uses Laravel Scout `Searchable`.
+- `imageUrl()` resolves external URLs and local `public/assets/images/blogs` paths for Blade views.
 - Fillable includes `meta_keywords`, but the migration does not create that column.
 
 ## `SiteSetting`
@@ -120,6 +125,7 @@ Methods:
 Notes:
 
 - `value` is cast as JSON. Keep all writes through the model helper to keep encoding consistent.
+- Promo display values are stored as settings under the `promo` group.
 - `getTranslatabled` appears to be a typo, but it is the existing method name.
 
 ## Supporting Models

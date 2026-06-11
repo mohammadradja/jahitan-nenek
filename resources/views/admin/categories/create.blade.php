@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <form action="{{ route('admin.categories.store') }}" method="POST" class="space-y-8">
+            <form action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
                 @csrf
                 <div class="space-y-6">
                     <div>
@@ -31,6 +31,16 @@
                         <input type="text" name="slug" id="slug" class="input-premium" placeholder="cardigan-vintage" value="{{ old('slug') }}" required>
                         <p class="mt-2 text-[10px] text-gray-400 font-medium italic">Slug akan otomatis terisi dan digunakan untuk alamat URL kategori.</p>
                         @error('slug') <p class="mt-2 text-xs text-red-500 font-bold uppercase tracking-wider">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Gambar Kategori</label>
+                        <x-ui.image-upload
+                            name="image_file"
+                            title="Klik atau seret gambar kategori ke area ini"
+                            empty-text="Opsional, belum ada file dipilih"
+                        />
+                        @error('image_file') <p class="mt-2 text-xs text-red-500 font-bold uppercase tracking-wider">{{ $message }}</p> @enderror
                     </div>
                 </div>
 

@@ -53,13 +53,13 @@
                     @foreach($recommendations as $rec)
                         <div class="group">
                             <div class="aspect-square rounded-2xl overflow-hidden mb-3 relative">
-                                <img src="{{ $rec->image_url ?? 'https://via.placeholder.com/300' }}" class="w-full h-full object-cover group-hover:scale-110 transition-all duration-500" alt="">
+                                <img src="{{ $rec->imageUrl('https://via.placeholder.com/300') }}" class="w-full h-full object-cover group-hover:scale-110 transition-all duration-500" alt="">
                                 <div class="absolute inset-0 bg-dark-wool/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                     <a href="{{ route('product.show', $rec->slug) }}" class="btn-premium px-4 py-2 text-[8px]">Lihat Detail</a>
                                 </div>
                             </div>
                             <h5 class="text-xs font-bold text-dark-wool line-clamp-1">{{ $rec->name }}</h5>
-                            <p class="text-[10px] text-soft-rose font-bold">Rp{{ number_format($rec->price, 0, ',', '.') }}</p>
+                            <p class="text-[10px] text-soft-rose font-bold">{{ $rec->formattedEstimatedPrice() }}</p>
                         </div>
                     @endforeach
                 </div>

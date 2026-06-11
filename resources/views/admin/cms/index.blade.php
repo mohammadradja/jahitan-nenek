@@ -91,7 +91,14 @@
                                                 <img src="{{ asset($settings['site_logo']) }}" class="max-h-full max-w-full object-contain" alt="Logo">
                                             </div>
                                         @endif
-                                        <input type="file" name="site_logo" class="input-premium py-2 text-xs w-full" accept="image/*">
+                                        <div class="flex-1">
+                                            <x-ui.image-upload
+                                                name="site_logo"
+                                                title="Klik atau seret logo baru"
+                                                empty-text="Ganti hanya jika ingin memperbarui logo"
+                                                compact
+                                            />
+                                        </div>
                                     </div>
                                 </div>
 
@@ -103,7 +110,14 @@
                                                 <img src="{{ asset($settings['site_favicon']) }}" class="max-h-full max-w-full object-contain" alt="Favicon">
                                             </div>
                                         @endif
-                                        <input type="file" name="site_favicon" class="input-premium py-2 text-xs w-full" accept="image/*">
+                                        <div class="flex-1">
+                                            <x-ui.image-upload
+                                                name="site_favicon"
+                                                title="Klik atau seret favicon baru"
+                                                empty-text="Ganti hanya jika ingin memperbarui favicon"
+                                                compact
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -115,12 +129,14 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-2">Link Instagram</label>
-                                    <input type="text" name="cms_instagram_url" class="input-premium py-3 text-xs" value="{{ $settings['cms_instagram_url'] ?? 'https://instagram.com' }}">
+                                    <input type="text" name="cms_instagram_url" class="input-premium py-3 text-xs" value="{{ $settings['cms_instagram_url'] ?? 'https://instagram.com' }}" placeholder="https://instagram.com/username">
+                                    <p class="mt-2 text-[10px] text-gray-400">Alamat profil Instagram yang tampil di storefront.</p>
                                 </div>
 
                                 <div>
                                     <label class="block text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-2">Link WhatsApp</label>
-                                    <input type="text" name="cms_whatsapp_url" class="input-premium py-3 text-xs" value="{{ $settings['cms_whatsapp_url'] ?? 'https://wa.me/628123456789' }}">
+                                    <input type="text" name="cms_whatsapp_url" class="input-premium py-3 text-xs" value="{{ $settings['cms_whatsapp_url'] ?? 'https://wa.me/628123456789' }}" placeholder="https://wa.me/62812xxxx">
+                                    <p class="mt-2 text-[10px] text-gray-400">Link WhatsApp yang dibuka pelanggan saat menghubungi toko.</p>
                                 </div>
                             </div>
                         </div>
@@ -134,18 +150,21 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-2">Judul Banner Utama (Hero Title)</label>
-                                    <input type="text" name="cms_hero_title" class="input-premium py-3 text-xs" value="{{ $settings['cms_hero_title'] ?? 'Jahitan Kasih, Hangat & Personal' }}">
+                                    <input type="text" name="cms_hero_title" class="input-premium py-3 text-xs" value="{{ $settings['cms_hero_title'] ?? 'Jahitan Kasih, Hangat & Personal' }}" placeholder="Contoh: Jahitan Kasih, Hangat & Personal">
+                                    <p class="mt-2 text-[10px] text-gray-400">Judul utama yang tampil di banner halaman depan.</p>
                                 </div>
 
                                 <div>
                                     <label class="block text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-2">Sub-judul Banner Utama (Hero Subtitle)</label>
-                                    <textarea name="cms_hero_subtitle" rows="3" class="input-premium py-3 text-xs leading-relaxed">{{ $settings['cms_hero_subtitle'] ?? 'Setiap rajutan dikerjakan dengan tangan terampil yang penuh kasih, menghadirkan kehangatan sejati untuk keluarga Anda.' }}</textarea>
+                                    <textarea name="cms_hero_subtitle" rows="3" class="input-premium py-3 text-xs leading-relaxed" placeholder="Tuliskan sub-judul pendek untuk banner utama...">{{ $settings['cms_hero_subtitle'] ?? 'Setiap rajutan dikerjakan dengan tangan terampil yang penuh kasih, menghadirkan kehangatan sejati untuk keluarga Anda.' }}</textarea>
+                                    <p class="mt-2 text-[10px] text-gray-400">Ringkasan singkat untuk menjelaskan nilai utama brand.</p>
                                 </div>
 
                                 <div class="grid grid-cols-1 gap-4">
                                     <div>
                                         <label class="block text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-2">Teks Tombol Aksi (CTA Button)</label>
-                                        <input type="text" name="cms_hero_cta" class="input-premium py-3 text-xs" value="{{ $settings['cms_hero_cta'] ?? 'Lihat Produk' }}">
+                                        <input type="text" name="cms_hero_cta" class="input-premium py-3 text-xs" value="{{ $settings['cms_hero_cta'] ?? 'Lihat Produk' }}" placeholder="Contoh: Lihat Produk">
+                                        <p class="mt-2 text-[10px] text-gray-400">Teks pendek untuk tombol aksi di banner.</p>
                                     </div>
 
                                     <div>
@@ -156,7 +175,14 @@
                                                     <img src="{{ asset($settings['cms_hero_image']) }}" class="w-full h-full object-cover rounded-lg" alt="Hero Banner">
                                                 </div>
                                             @endif
-                                            <input type="file" name="cms_hero_image" class="input-premium py-2 text-xs w-full" accept="image/*">
+                                            <div class="flex-1">
+                                                <x-ui.image-upload
+                                                    name="cms_hero_image"
+                                                    title="Klik atau seret gambar banner baru"
+                                                    empty-text="Ganti hanya jika ingin memperbarui banner"
+                                                    compact
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -169,12 +195,14 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-2">Judul Cerita (About Title)</label>
-                                    <input type="text" name="cms_about_title" class="input-premium py-3 text-xs" value="{{ $settings['cms_about_title'] ?? 'Cerita di Balik Jahitan' }}">
+                                    <input type="text" name="cms_about_title" class="input-premium py-3 text-xs" value="{{ $settings['cms_about_title'] ?? 'Cerita di Balik Jahitan' }}" placeholder="Contoh: Cerita di Balik Jahitan">
+                                    <p class="mt-2 text-[10px] text-gray-400">Judul bagian cerita brand pada halaman About.</p>
                                 </div>
 
                                 <div>
                                     <label class="block text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-2">Isi Cerita Lengkap (About Text)</label>
-                                    <textarea name="cms_about_text" rows="4" class="input-premium py-3 text-xs leading-relaxed">{{ $settings['cms_about_text'] ?? 'Dimulai dari sebuah hobi merajut dari Nenek yang menyukai kehangatan benang wol untuk cucu tercintanya. Kini Jahitan Nenek hadir untuk membagikan rajutan berkualitas premium, dibuat manual dengan detail presisi tinggi, dan dikerjakan penuh kasih sayang.' }}</textarea>
+                                    <textarea name="cms_about_text" rows="4" class="input-premium py-3 text-xs leading-relaxed" placeholder="Tuliskan cerita singkat tentang Jahitan Nenek...">{{ $settings['cms_about_text'] ?? 'Dimulai dari sebuah hobi merajut dari Nenek yang menyukai kehangatan benang wol untuk cucu tercintanya. Kini Jahitan Nenek hadir untuk membagikan rajutan berkualitas premium, dibuat manual dengan detail presisi tinggi, dan dikerjakan penuh kasih sayang.' }}</textarea>
+                                    <p class="mt-2 text-[10px] text-gray-400">Teks ini membantu pelanggan mengenal cerita di balik brand.</p>
                                 </div>
 
                                 <div>
@@ -185,7 +213,14 @@
                                                 <img src="{{ asset($settings['cms_about_image']) }}" class="w-full h-full object-cover rounded-lg" alt="About Image">
                                             </div>
                                         @endif
-                                        <input type="file" name="cms_about_image" class="input-premium py-2 text-xs w-full" accept="image/*">
+                                        <div class="flex-1">
+                                            <x-ui.image-upload
+                                                name="cms_about_image"
+                                                title="Klik atau seret gambar cerita baru"
+                                                empty-text="Ganti hanya jika ingin memperbarui gambar"
+                                                compact
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>

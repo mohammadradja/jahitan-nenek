@@ -57,7 +57,7 @@
     }
 
     .input-premium {
-        @apply w-full rounded-[2rem] py-4 px-8 bg-white border border-gray-100 font-bold text-dark-wool placeholder:text-gray-300 focus:border-soft-rose focus:ring-8 focus:ring-soft-rose/5 outline-none transition-all duration-300;
+        @apply w-full rounded-[2rem] py-4 px-8 bg-white border border-gray-100 font-medium text-gray-700 placeholder:text-gray-400 focus:border-soft-rose focus:ring-8 focus:ring-soft-rose/5 outline-none transition-all duration-300;
     }
 
     .table-premium {

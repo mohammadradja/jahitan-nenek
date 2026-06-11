@@ -16,6 +16,8 @@ Default ordering is latest products. Results are paginated by 9 and preserve que
 
 `HomeController@show` loads a product by slug and fetches up to four related products from the same category.
 
+Product storefront prices are display estimates when `price_min` and `price_max` are present. Cart and checkout still use `products.price` as the transaction price.
+
 ## Session Cart
 
 Cart state lives in the session under `cart`.
@@ -45,7 +47,7 @@ Flow:
 5. Creates order item snapshots.
 6. Clears the session cart.
 7. Redirects to payment instructions.
-8. Customer uploads a payment proof image.
+8. Customer uploads a PNG/JPG/WEBP/GIF/AVIF payment proof image up to 5 MB.
 9. Order is updated to `payment_status=pending_manual_approval`.
 10. Admin approves or rejects payment.
 
@@ -97,10 +99,12 @@ The tracking result page displays production stage timeline entries when present
 
 There are two update paths:
 
-- `CMSController` stores uploaded brand/CMS files directly under `public/assets/brand` and `public/assets/cms`.
-- `Superadmin\SiteSettingController` stores uploaded brand/CMS files on the `public` disk under `storage/app/public`.
+- `CMSController` validates uploaded brand/CMS images up to 5 MB and stores files directly under `public/assets/images/settings`.
+- `Superadmin\SiteSettingController` validates uploaded brand/CMS images up to 5 MB and stores files directly under `public/assets/images/settings`.
 
 Both write settings through `SiteSetting::set()`.
+
+Promo settings can be managed from the settings dashboard. When `promo_enabled` is active, the storefront product section displays the configured label, description, and estimate values stored in `promo_original_price` and `promo_real_price`.
 
 ## Localization
 
@@ -120,4 +124,3 @@ Reports are implemented in `Admin\ReportController` and reused by superadmin rou
 - Stock: all products, inventory value, low stock.
 - Customers: user role `user`, paid-order count/sum, retention metrics.
 - Finance: paid orders, gross revenue, shipping cost, net revenue.
-

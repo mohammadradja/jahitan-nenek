@@ -19,4 +19,17 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function imageUrl(?string $fallback = null): ?string
+    {
+        if (!$this->image_url) {
+            return $fallback;
+        }
+
+        if (str_starts_with($this->image_url, 'http://') || str_starts_with($this->image_url, 'https://') || str_starts_with($this->image_url, '//')) {
+            return $this->image_url;
+        }
+
+        return asset($this->image_url);
+    }
 }

@@ -184,14 +184,14 @@
                     @foreach($top_products as $product)
                         <div class="flex items-center space-x-4 group">
                             <div class="w-16 h-16 rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex-shrink-0">
-                                <img src="{{ $product->image_url ?? 'https://via.placeholder.com/100' }}" class="w-full h-full object-cover group-hover:scale-110 transition-all duration-500" alt="">
+                                <img src="{{ $product->imageUrl('https://via.placeholder.com/100') }}" class="w-full h-full object-cover group-hover:scale-110 transition-all duration-500" alt="">
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-bold text-dark-wool line-clamp-1 group-hover:text-soft-rose transition-colors">{{ $product->name }}</p>
                                 <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">{{ $product->sales_count }} Sold</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-sm font-bold text-dark-wool">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
+                                <p class="text-sm font-bold text-dark-wool">{{ $product->formattedEstimatedPrice() }}</p>
                             </div>
                         </div>
                     @endforeach

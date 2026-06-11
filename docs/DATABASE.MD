@@ -38,6 +38,8 @@ erDiagram
         string name
         string slug
         integer price
+        integer price_min
+        integer price_max
         integer stock
         boolean is_customizable
     }
@@ -80,9 +82,11 @@ The `Category` model marks the category content and SEO columns fillable.
 
 Catalog products.
 
-Key columns: `category_id`, `name`, `slug` unique, `description`, `price`, `stock`, `is_customizable`, `weight`, `image_url`, `rating`, `sales_count`, `view_count`, SEO fields.
+Key columns: `category_id`, `name`, `slug` unique, `description`, `price`, `price_min`, `price_max`, `stock`, `is_customizable`, `weight`, `image_url`, `rating`, `sales_count`, `view_count`, SEO fields.
 
 `category_id` cascades on category deletion.
+
+`price` remains the transaction price used by cart and checkout. `price_min` and `price_max` drive storefront estimate labels such as `Rp50.000 - Rp100.000`.
 
 ### `blogs`
 
@@ -115,6 +119,8 @@ CMS, integration, localization, brand, payment, and logistics settings.
 Key columns: `key` unique, `value`, `type`, `group`.
 
 The model casts `value` as JSON. Use `SiteSetting::get()` and `SiteSetting::set()` consistently to avoid mixed storage semantics.
+
+Promo display settings use keys such as `promo_enabled`, `promo_label`, `promo_original_price`, `promo_real_price`, and `promo_description`.
 
 ### `measurements`
 
@@ -178,7 +184,7 @@ The migration file exists, but it defines `run()` instead of `up()`, so Laravel 
 
 ## Seeders
 
-`DatabaseSeeder` calls category, user, product, blog, and order seeders. `SiteSettingSeeder` exists but is not currently called by `DatabaseSeeder`.
+`DatabaseSeeder` calls category, user, product, blog, site setting, and order seeders. The seeded catalog, blog, settings, and sample orders are based on `database/u360592056_jahitannenek.sql`.
 
 Seeded users:
 

@@ -73,7 +73,7 @@
                             <!-- File Upload Area -->
                             <div class="relative border-2 border-dashed border-gray-200 rounded-[2rem] p-8 text-center hover:border-soft-rose/40 transition-colors cursor-pointer group"
                                  :class="imagePreview ? 'border-soft-rose/30 bg-soft-rose/5' : 'bg-gray-50/50'">
-                                <input type="file" name="payment_proof" id="payment_proof" @change="previewImage" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" accept="image/*" required>
+                                <input type="file" name="payment_proof" id="payment_proof" @change="previewImage" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" accept=".png,.jpg,.jpeg,.webp,.gif,.avif,image/png,image/jpeg,image/webp,image/gif,image/avif" required>
                                 
                                 <div x-show="!imagePreview" class="space-y-4">
                                     <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto text-gray-400 shadow-sm group-hover:scale-105 transition-transform">
@@ -81,7 +81,7 @@
                                     </div>
                                     <div>
                                         <p class="text-sm font-bold text-dark-wool">Pilih foto atau seret bukti transfer ke sini</p>
-                                        <p class="text-xs text-gray-400 mt-1">Format: JPG, PNG, atau WEBP (Maksimal 2MB)</p>
+                                        <p class="text-xs text-gray-400 mt-1">PNG, JPG, JPEG, WEBP, GIF, atau AVIF. Maksimal 5 MB.</p>
                                     </div>
                                 </div>
 

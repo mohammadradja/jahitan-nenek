@@ -72,7 +72,7 @@
             <div class="absolute inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="showCreateModal = false"></div>
             <div class="relative bg-white w-full max-w-lg rounded-5xl shadow-2xl p-10 animate__animated animate__zoomIn animate__faster">
                 <h3 class="text-2xl font-serif font-bold mb-8">Tambah Kategori</h3>
-                <form action="{{ route('admin.categories.store') }}" method="POST">
+                <form action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="space-y-6">
                         <div>
@@ -84,6 +84,16 @@
                             <label class="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Slug (URL)</label>
                             <input type="text" name="slug" required class="input-premium" placeholder="cardigan-klasik">
                             @error('slug') <p class="mt-2 text-xs text-red-500 font-bold uppercase tracking-wider">{{ $message }}</p> @enderror
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Gambar Kategori</label>
+                            <x-ui.image-upload
+                                name="image_file"
+                                title="Klik atau seret gambar kategori ke area ini"
+                                empty-text="Opsional, belum ada file dipilih"
+                                compact
+                            />
+                            @error('image_file') <p class="mt-2 text-xs text-red-500 font-bold uppercase tracking-wider">{{ $message }}</p> @enderror
                         </div>
                     </div>
                     <div class="mt-10 flex space-x-4">

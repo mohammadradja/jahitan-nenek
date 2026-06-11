@@ -28,7 +28,7 @@
 - `index()` requires a non-empty session cart.
 - `process()` validates customer/shipping fields, creates an `Order`, creates `OrderItem` rows, clears cart, and redirects to payment.
 - `payment(Order)` allows the owning customer or non-user roles; shows bank transfer info.
-- `uploadPaymentProof()` validates an image up to 2 MB, stores it on the public disk, and sets `payment_status=pending_manual_approval`.
+- `uploadPaymentProof()` validates a PNG/JPG/WEBP/GIF/AVIF image up to 5 MB, stores it on the public disk, and sets `payment_status=pending_manual_approval`.
 - `success()` renders the success page.
 - `track()` and `trackOrder()` look up orders by internal order ID and customer email.
 
@@ -48,7 +48,7 @@
 ### `CMSController`
 
 - `index()` loads all settings as `key => value` for `admin.cms.index`.
-- `update()` writes CMS/brand settings, handles file uploads into `public/assets/brand` and `public/assets/cms`, handles section visibility flags, and supports JSON/AJAX responses.
+- `update()` writes CMS/brand settings, validates CMS image uploads up to 5 MB, stores files into `public/assets/images/settings`, handles section visibility flags, and supports JSON/AJAX responses.
 
 ### `FeedController`
 
@@ -60,15 +60,14 @@
 ### `Admin\ProductController`
 
 - Lists products with search/category filters.
-- Creates and updates products using request validation.
+- Creates and updates products using request validation, including the compatibility transaction `price`, estimate range fields, and required local image upload on create.
 - Deletes products.
-- Uses mass assignment via `$request->all()`.
 - References `admin.products.edit`, which is not present in `resources/views`.
 
 ### `Admin\CategoryController`
 
 - Lists categories with product counts.
-- Creates, edits, updates, and deletes categories through validated fields: `name`, `slug`, `image_url`, `description`, `meta_title`, and `meta_description`.
+- Creates, edits, updates, and deletes categories through validated fields: `name`, `slug`, optional local image upload, `description`, `meta_title`, and `meta_description`.
 
 ### `Admin\OrderController`
 
@@ -90,7 +89,7 @@
 ### `Admin\BlogController`
 
 - Lists all blogs with authors.
-- Creates and updates localized blog content.
+- Creates and updates localized blog content with optional local cover image uploads.
 - Publishes by setting `published_at` when status is `published`; clears it for drafts.
 - Deletes blogs.
 - Resource create/show/edit methods are empty.
@@ -107,7 +106,8 @@
 ### `Superadmin\SiteSettingController`
 
 - Loads and updates site settings.
-- Stores brand/CMS image uploads on the public storage disk.
+- Validates brand/CMS image uploads up to 5 MB and stores them under `public/assets/images/settings`.
+- Updates promo settings for storefront estimate display using `promo_original_price` and `promo_real_price`.
 - Tests WhatsApp by sending a Fonnte message to the configured center number.
 - Tests Midtrans by posting a minimal transaction to the sandbox or production Snap token endpoint.
 

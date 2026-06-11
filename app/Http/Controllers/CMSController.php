@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SiteSetting;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class CMSController extends Controller
 {
@@ -16,50 +17,35 @@ class CMSController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate($this->imageValidationRules());
+
         $data = $request->except(['_token']);
         
-        // Ensure directories exist
-        \Illuminate\Support\Facades\File::ensureDirectoryExists(public_path('assets/brand'));
-        \Illuminate\Support\Facades\File::ensureDirectoryExists(public_path('assets/cms'));
+        File::ensureDirectoryExists(public_path('assets/images/settings'));
 
         // Handle Brand Assets
         if ($request->hasFile('site_logo')) {
-            $file = $request->file('site_logo');
-            $filename = 'logo-' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('assets/brand'), $filename);
-            SiteSetting::set('site_logo', 'assets/brand/' . $filename);
+            SiteSetting::set('site_logo', $this->storeImage($request, 'site_logo'));
         }
         
         if ($request->hasFile('site_favicon')) {
-            $file = $request->file('site_favicon');
-            $filename = 'favicon-' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('assets/brand'), $filename);
-            SiteSetting::set('site_favicon', 'assets/brand/' . $filename);
+            SiteSetting::set('site_favicon', $this->storeImage($request, 'site_favicon'));
         }
 
         // Handle CMS Landing Page Image Uploads
         if ($request->hasFile('cms_hero_image')) {
-            $file = $request->file('cms_hero_image');
-            $filename = 'hero-' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('assets/cms'), $filename);
-            SiteSetting::set('cms_hero_image', 'assets/cms/' . $filename);
+            SiteSetting::set('cms_hero_image', $this->storeImage($request, 'cms_hero_image'));
         }
 
         if ($request->hasFile('cms_about_image')) {
-            $file = $request->file('cms_about_image');
-            $filename = 'about-' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('assets/cms'), $filename);
-            SiteSetting::set('cms_about_image', 'assets/cms/' . $filename);
+            SiteSetting::set('cms_about_image', $this->storeImage($request, 'cms_about_image'));
         }
 
         // Handle Gallery Image Uploads (img1 to img4)
         for ($i = 1; $i <= 4; $i++) {
             $key = 'cms_gallery_img' . $i;
             if ($request->hasFile($key)) {
-                $file = $request->file($key);
-                $filename = 'gallery-' . $i . '-' . time() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('assets/cms'), $filename);
-                SiteSetting::set($key, 'assets/cms/' . $filename);
+                SiteSetting::set($key, $this->storeImage($request, $key));
             }
         }
 
@@ -97,5 +83,25 @@ class CMSController extends Controller
         }
 
         return redirect()->back()->with('success', $message);
+    }
+
+    private function storeImage(Request $request, string $key): string
+    {
+        $file = $request->file($key);
+        $filename = Str::slug($key) . '-' . time() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('assets/images/settings'), $filename);
+
+        return 'assets/images/settings/' . $filename;
+    }
+
+    private function imageValidationRules(): array
+    {
+        $rules = [];
+
+        foreach (['site_logo', 'site_favicon', 'cms_hero_image', 'cms_about_image', 'cms_gallery_img1', 'cms_gallery_img2', 'cms_gallery_img3', 'cms_gallery_img4'] as $key) {
+            $rules[$key] = ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif,avif', 'max:5120'];
+        }
+
+        return $rules;
     }
 }

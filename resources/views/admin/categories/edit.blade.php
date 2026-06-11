@@ -17,44 +17,49 @@
                 </div>
             </div>
 
-            <form action="{{ route('admin.categories.update', $category) }}" method="POST" class="space-y-8">
+            <form action="{{ route('admin.categories.update', $category) }}" method="POST" enctype="multipart/form-data" class="space-y-8">
                 @csrf
                 @method('PUT')
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Nama Kategori</label>
-                        <input type="text" name="name" class="input-premium" value="{{ old('name', $category->name) }}" required autofocus>
+                        <input type="text" name="name" class="input-premium" value="{{ old('name', $category->name) }}" placeholder="Contoh: Cardigan Vintage" required autofocus>
                         @error('name') <p class="mt-2 text-xs text-red-500 font-bold uppercase tracking-wider">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Slug (URL)</label>
-                        <input type="text" name="slug" class="input-premium" value="{{ old('slug', $category->slug) }}" required>
+                        <input type="text" name="slug" class="input-premium" value="{{ old('slug', $category->slug) }}" placeholder="cardigan-vintage" required>
                         @error('slug') <p class="mt-2 text-xs text-red-500 font-bold uppercase tracking-wider">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="md:col-span-2">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">URL Gambar</label>
-                        <input type="text" name="image_url" class="input-premium" value="{{ old('image_url', $category->image_url) }}" placeholder="https://...">
-                        @error('image_url') <p class="mt-2 text-xs text-red-500 font-bold uppercase tracking-wider">{{ $message }}</p> @enderror
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Gambar Kategori</label>
+                        <x-ui.image-upload
+                            name="image_file"
+                            :current="$category->imageUrl()"
+                            title="Klik atau seret gambar baru untuk mengganti gambar"
+                            empty-text="Ganti hanya jika ingin memperbarui gambar"
+                        />
+                        @error('image_file') <p class="mt-2 text-xs text-red-500 font-bold uppercase tracking-wider">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="md:col-span-2">
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Deskripsi</label>
-                        <textarea name="description" class="input-premium h-32 resize-none">{{ old('description', $category->description) }}</textarea>
+                        <textarea name="description" class="input-premium h-32 resize-none" placeholder="Tuliskan deskripsi singkat kategori...">{{ old('description', $category->description) }}</textarea>
                         @error('description') <p class="mt-2 text-xs text-red-500 font-bold uppercase tracking-wider">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Meta Title</label>
-                        <input type="text" name="meta_title" class="input-premium" value="{{ old('meta_title', $category->meta_title) }}">
+                        <input type="text" name="meta_title" class="input-premium" value="{{ old('meta_title', $category->meta_title) }}" placeholder="Judul SEO kategori">
                         @error('meta_title') <p class="mt-2 text-xs text-red-500 font-bold uppercase tracking-wider">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Meta Description</label>
-                        <textarea name="meta_description" class="input-premium h-24 resize-none">{{ old('meta_description', $category->meta_description) }}</textarea>
+                        <textarea name="meta_description" class="input-premium h-24 resize-none" placeholder="Ringkasan SEO untuk mesin pencari...">{{ old('meta_description', $category->meta_description) }}</textarea>
                         @error('meta_description') <p class="mt-2 text-xs text-red-500 font-bold uppercase tracking-wider">{{ $message }}</p> @enderror
                     </div>
                 </div>

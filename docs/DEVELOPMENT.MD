@@ -43,6 +43,8 @@ Follow existing Laravel conventions:
 - Payment lifecycle currently uses `orders.payment_status`.
 - Cart state is session-based.
 - CMS/settings state is database-backed through `site_settings`.
+- Product images uploaded from admin product forms are stored under `public/assets/images/products`.
+- Brand and CMS images uploaded from settings/CMS forms are stored under `public/assets/images/settings`.
 - Uploaded payment proofs use the public storage disk.
 
 ## Frontend Conventions
@@ -58,4 +60,3 @@ Follow existing Laravel conventions:
 - Every substantial code change should update the relevant doc in `docs/`.
 - Document observed behavior, not intended behavior.
 - If a known issue is fixed, remove or update it in `TECHNICAL-DEBT.MD`.
-

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
@@ -50,7 +52,7 @@ class CategoryController extends Controller
 
     private function validatedCategoryData(Request $request, ?Category $category = null): array
     {
-        return $request->validate([
+        $validated = $request->validate([
             'name' => [
                 'required',
                 'string',
@@ -63,10 +65,32 @@ class CategoryController extends Controller
                 'max:255',
                 Rule::unique('categories', 'slug')->ignore($category),
             ],
-            'image_url' => ['nullable', 'string', 'max:2048'],
+            'image_file' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif,avif', 'max:5120'],
             'description' => ['nullable', 'string'],
             'meta_title' => ['nullable', 'string', 'max:255'],
             'meta_description' => ['nullable', 'string'],
         ]);
+
+        $validated['image_url'] = $this->storeImage($request, $category?->image_url);
+        unset($validated['image_file']);
+
+        return $validated;
+    }
+
+    private function storeImage(Request $request, ?string $currentImage = null): ?string
+    {
+        if (!$request->hasFile('image_file')) {
+            return $currentImage;
+        }
+
+        File::ensureDirectoryExists(public_path('assets/images/categories'));
+
+        $file = $request->file('image_file');
+        $filename = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+        $filename = ($filename ?: 'category') . '-' . time() . '.' . $file->getClientOriginalExtension();
+
+        $file->move(public_path('assets/images/categories'), $filename);
+
+        return 'assets/images/categories/' . $filename;
     }
 }

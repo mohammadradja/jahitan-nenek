@@ -28,7 +28,7 @@
                             <td class="px-10 py-6">
                                 <div class="flex items-center space-x-4">
                                     <div class="w-12 h-12 rounded-xl overflow-hidden border border-gray-100">
-                                        <img src="{{ $product->image_url ?? 'https://via.placeholder.com/50' }}" class="w-full h-full object-cover">
+                                        <img src="{{ $product->imageUrl('https://via.placeholder.com/50') }}" class="w-full h-full object-cover">
                                     </div>
                                     <span class="font-bold text-dark-wool">{{ $product->name }}</span>
                                 </div>

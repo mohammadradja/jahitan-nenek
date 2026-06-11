@@ -11,9 +11,9 @@
 
 ## Public Views
 
-- `home.blade.php` renders CMS-driven hero/features/gallery sections and product grid.
+- `home.blade.php` renders CMS-driven hero/features/gallery sections, optional promo price banner, and product grid.
 - `about.blade.php` and `contact.blade.php` are static public pages.
-- `product/show.blade.php` renders product details, related products, cart/buy-now interactions, and measurement fields for customizable products.
+- `product/show.blade.php` renders product details with estimated price ranges, related products, cart/buy-now interactions, and measurement fields for customizable products.
 - `blog/index.blade.php` and `blog/show.blade.php` render public blog pages.
 - `cart/index.blade.php` renders the session cart.
 - `checkout/*.blade.php` render checkout, manual payment, success, tracking form, and tracking result pages.
@@ -87,6 +87,11 @@ Views frequently read CMS data through `SiteSetting::get()` and `SiteSetting::ge
 - Social links.
 - Section visibility flags.
 - Bank transfer instructions.
+- Promo display values for storefront estimate display (`promo_original_price` and `promo_real_price` keys).
+
+Dashboard image fields use drag-and-drop file upload controls rather than URL inputs. Product, category, blog, CMS, and payment-proof image inputs accept PNG, JPG/JPEG, WEBP, GIF, or AVIF files up to 5 MB.
+
+Product, blog, and category image views use model `imageUrl()` helpers so local uploads under `public/assets/images/...` and legacy external URLs render consistently.
 
 ## View Maintenance Notes
 

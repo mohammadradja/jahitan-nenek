@@ -15,8 +15,13 @@ class SiteSettingSeeder extends Seeder
         $settings = [
             // General
             ['key' => 'site_name', 'value' => 'Jahitan Nenek', 'type' => 'string', 'group' => 'general'],
-            ['key' => 'site_tagline', 'value' => 'Rajutan Kasih Sayang dari Tangan Nenek', 'type' => 'string', 'group' => 'general'],
+            ['key' => 'site_tagline', 'value' => 'Rajutan Kasih Sayang Premium', 'type' => 'string', 'group' => 'general'],
             ['key' => 'transaction_mode', 'value' => 'dev', 'type' => 'string', 'group' => 'general'], // dev or prod
+            ['key' => 'promo_enabled', 'value' => '0', 'type' => 'boolean', 'group' => 'promo'],
+            ['key' => 'promo_label', 'value' => 'Promo Spesial', 'type' => 'string', 'group' => 'promo'],
+            ['key' => 'promo_original_price', 'value' => '150000', 'type' => 'integer', 'group' => 'promo'],
+            ['key' => 'promo_real_price', 'value' => '100000', 'type' => 'integer', 'group' => 'promo'],
+            ['key' => 'promo_description', 'value' => 'Harga spesial untuk koleksi pilihan Jahitan Nenek.', 'type' => 'string', 'group' => 'promo'],
 
             // Midtrans
             ['key' => 'midtrans_server_key', 'value' => 'SB-Mid-server-XXXXX', 'type' => 'string', 'group' => 'payment_midtrans'],
@@ -25,7 +30,7 @@ class SiteSettingSeeder extends Seeder
             ['key' => 'midtrans_base_url', 'value' => 'https://app.sandbox.midtrans.com/snap/v1', 'type' => 'string', 'group' => 'payment_midtrans'],
 
             // Bank Transfer & Flat Shipping
-            ['key' => 'bank_transfer_info', 'value' => "BCA: 123-456-7890 a/n Jahitan Nenek\nMandiri: 987-654-3210 a/n Jahitan Nenek", 'type' => 'string', 'group' => 'payment_bank'],
+            ['key' => 'bank_transfer_info', 'value' => "BCA: 713-152-9329 a/n Risma Ayu Anggraini\nMANDIRI: 987-654-3210 a/n Jahitan Nenek", 'type' => 'string', 'group' => 'payment_bank'],
             ['key' => 'flat_shipping_cost', 'value' => '15000', 'type' => 'integer', 'group' => 'logistics'],
             
             // Logistics
@@ -41,10 +46,10 @@ class SiteSettingSeeder extends Seeder
             ['key' => 'qrisly_base_url', 'value' => 'https://api.qrisly.id/v1', 'type' => 'string', 'group' => 'payment_qrisly'],
 
             // WhatsApp (Fonnte)
-            ['key' => 'whatsapp_number', 'value' => '628123456789', 'type' => 'string', 'group' => 'notifications'],
+            ['key' => 'whatsapp_number', 'value' => '62-888-9288-083', 'type' => 'string', 'group' => 'notifications'],
             ['key' => 'whatsapp_api_token', 'value' => 'dummy_token', 'type' => 'string', 'group' => 'notifications'],
-            ['key' => 'whatsapp_base_url', 'value' => 'https://api.fonnte.com/send', 'type' => 'string', 'group' => 'notifications'],
-            ['key' => 'whatsapp_enabled', 'value' => '0', 'type' => 'boolean', 'group' => 'notifications'],
+            ['key' => 'whatsapp_base_url', 'value' => 'https://wa.me/qr/ULW3DK6V5AYDC1', 'type' => 'string', 'group' => 'notifications'],
+            ['key' => 'whatsapp_enabled', 'value' => '1', 'type' => 'boolean', 'group' => 'notifications'],
 
             // Mail / SMTP
             ['key' => 'mail_from_address', 'value' => 'hello@jahitannenek.com', 'type' => 'string', 'group' => 'mail'],

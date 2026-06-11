@@ -35,8 +35,6 @@ This list documents observed implementation issues. It is not a request to chang
 
 - `SiteSetting.value` is cast as JSON while the schema/comments and setting types often describe strings/booleans/integers. Always verify stored value behavior before direct SQL edits.
 - `SiteSetting::getTranslatabled()` appears misspelled.
-- CMS file upload paths are inconsistent: one controller writes into `public/assets`, another writes to the public storage disk.
-- `SiteSettingSeeder` is not called by `DatabaseSeeder`.
 
 ## Security and Maintainability
 

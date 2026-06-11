@@ -94,7 +94,7 @@ class CheckoutController extends Controller
         }
 
         $request->validate([
-            'payment_proof' => 'required|image|max:2048',
+            'payment_proof' => 'required|file|mimes:jpg,jpeg,png,webp,gif,avif|max:5120',
         ]);
 
         if ($request->hasFile('payment_proof')) {

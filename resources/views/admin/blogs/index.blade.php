@@ -8,14 +8,19 @@
     showCreateModal: false, 
     showEditModal: false,
     editData: { id: '', title: '', title_en: '', slug: '', content: '', content_en: '', image: '', status: 'draft' },
+    openCreate() {
+        this.showEditModal = false;
+        this.showCreateModal = true;
+    },
     openEdit(blog) {
+        this.showCreateModal = false;
         this.editData = { ...blog };
         this.showEditModal = true;
     }
 }">
     <div class="flex justify-between items-center mb-8">
         <h3 class="text-xl font-bold text-dark-wool">Semua Artikel</h3>
-        <button @click="showCreateModal = true" class="btn-premium flex items-center space-x-2">
+        <button @click="openCreate()" class="btn-premium flex items-center space-x-2">
             <i class="fas fa-plus"></i>
             <span>Tulis Artikel</span>
         </button>
@@ -38,7 +43,7 @@
                         <tr class="hover:bg-gray-50/50 transition-colors">
                             <td class="px-8 py-6">
                                 <div class="flex items-center space-x-4">
-                                    <img src="{{ $blog->image ?? 'https://via.placeholder.com/50' }}" class="w-12 h-12 rounded-xl object-cover shadow-sm" alt="">
+                                    <img src="{{ $blog->imageUrl('https://via.placeholder.com/50') }}" class="w-12 h-12 rounded-xl object-cover shadow-sm" alt="">
                                     <div>
                                         <p class="font-bold text-dark-wool line-clamp-1">{{ $blog->title }}</p>
                                         <p class="text-[10px] text-gray-400 line-clamp-1 italic font-medium">EN: {{ $blog->title_en ?? '-' }}</p>
@@ -99,7 +104,7 @@
                     </button>
                 </div>
                 
-                <form action="{{ route('admin.blogs.store') }}" method="POST" x-data="{ imgUrl: '' }">
+                <form action="{{ route('admin.blogs.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <!-- Left Column: Details & Cover -->
@@ -126,25 +131,13 @@
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Gambar Sampul (URL)</label>
-                                <div class="relative group">
-                                    <input type="text" name="image_url" x-model="imgUrl" class="input-premium py-2.5 text-xs pr-12" placeholder="https://images.unsplash.com/...">
-                                    <div class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300">
-                                        <i class="fas fa-link text-[10px]"></i>
-                                    </div>
-                                </div>
-                                <!-- Image Preview -->
-                                <div class="mt-3 rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 h-28 flex items-center justify-center relative">
-                                    <template x-if="imgUrl">
-                                        <img :src="imgUrl" class="w-full h-full object-cover" alt="Preview">
-                                    </template>
-                                    <template x-if="!imgUrl">
-                                        <div class="text-center">
-                                            <i class="fas fa-image text-xl text-gray-300 mb-1"></i>
-                                            <p class="text-[8px] font-bold text-gray-300 uppercase tracking-widest">Preview Gambar Sampul</p>
-                                        </div>
-                                    </template>
-                                </div>
+                                <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Gambar Sampul</label>
+                                <x-ui.image-upload
+                                    name="image_file"
+                                    title="Klik atau seret gambar sampul ke area ini"
+                                    empty-text="Opsional, belum ada file dipilih"
+                                    compact
+                                />
                             </div>
                         </div>
                         
@@ -185,7 +178,7 @@
                     </button>
                 </div>
                 
-                <form :action="`/admin/blogs/${editData.id}`" method="POST">
+                <form :action="`/admin/blogs/${editData.id}`" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -193,16 +186,18 @@
                         <div class="space-y-5">
                             <div>
                                 <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Judul Artikel (ID)</label>
-                                <input type="text" name="title" x-model="editData.title" required class="input-premium py-2.5 text-xs">
+                                <input type="text" name="title" x-model="editData.title" required class="input-premium py-2.5 text-xs" placeholder="Judul bahasa Indonesia...">
+                                <p class="mt-2 text-[10px] text-gray-400">Judul utama artikel untuk pembaca Indonesia.</p>
                             </div>
                             <div>
                                 <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Judul Artikel (EN)</label>
-                                <input type="text" name="title_en" x-model="editData.title_en" required class="input-premium py-2.5 text-xs">
+                                <input type="text" name="title_en" x-model="editData.title_en" required class="input-premium py-2.5 text-xs" placeholder="English title...">
+                                <p class="mt-2 text-[10px] text-gray-400">Versi judul untuk tampilan bahasa Inggris.</p>
                             </div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Slug (URL)</label>
-                                    <input type="text" name="slug" x-model="editData.slug" required class="input-premium py-2.5 text-xs font-mono">
+                                    <input type="text" name="slug" x-model="editData.slug" required class="input-premium py-2.5 text-xs font-mono" placeholder="judul-artikel-anda">
                                 </div>
                                 <div>
                                     <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Status Publikasi</label>
@@ -213,25 +208,21 @@
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Gambar Sampul (URL)</label>
-                                <div class="relative group">
-                                    <input type="text" name="image_url" x-model="editData.image" class="input-premium py-2.5 text-xs pr-12">
-                                    <div class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300">
-                                        <i class="fas fa-link text-[10px]"></i>
-                                    </div>
-                                </div>
-                                <!-- Image Preview -->
-                                <div class="mt-3 rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 h-28 flex items-center justify-center relative">
+                                <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Gambar Sampul</label>
+                                <div class="mb-3 rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 h-28 flex items-center justify-center relative">
                                     <template x-if="editData.image">
-                                        <img :src="editData.image" class="w-full h-full object-cover" alt="Preview">
+                                        <img :src="editData.image.startsWith('http') ? editData.image : `/${editData.image}`" class="w-full h-full object-cover" alt="Preview">
                                     </template>
                                     <template x-if="!editData.image">
-                                        <div class="text-center">
-                                            <i class="fas fa-image text-xl text-gray-300 mb-1"></i>
-                                            <p class="text-[8px] font-bold text-gray-300 uppercase tracking-widest">Preview Gambar Sampul</p>
-                                        </div>
+                                        <p class="text-[8px] font-bold text-gray-300 uppercase tracking-widest">Belum ada gambar sampul</p>
                                     </template>
                                 </div>
+                                <x-ui.image-upload
+                                    name="image_file"
+                                    title="Klik atau seret gambar baru untuk mengganti sampul"
+                                    empty-text="Ganti hanya jika ingin memperbarui gambar"
+                                    compact
+                                />
                             </div>
                         </div>
                         
@@ -239,11 +230,11 @@
                         <div class="space-y-5 flex flex-col h-full">
                             <div class="flex-1">
                                 <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Konten Artikel (ID)</label>
-                                <textarea name="content" x-model="editData.content" required class="input-premium py-3 px-5 text-xs h-[138px] resize-none leading-relaxed"></textarea>
+                                <textarea name="content" x-model="editData.content" required class="input-premium py-3 px-5 text-xs h-[138px] resize-none leading-relaxed" placeholder="Ceritakan detail, karakter, dan cerita di balik pakaian ini..."></textarea>
                             </div>
                             <div class="flex-1">
                                 <label class="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Konten Artikel (EN)</label>
-                                <textarea name="content_en" x-model="editData.content_en" required class="input-premium py-3 px-5 text-xs h-[138px] resize-none leading-relaxed"></textarea>
+                                <textarea name="content_en" x-model="editData.content_en" required class="input-premium py-3 px-5 text-xs h-[138px] resize-none leading-relaxed" placeholder="Tell the story of this garment in English..."></textarea>
                             </div>
                         </div>
                     </div>

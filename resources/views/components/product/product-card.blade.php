@@ -6,7 +6,7 @@
         <a href="{{ route('product.show', $product->slug) }}" class="flex flex-col flex-1">
             <!-- Image Container -->
             <div class="relative aspect-[1/1] sm:aspect-[4/5] overflow-hidden">
-                <img src="{{ $product->image_url ?? 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=1000&auto=format&fit=crop' }}" 
+                <img src="{{ $product->imageUrl('https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=1000&auto=format&fit=crop') }}" 
                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                      alt="{{ $product->name }}">
                 
@@ -38,7 +38,7 @@
 
                 <div class="flex items-center justify-between mb-3 sm:mb-4">
                     <div>
-                        <p class="text-sm sm:text-base font-bold text-dark-wool">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
+                        <p class="text-sm sm:text-base font-bold text-dark-wool">{{ $product->formattedEstimatedPrice() }}</p>
                     </div>
                     <div class="hidden sm:flex text-yellow-400 text-[10px] space-x-0.5">
                         @for($i = 1; $i <= 5; $i++)

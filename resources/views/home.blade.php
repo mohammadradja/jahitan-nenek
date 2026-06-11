@@ -44,6 +44,25 @@
                     </div>
                 </div>
 
+                @if(\App\Models\SiteSetting::get('promo_enabled', '0') == '1')
+                    <div class="mb-12 rounded-[2rem] bg-dark-wool text-white p-8 lg:p-10 shadow-2xl shadow-dark-wool/10 border border-white/10" data-aos="fade-up">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                            <div>
+                                <p class="text-[10px] font-bold text-soft-rose uppercase tracking-[0.3em] mb-3">{{ \App\Models\SiteSetting::get('promo_label', 'Promo Spesial') }}</p>
+                                <h3 class="text-2xl font-serif font-bold">{{ \App\Models\SiteSetting::get('promo_description', 'Harga spesial untuk koleksi pilihan Jahitan Nenek.') }}</h3>
+                            </div>
+                            <div class="flex flex-wrap items-end gap-4">
+                                @if(\App\Models\SiteSetting::get('promo_original_price'))
+                                    <span class="text-lg font-bold text-white/40 line-through">Rp{{ number_format((int) \App\Models\SiteSetting::get('promo_original_price'), 0, ',', '.') }}</span>
+                                @endif
+                                @if(\App\Models\SiteSetting::get('promo_real_price'))
+                                    <span class="text-3xl lg:text-4xl font-serif font-bold text-soft-rose">Rp{{ number_format((int) \App\Models\SiteSetting::get('promo_real_price'), 0, ',', '.') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 <!-- Product Grid -->
                 <div class="relative min-h-[600px]">
                     <div id="product-grid-container" class="animate__animated animate__fadeIn">

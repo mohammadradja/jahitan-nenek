@@ -19,7 +19,7 @@
             <div class="lg:col-span-7" data-aos="fade-right">
                 <div class="relative rounded-[3.5rem] overflow-hidden bg-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] group p-4 border border-white">
                     <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden">
-                        <img src="{{ $product->image_url ?? 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=1000&auto=format&fit=crop' }}" 
+                        <img src="{{ $product->imageUrl('https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=1000&auto=format&fit=crop') }}" 
                              class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
                              alt="{{ $product->name }}">
                     </div>
@@ -33,7 +33,7 @@
                     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-dark-wool mb-6 leading-[1.1]">{{ $product->name }}</h1>
                     
                     <div class="flex items-center space-x-6 mb-10">
-                        <p class="text-3xl font-serif font-bold text-dark-wool">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
+                        <p class="text-3xl font-serif font-bold text-dark-wool">{{ $product->formattedEstimatedPrice() }}</p>
                         <div class="flex items-center bg-white px-4 py-2 rounded-2xl shadow-sm border border-gray-50">
                             <div class="flex text-yellow-400 text-[10px] mr-3">
                                 @for($i=1; $i<=5; $i++) <i class="fas fa-star"></i> @endfor

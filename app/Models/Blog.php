@@ -54,4 +54,17 @@ class Blog extends Model
         }
         return $value;
     }
+
+    public function imageUrl(?string $fallback = null): ?string
+    {
+        if (!$this->image) {
+            return $fallback;
+        }
+
+        if (str_starts_with($this->image, 'http://') || str_starts_with($this->image, 'https://') || str_starts_with($this->image, '//')) {
+            return $this->image;
+        }
+
+        return asset($this->image);
+    }
 }

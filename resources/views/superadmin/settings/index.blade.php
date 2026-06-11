@@ -26,11 +26,75 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nama Situs</label>
-                    <input type="text" name="site_name" class="input-premium py-3 text-sm" value="{{ $settings['site_name'] ?? 'Jahitan Nenek' }}">
+                    <input type="text" name="site_name" class="input-premium py-3 text-sm" value="{{ $settings['site_name'] ?? 'Jahitan Nenek' }}" placeholder="Contoh: Jahitan Nenek">
+                    <p class="mt-2 text-[10px] text-gray-400">Nama brand yang tampil pada identitas situs.</p>
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Tagline</label>
-                    <input type="text" name="site_tagline" class="input-premium py-3 text-sm" value="{{ $settings['site_tagline'] ?? 'Rajutan Kasih Sayang Premium' }}">
+                    <input type="text" name="site_tagline" class="input-premium py-3 text-sm" value="{{ $settings['site_tagline'] ?? 'Jahitan Kasih Sayang Premium' }}" placeholder="Contoh: Jahitan Kasih Sayang Premium">
+                    <p class="mt-2 text-[10px] text-gray-400">Tagline pendek untuk menjelaskan karakter brand.</p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Promo Settings -->
+    <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
+        <form action="{{ route(auth()->user()->role . '.settings.update') }}" method="POST" class="p-10" @submit="syncPromoCurrency()">
+            @csrf
+            <input type="hidden" name="section" value="promo">
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-soft-rose/10 rounded-2xl flex items-center justify-center text-soft-rose shadow-inner">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-dark-wool uppercase tracking-widest">Pengaturan Promo</h3>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Estimasi harga untuk Banner Promo</p>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary btn-sm">Simpan Promo</button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Status Promo</label>
+                    <select name="promo_enabled" class="input-premium py-3 text-sm appearance-none">
+                        <option value="0" {{ ($settings['promo_enabled'] ?? '0') == '0' ? 'selected' : '' }}>Nonaktif</option>
+                        <option value="1" {{ ($settings['promo_enabled'] ?? '0') == '1' ? 'selected' : '' }}>Aktif</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Label Promo</label>
+                    <input type="text" name="promo_label" class="input-premium py-3 text-sm" value="{{ $settings['promo_label'] ?? 'Promo Spesial' }}" placeholder="Contoh: Promo Spesial">
+                    <p class="mt-2 text-[10px] text-gray-400">Label kecil yang muncul di banner promo storefront.</p>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Estimasi Harga Awal</label>
+                    <input type="hidden" name="promo_original_price" x-ref="promoOriginalPrice" value="{{ $settings['promo_original_price'] ?? '' }}">
+                    <input type="text" inputmode="numeric" class="input-premium py-3 text-sm" x-model="promoOriginalDisplay" @input="promoOriginalDisplay = formatRupiah(promoOriginalDisplay)" placeholder="Rp 150.000">
+                    <p class="mt-2 text-[10px] text-gray-400">Angka estimasi sebelum promo, otomatis diformat Rupiah.</p>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Estimasi Harga Promo</label>
+                    <input type="hidden" name="promo_real_price" x-ref="promoRealPrice" value="{{ $settings['promo_real_price'] ?? '' }}">
+                    <input type="text" inputmode="numeric" class="input-premium py-3 text-sm" x-model="promoRealDisplay" @input="promoRealDisplay = formatRupiah(promoRealDisplay)" placeholder="Rp 100.000">
+                    <p class="mt-2 text-[10px] text-gray-400">Harga estimasi yang ingin ditonjolkan di banner promo.</p>
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Deskripsi Singkat</label>
+                    <input type="text" name="promo_description" class="input-premium py-3 text-sm" value="{{ $settings['promo_description'] ?? 'Harga spesial untuk koleksi pilihan Jahitan Nenek.' }}" placeholder="Contoh: Harga spesial untuk koleksi pilihan.">
+                    <p class="mt-2 text-[10px] text-gray-400">Kalimat pendek yang menjelaskan promo kepada pelanggan.</p>
+                </div>
+                <div class="md:col-span-2 rounded-[2rem] bg-vintage-cream/30 border border-gray-100 p-6">
+                    <p class="text-[10px] font-bold text-soft-rose uppercase tracking-widest mb-2">{{ $settings['promo_label'] ?? 'Promo Spesial' }}</p>
+                    <div class="flex flex-wrap items-end gap-4">
+                        @if($settings['promo_original_price'] ?? false)
+                            <span class="text-lg font-bold text-gray-400 line-through">Rp{{ number_format((int) $settings['promo_original_price'], 0, ',', '.') }}</span>
+                        @endif
+                        @if($settings['promo_real_price'] ?? false)
+                            <span class="text-3xl font-serif font-bold text-dark-wool">Rp{{ number_format((int) $settings['promo_real_price'], 0, ',', '.') }}</span>
+                        @endif
+                    </div>
                 </div>
             </div>
         </form>
@@ -194,15 +258,17 @@
                 <div class="md:col-span-2" x-data="{ show: false }">
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">API Token (Fonnte)</label>
                     <div class="relative">
-                        <input :type="show ? 'text' : 'password'" name="whatsapp_api_token" class="input-premium py-3 text-sm pr-12" value="{{ $settings['whatsapp_api_token'] ?? '' }}">
+                        <input :type="show ? 'text' : 'password'" name="whatsapp_api_token" class="input-premium py-3 text-sm pr-12" value="{{ $settings['whatsapp_api_token'] ?? '' }}" placeholder="Token API Fonnte">
                         <button type="button" @click="show = !show" class="absolute right-4 bottom-3 text-gray-300 hover:text-soft-rose transition-colors">
                             <i class="fas" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
                         </button>
                     </div>
+                    <p class="mt-2 text-[10px] text-gray-400">Token dari dashboard Fonnte untuk mengirim notifikasi WhatsApp.</p>
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">WhatsApp Center</label>
-                    <input type="text" name="whatsapp_number" class="input-premium py-3 text-sm" value="{{ $settings['whatsapp_number'] ?? '' }}" placeholder="628xxx">
+                    <input type="text" name="whatsapp_number" class="input-premium py-3 text-sm" value="{{ $settings['whatsapp_number'] ?? '' }}" placeholder="62812xxxx">
+                    <p class="mt-2 text-[10px] text-gray-400">Gunakan format nomor Indonesia tanpa tanda plus.</p>
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Status Layanan</label>
@@ -213,7 +279,8 @@
                 </div>
                 <div class="md:col-span-2">
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Base URL API</label>
-                    <input type="text" name="whatsapp_base_url" class="input-premium py-3 text-sm" value="{{ $settings['whatsapp_base_url'] ?? '' }}">
+                    <input type="text" name="whatsapp_base_url" class="input-premium py-3 text-sm" value="{{ $settings['whatsapp_base_url'] ?? '' }}" placeholder="https://api.fonnte.com">
+                    <p class="mt-2 text-[10px] text-gray-400">Base URL API penyedia WhatsApp, tanpa path endpoint tambahan.</p>
                 </div>
             </div>
         </form>
@@ -239,24 +306,28 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="md:col-span-2">
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Mail Host</label>
-                    <input type="text" name="mail_host" class="input-premium py-3 text-sm" value="{{ $settings['mail_host'] ?? '' }}">
+                    <input type="text" name="mail_host" class="input-premium py-3 text-sm" value="{{ $settings['mail_host'] ?? '' }}" placeholder="smtp.mailtrap.io">
+                    <p class="mt-2 text-[10px] text-gray-400">Host SMTP dari penyedia email transaksi.</p>
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Port</label>
-                    <input type="text" name="mail_port" class="input-premium py-3 text-sm" value="{{ $settings['mail_port'] ?? '' }}">
+                    <input type="text" name="mail_port" class="input-premium py-3 text-sm" value="{{ $settings['mail_port'] ?? '' }}" placeholder="587">
+                    <p class="mt-2 text-[10px] text-gray-400">Port umum: 587 untuk TLS atau 465 untuk SSL.</p>
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Username</label>
-                    <input type="text" name="mail_username" class="input-premium py-3 text-sm" value="{{ $settings['mail_username'] ?? '' }}">
+                    <input type="text" name="mail_username" class="input-premium py-3 text-sm" value="{{ $settings['mail_username'] ?? '' }}" placeholder="Username SMTP">
+                    <p class="mt-2 text-[10px] text-gray-400">Username autentikasi dari penyedia SMTP.</p>
                 </div>
                 <div x-data="{ show: false }">
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Password</label>
                     <div class="relative">
-                        <input :type="show ? 'text' : 'password'" name="mail_password" class="input-premium py-3 text-sm pr-12" value="{{ $settings['mail_password'] ?? '' }}">
+                        <input :type="show ? 'text' : 'password'" name="mail_password" class="input-premium py-3 text-sm pr-12" value="{{ $settings['mail_password'] ?? '' }}" placeholder="Password SMTP">
                         <button type="button" @click="show = !show" class="absolute right-4 bottom-3 text-gray-300 hover:text-soft-rose transition-colors">
                             <i class="fas" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
                         </button>
                     </div>
+                    <p class="mt-2 text-[10px] text-gray-400">Password atau app password untuk akun SMTP.</p>
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Encryption</label>
@@ -268,11 +339,13 @@
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">From Address</label>
-                    <input type="text" name="mail_from_address" class="input-premium py-3 text-sm" value="{{ $settings['mail_from_address'] ?? '' }}">
+                    <input type="text" name="mail_from_address" class="input-premium py-3 text-sm" value="{{ $settings['mail_from_address'] ?? '' }}" placeholder="hello@jahitannenek.com">
+                    <p class="mt-2 text-[10px] text-gray-400">Alamat pengirim yang muncul di email pelanggan.</p>
                 </div>
                 <div class="md:col-span-2">
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">From Name</label>
-                    <input type="text" name="mail_from_name" class="input-premium py-3 text-sm" value="{{ $settings['mail_from_name'] ?? '' }}">
+                    <input type="text" name="mail_from_name" class="input-premium py-3 text-sm" value="{{ $settings['mail_from_name'] ?? '' }}" placeholder="Jahitan Nenek">
+                    <p class="mt-2 text-[10px] text-gray-400">Nama pengirim yang muncul di inbox pelanggan.</p>
                 </div>
             </div>
         </form>
@@ -316,6 +389,24 @@
     function settingsHandler() {
         return {
             testing: null,
+            promoOriginalDisplay: @json(($settings['promo_original_price'] ?? false) ? 'Rp ' . number_format((int) $settings['promo_original_price'], 0, ',', '.') : ''),
+            promoRealDisplay: @json(($settings['promo_real_price'] ?? false) ? 'Rp ' . number_format((int) $settings['promo_real_price'], 0, ',', '.') : ''),
+            formatRupiah(value) {
+                const digits = String(value ?? '').replace(/[^0-9]/g, '');
+
+                if (!digits) {
+                    return '';
+                }
+
+                return 'Rp ' + new Intl.NumberFormat('id-ID').format(Number(digits));
+            },
+            parseRupiah(value) {
+                return String(value ?? '').replace(/[^0-9]/g, '');
+            },
+            syncPromoCurrency() {
+                this.$refs.promoOriginalPrice.value = this.parseRupiah(this.promoOriginalDisplay);
+                this.$refs.promoRealPrice.value = this.parseRupiah(this.promoRealDisplay);
+            },
             async testConnection(type) {
                 this.testing = type;
                 try {

@@ -69,20 +69,16 @@ This requires:
 php artisan storage:link
 ```
 
-CMS uploads are currently split:
+CMS uploads are stored directly under public assets:
 
-- `CMSController` writes directly to `public/assets/brand` and `public/assets/cms`.
-- `Superadmin\SiteSettingController` writes to the public storage disk under `storage/app/public`.
+- Product images: `public/assets/images/products`.
+- Brand and CMS settings images: `public/assets/images/settings`.
 
-Ensure both public paths and storage symlink strategy are supported by the deployment target.
+Ensure these public paths are writable by the application user on the deployment target.
 
 ## Database Seeding
 
-Do not seed demo credentials in production unless they are changed immediately. `DatabaseSeeder` does not call `SiteSettingSeeder`; run it explicitly if production needs default settings:
-
-```bash
-php artisan db:seed --class=SiteSettingSeeder
-```
+Do not seed demo credentials in production unless they are changed immediately. `DatabaseSeeder` calls `SiteSettingSeeder`, so default settings are included when the main seeder runs.
 
 ## Operational Notes
 
@@ -91,4 +87,3 @@ php artisan db:seed --class=SiteSettingSeeder
 - Configure Fonnte/WhatsApp settings through site settings before enabling notifications.
 - Confirm whether Midtrans is intended to be live; no notification route exists in current code.
 - Configure Telescope access before enabling it outside local. The current gate allowlist is empty.
-

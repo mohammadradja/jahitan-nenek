@@ -1,5 +1,26 @@
 @extends('layouts.app')
 
+@php
+    $blogUrl = route('blog.show', $blog->slug);
+    $blogImage = $blog->imageUrl('https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&q=80&w=1200');
+    $blogDescription = \Illuminate\Support\Str::limit(strip_tags($blog->content), 160);
+    $shareText = $blog->title . ' - ' . $blogUrl;
+@endphp
+
+@section('title', $blog->title)
+
+@push('meta')
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ $blog->title }}">
+    <meta property="og:description" content="{{ $blogDescription }}">
+    <meta property="og:url" content="{{ $blogUrl }}">
+    <meta property="og:image" content="{{ $blogImage }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $blog->title }}">
+    <meta name="twitter:description" content="{{ $blogDescription }}">
+    <meta name="twitter:image" content="{{ $blogImage }}">
+@endpush
+
 @section('content')
 <div class="bg-white">
     <!-- Article Progress Bar -->
@@ -58,7 +79,7 @@
     <main class="max-w-7xl mx-auto px-6 lg:px-20 py-16">
         <!-- Featured Image -->
         <div class="relative -mt-24 mb-16 rounded-[3rem] overflow-hidden shadow-2xl bg-white p-3" data-aos="zoom-in">
-            <img src="{{ $blog->imageUrl('https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&q=80&w=1200') }}" 
+            <img src="{{ $blogImage }}"
                  class="w-full h-auto rounded-[2.5rem] object-cover aspect-[21/9] max-h-[500px]" 
                  alt="{{ $blog->title }}">
         </div>
@@ -70,32 +91,32 @@
             <div class="lg:col-span-8 space-y-12">
                 
                 <div class="flex flex-col md:flex-row gap-8">
-                    <!-- Share Bar -->
-                    <div class="md:w-16 shrink-0">
-                        <div class="sticky top-40 flex md:flex-col items-center justify-start space-x-4 md:space-x-0 md:space-y-4">
-                            <p class="hidden md:block text-[8px] font-bold text-gray-300 uppercase vertical-text tracking-[0.4em] mb-2">{{ __('messages.share') }}</p>
-                            <a href="#" class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-dark-wool hover:bg-soft-rose hover:text-white transition-all text-sm">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="#" class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-dark-wool hover:bg-soft-rose hover:text-white transition-all text-sm">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="#" class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-dark-wool hover:bg-soft-rose hover:text-white transition-all text-sm">
-                                <i class="fab fa-whatsapp"></i>
-                            </a>
+                    <!-- Tags Rail -->
+                    <div class="md:w-20 shrink-0">
+                        <div class="sticky top-40 flex md:flex-col items-start md:items-center gap-3">
+                            <p class="hidden md:block text-[8px] font-bold text-gray-300 uppercase vertical-text tracking-[0.4em] mb-2">Tag</p>
+                            <span class="bg-vintage-cream px-4 py-1.5 rounded-full text-[9px] font-bold text-dark-wool/50 uppercase tracking-widest md:[writing-mode:vertical-rl] md:[text-orientation:mixed]">Handmade</span>
+                            <span class="bg-vintage-cream px-4 py-1.5 rounded-full text-[9px] font-bold text-dark-wool/50 uppercase tracking-widest md:[writing-mode:vertical-rl] md:[text-orientation:mixed]">Premium</span>
+                            <span class="bg-vintage-cream px-4 py-1.5 rounded-full text-[9px] font-bold text-dark-wool/50 uppercase tracking-widest md:[writing-mode:vertical-rl] md:[text-orientation:mixed]">{{ __('messages.grandma_notes') }}</span>
                         </div>
                     </div>
 
                     <!-- Article Body -->
                     <div class="flex-1 prose prose-stone max-w-none text-dark-wool/85 leading-[1.8] font-sans text-lg space-y-8" data-aos="fade-up">
-                        {!! nl2br($blog->content) !!}
-
-                        <!-- Tags / Category -->
-                        <div class="mt-16 pt-8 border-t border-gray-100 flex flex-wrap gap-3">
-                            <span class="bg-vintage-cream px-5 py-1.5 rounded-full text-[9px] font-bold text-dark-wool/50 uppercase tracking-widest">Handmade</span>
-                            <span class="bg-vintage-cream px-5 py-1.5 rounded-full text-[9px] font-bold text-dark-wool/50 uppercase tracking-widest">Premium</span>
-                            <span class="bg-vintage-cream px-5 py-1.5 rounded-full text-[9px] font-bold text-dark-wool/50 uppercase tracking-widest">{{ __('messages.grandma_notes') }}</span>
+                        <div class="not-prose mb-10 flex flex-wrap items-center gap-3 border-b border-gray-100 pb-6">
+                            <span class="text-[9px] font-bold text-gray-300 uppercase tracking-[0.3em] mr-2">{{ __('messages.share') }}</span>
+                            <a href="{{ 'https://www.facebook.com/sharer/sharer.php?u=' . rawurlencode($blogUrl) }}" target="_blank" rel="noopener" class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-dark-wool hover:bg-soft-rose hover:text-white transition-all text-sm">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="{{ 'https://twitter.com/intent/tweet?text=' . rawurlencode($blog->title) . '&url=' . rawurlencode($blogUrl) }}" target="_blank" rel="noopener" class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-dark-wool hover:bg-soft-rose hover:text-white transition-all text-sm">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="{{ 'https://wa.me/?text=' . rawurlencode($shareText) }}" target="_blank" rel="noopener" class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-dark-wool hover:bg-green-500 hover:text-white transition-all text-sm">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
                         </div>
+
+                        {!! nl2br($blog->content) !!}
                     </div>
                 </div>
 
@@ -112,7 +133,7 @@
                         @forelse($otherBlogs as $other)
                             <a href="{{ route('blog.show', $other->slug) }}" class="group flex gap-4 items-start transition-all">
                                 <div class="w-20 h-20 rounded-2xl overflow-hidden shrink-0 border border-gray-100">
-                                    <img src="{{ $other->image ?? 'https://via.placeholder.com/150' }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                    <img src="{{ $other->imageUrl('https://via.placeholder.com/150') }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                                 </div>
                                 <div class="flex-1">
                                     <h4 class="font-bold text-sm text-dark-wool group-hover:text-soft-rose transition-colors line-clamp-2 leading-snug">

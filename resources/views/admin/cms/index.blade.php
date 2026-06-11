@@ -101,24 +101,9 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div>
-                                    <label class="block text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-2">Favicon (Ikon Tab)</label>
-                                    <div class="flex items-center gap-4 bg-gray-50/50 p-4 rounded-2xl border border-gray-100">
-                                        @if($settings['site_favicon'] ?? false)
-                                            <div class="w-10 h-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center p-2 overflow-hidden shadow-inner shrink-0">
-                                                <img src="{{ asset($settings['site_favicon']) }}" class="max-h-full max-w-full object-contain" alt="Favicon">
-                                            </div>
-                                        @endif
-                                        <div class="flex-1">
-                                            <x-ui.image-upload
-                                                name="site_favicon"
-                                                title="Klik atau seret favicon baru"
-                                                empty-text="Ganti hanya jika ingin memperbarui favicon"
-                                                compact
-                                            />
-                                        </div>
-                                    </div>
+                                <div class="rounded-2xl bg-gray-50/50 border border-gray-100 p-4">
+                                    <p class="text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1">Favicon</p>
+                                    <p class="text-[10px] text-gray-400">Ikon tab browser menggunakan file tetap <span class="font-bold text-dark-wool">public/assets/logo.png</span>.</p>
                                 </div>
                             </div>
                         </div>

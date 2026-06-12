@@ -11,7 +11,7 @@ The main request pipeline is:
 3. Global middleware applies locale selection and visitor tracking.
 4. Role-protected route groups call controllers.
 5. Controllers query Eloquent models and return Blade views.
-6. Views use Tailwind utility classes, Alpine interactions, Font Awesome icons, AOS animations, and CMS values from `SiteSetting`.
+6. Views use Tailwind utility classes, Alpine interactions, Font Awesome icons, AOS animations, CMS values from `SiteSetting`, and lightweight click analytics.
 
 ## Application Layers
 
@@ -56,7 +56,7 @@ flowchart TD
 
 ### Storefront
 
-Implemented by `HomeController`, `BlogController`, `FeedController`, `CheckoutController`, and public Blade views. It supports product listing/search/filter/sort, product detail pages, blog index/detail, order tracking, language switching, and a product RSS feed.
+Implemented by `HomeController`, `BlogController`, `FeedController`, `CheckoutController`, `AnalyticsController`, and public Blade views. It supports product listing/search/filter/sort, product detail pages, blog index/detail, order tracking, language switching, product RSS feed, and click analytics.
 
 ### Customer
 
@@ -64,16 +64,16 @@ Implemented by `CartController`, `CheckoutController`, `ProfileController`, and 
 
 ### Admin
 
-Implemented under `App\Http\Controllers\Admin` plus shared `CMSController`, `DashboardController`, and `Superadmin\SiteSettingController` for settings. Admin users can manage catalog data, order status/payment approval, production stages, measurements, blogs, CMS content, and reports.
+Implemented under `App\Http\Controllers\Admin` plus shared `CMSController`, `DashboardController`, and `Superadmin\SiteSettingController` for settings and promo management. Admin users can manage catalog data, order status/payment approval, production stages, measurements, blogs, CMS content, settings, promo/popup content, analytics, and reports.
 
 ### Superadmin
 
-Implemented under `App\Http\Controllers\Superadmin` and shared reporting/controllers. Superadmins can access all admin-style reports plus staff management, customer list/export, settings, CMS, and a higher-level dashboard.
+Implemented under `App\Http\Controllers\Superadmin` and shared reporting/controllers. Superadmins can access all admin-style reports plus staff management, customer list/export, SEO/settings, CMS, promo/popup management, analytics, and a higher-level dashboard.
 
 ## Middleware and Cross-Cutting Concerns
 
 - `LocaleMiddleware` sets the app locale from session `locale`; otherwise it reads `SiteSetting::get('default_language', 'id')`.
-- `TrackVisitors` appends globally and records guest, non-JSON requests in `visitors`.
+- `TrackVisitors` appends globally and records guest, non-JSON GET requests in `visitors`.
 - `RoleMiddleware` checks the authenticated user's `role` string against allowed route parameters.
 - `AppServiceProvider` sets a custom pagination view and dynamically overrides `config('app.name')` from `site_settings.site_name` when the table exists.
 - `TelescopeServiceProvider` filters non-local entries and defines a `viewTelescope` gate with an empty allowlist.
@@ -121,4 +121,3 @@ sequenceDiagram
     OrderController->>WhatsAppService: sendOrderStatusUpdate(order)
     OrderController->>Mail: Send OrderReceipt
 ```
-

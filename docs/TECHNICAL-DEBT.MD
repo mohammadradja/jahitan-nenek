@@ -33,7 +33,6 @@ This list documents observed implementation issues. It is not a request to chang
 
 ## Settings and CMS
 
-- `SiteSetting.value` is cast as JSON while the schema/comments and setting types often describe strings/booleans/integers. Always verify stored value behavior before direct SQL edits.
 - `SiteSetting::getTranslatabled()` appears misspelled.
 
 ## Security and Maintainability
@@ -42,5 +41,4 @@ This list documents observed implementation issues. It is not a request to chang
 - No policies are defined; authorization is mostly route-role middleware.
 - Activity logging schema/model exists but no active logging calls were found.
 - Staff creation validation uses `max-255` instead of `max:255`.
-- Public layout includes some hardcoded WhatsApp/social URLs instead of consistently using CMS settings.
 - `README.md` is still the default Laravel README and does not describe this project.

@@ -8,8 +8,8 @@ Jahitan Nenek is a Laravel storefront and operations dashboard for handmade stit
 
 - Public product catalog, blog, locale switcher, order tracking, and Instagram/Google-style product feed.
 - Authenticated customer dashboard, profile management, session cart, checkout, manual bank-transfer proof upload, and order history.
-- Admin dashboard for products, categories, orders, measurements, blogs, CMS settings, and reports.
-- Superadmin dashboard for site settings, CMS settings, reports, staff management, and customer exports.
+- Admin dashboard for products, categories, orders, measurements, blogs, CMS settings, dedicated promo/popup settings, analytics, and reports.
+- Superadmin dashboard for site settings, SEO/tag settings, CMS settings, dedicated promo/popup settings, analytics, reports, staff management, and customer exports.
 - Supporting services for loyalty points, WhatsApp/Fonnte notifications, mail receipts, visitor tracking, localization, and Telescope diagnostics.
 
 ## Documentation Index

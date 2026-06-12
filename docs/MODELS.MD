@@ -124,9 +124,21 @@ Methods:
 
 Notes:
 
-- `value` is cast as JSON. Keep all writes through the model helper to keep encoding consistent.
-- Promo display values are stored as settings under the `promo` group.
+- `value` uses custom accessor/mutator logic. It reads raw strings and JSON-encoded values, stores scalar values as strings, and stores arrays/objects as JSON.
+- Promo display and popup values are stored as settings under the `promo` group; optional storefront announcement values use notification setting keys.
+- SEO, Open Graph, Google Tag Manager, Google Analytics, verification, and analytics average-position values are stored as settings.
 - `getTranslatabled` appears to be a typo, but it is the existing method name.
+
+## `AnalyticsEvent`
+
+Purpose: lightweight storefront event log for dashboard analytics.
+
+Important fields: `event_type`, `path`, `target`, `ip_address`, `user_agent`.
+
+Notes:
+
+- The public layout records click events through `AnalyticsController@click`.
+- Dashboard analytics combines `analytics_events` clicks with `visitors` page views.
 
 ## Supporting Models
 
@@ -138,3 +150,4 @@ Notes:
 | `PaymentTransaction` | Payment gateway transaction record. | belongs to `Order`. |
 | `ActivityLog` | Generic user/system activity log. | belongs to `User`, morphs to `subject`. |
 | `Visitor` | Guest visitor record. | none. |
+| `AnalyticsEvent` | Storefront event record for analytics clicks. | none. |

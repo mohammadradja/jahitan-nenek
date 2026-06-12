@@ -42,13 +42,17 @@
 ### `DashboardController`
 
 - `user()` shows customer orders and top-selling recommendations.
-- `admin()` calculates order/product/customer/revenue/stock stats, latest orders, top products, and 7-day order chart data.
-- `superadmin()` calculates broader stats including visitor, blog, category, average order value, and 7-day visitor/revenue chart data.
+- `admin()` calculates order/product/customer/revenue/stock stats, latest orders, top products, 7-day order chart data, and 30-day storefront analytics with user-facing traffic menu labels.
+- `superadmin()` calculates broader stats including visitor, blog, category, average order value, 7-day visitor/click/revenue chart data, and 30-day storefront analytics with user-facing traffic menu labels.
+
+### `AnalyticsController`
+
+- `click()` validates a public click event payload and stores an `AnalyticsEvent` row with path, target, IP address, and user agent.
 
 ### `CMSController`
 
 - `index()` loads all settings as `key => value` for `admin.cms.index`.
-- `update()` writes CMS/brand settings, validates CMS image uploads up to 5 MB, stores files into `public/assets/images/settings`, handles section visibility flags, and supports JSON/AJAX responses.
+- `update()` writes CMS content/gallery settings, validates CMS image uploads up to 5 MB, stores files into `public/assets/images/settings`, handles section visibility flags, and supports JSON/AJAX responses.
 
 ### `FeedController`
 
@@ -107,7 +111,8 @@
 
 - Loads and updates site settings.
 - Validates brand/CMS image uploads up to 5 MB and stores them under `public/assets/images/settings`.
-- Updates promo settings for storefront estimate display using `promo_original_price` and `promo_real_price`.
+- Serves and updates the dedicated promo dashboard, including storefront estimate display keys, popup keys, and notification keys.
+- Updates SEO, metadata, Open Graph, Twitter card, Google Tag Manager, Google Analytics, verification, and analytics average-position settings.
 - Tests WhatsApp by sending a Fonnte message to the configured center number.
 - Tests Midtrans by posting a minimal transaction to the sandbox or production Snap token endpoint.
 

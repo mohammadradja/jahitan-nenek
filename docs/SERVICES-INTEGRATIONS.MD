@@ -99,3 +99,11 @@ Behavior:
 - Sensitive request parameters/headers are hidden outside local.
 - `viewTelescope` gate has an empty email allowlist.
 
+## Analytics and SEO Tags
+
+The public layout can render Google Tag Manager and Google Analytics scripts from `site_settings` keys:
+
+- `google_tag_manager_id`
+- `google_analytics_id`
+
+Search verification tags are also CMS-driven through `google_site_verification` and `facebook_domain_verification`. No Google Search Console API integration exists; average position is stored as a manual setting.

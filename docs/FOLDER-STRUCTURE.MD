@@ -25,10 +25,11 @@
 | `app/Http/Controllers/Admin` | Catalog, order, measurement, blog, and report administration. |
 | `app/Http/Controllers/Superadmin` | Staff, customer, and site setting administration. |
 | `app/Http/Middleware` | Locale, role, and visitor tracking middleware. |
-| `app/Models` | Eloquent models for users, products, orders, settings, visitors, and supporting records. |
+| `app/Models` | Eloquent models for users, products, orders, settings, visitors, analytics events, and supporting records. |
 | `app/Services` | `LoyaltyService` and `WhatsAppService`. |
 | `resources/views/layouts` | Main public, dashboard, guest, and navigation layouts. |
 | `resources/views/admin` | Admin CRUD and report views. |
+| `resources/views/superadmin` | Superadmin settings screens, including dedicated promo/popup management. |
 | `resources/views/dashboards` | User/admin/superadmin dashboards and dashboard partials. |
 | `resources/views/components` | Blade components for UI, product, blog, home, and layout fragments. |
 | `resources/css/app.css` | Tailwind layers and shared component classes. |
@@ -44,4 +45,3 @@
 The repository contains published Filament/Telescope-style assets under `public/js/filament`, `public/css/filament`, and `public/fonts/filament`. The app itself is not using Filament resources in `app/Filament`; these appear to be published/static assets only.
 
 `public/build` is a Vite build output. In production, regenerate it with `npm run build` unless intentionally deploying committed built assets.
-

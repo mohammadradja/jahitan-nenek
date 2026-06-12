@@ -7,6 +7,7 @@ Tests are located in `tests`.
 Feature coverage includes:
 
 - Public home page smoke test.
+- Settings value compatibility, dedicated promo setting updates, and click analytics event recording.
 - Registration.
 - Login/logout.
 - Password reset.
@@ -55,4 +56,3 @@ Add coverage for:
 - Report calculations.
 - Visitor tracking middleware.
 - Missing integration boundaries, especially Midtrans if implemented.
-

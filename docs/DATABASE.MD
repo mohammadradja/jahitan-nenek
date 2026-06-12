@@ -118,9 +118,11 @@ CMS, integration, localization, brand, payment, and logistics settings.
 
 Key columns: `key` unique, `value`, `type`, `group`.
 
-The model casts `value` as JSON. Use `SiteSetting::get()` and `SiteSetting::set()` consistently to avoid mixed storage semantics.
+The model reads both raw scalar strings and legacy JSON-encoded values. `SiteSetting::set()` stores scalar values as strings and arrays/objects as JSON.
 
-Promo display settings use keys such as `promo_enabled`, `promo_label`, `promo_original_price`, `promo_real_price`, and `promo_description`.
+Promo display settings use keys such as `promo_enabled`, `promo_label`, `promo_original_price`, `promo_real_price`, and `promo_description`. The initial storefront modal uses `promo_popup_enabled`, `promo_popup_title`, `promo_popup_message`, `promo_popup_cta_label`, `promo_popup_cta_url`, `notification_enabled`, `notification_title`, and `notification_message`.
+
+SEO and tracking settings include `site_description`, `site_keywords`, `seo_meta_author`, `seo_meta_robots`, `seo_canonical_url`, `seo_og_title`, `seo_og_description`, `seo_og_image`, `seo_og_type`, `seo_twitter_card`, `seo_twitter_site`, `google_tag_manager_id`, `google_analytics_id`, `google_site_verification`, `facebook_domain_verification`, and `analytics_average_position`.
 
 ### `measurements`
 
@@ -168,7 +170,15 @@ Guest visitor tracking.
 
 Key columns: `ip_address`, `user_agent`, `path`.
 
-Created by global `TrackVisitors` middleware for unauthenticated, non-JSON requests.
+Created by global `TrackVisitors` middleware for unauthenticated, non-JSON GET requests.
+
+### `analytics_events`
+
+Stores lightweight storefront analytics events.
+
+Key columns: `event_type`, `path`, `target`, `ip_address`, `user_agent`.
+
+The current implementation records click events from the public layout through `POST /analytics/click`. Dashboard CTR is calculated from click events divided by visitor impressions.
 
 ### Framework Tables
 

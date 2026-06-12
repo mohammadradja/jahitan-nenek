@@ -5,11 +5,13 @@
 ```mermaid
 flowchart LR
     Visitor[Guest visitor] --> Storefront[Storefront pages]
+    Storefront --> Analytics[Visitor and click analytics]
     Customer[Authenticated customer] --> CustomerArea[Cart, checkout, profile, dashboard]
-    Admin[Admin] --> AdminArea[Catalog, orders, measurements, blogs, CMS, reports]
-    Superadmin[Superadmin] --> SuperArea[Settings, staff, customers, reports, CMS]
+    Admin[Admin] --> AdminArea[Catalog, orders, measurements, blogs, CMS, promo, reports]
+    Superadmin[Superadmin] --> SuperArea[Settings, staff, customers, reports, CMS, promo]
 
     Storefront --> Controllers[Laravel controllers]
+    Analytics --> Controllers
     CustomerArea --> Controllers
     AdminArea --> Controllers
     SuperArea --> Controllers
@@ -46,4 +48,3 @@ stateDiagram-v2
     shipped --> completed: admin status update
     pending --> cancelled: admin reject/cancel
 ```
-

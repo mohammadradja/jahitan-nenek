@@ -99,12 +99,14 @@ The tracking result page displays production stage timeline entries when present
 
 There are two update paths:
 
-- `CMSController` validates uploaded brand/CMS images up to 5 MB and stores files directly under `public/assets/images/settings`.
+- `CMSController` validates uploaded CMS content images up to 5 MB and stores files directly under `public/assets/images/settings`.
 - `Superadmin\SiteSettingController` validates uploaded brand/CMS images up to 5 MB and stores files directly under `public/assets/images/settings`.
 
 Both write settings through `SiteSetting::set()`.
 
-Promo settings can be managed from the settings dashboard. When `promo_enabled` is active, the storefront product section displays the configured label, description, and estimate values stored in `promo_original_price` and `promo_real_price`.
+Promo settings are managed from the dedicated promo dashboard. When `promo_enabled` is active, the storefront product section displays the configured label, description, and estimate values stored in `promo_original_price` and `promo_real_price`. The promo dashboard also controls the initial storefront popup through `promo_popup_*` keys and optional announcement text through `notification_*` keys.
+
+The CMS dashboard manages hero/about content, gallery text/images, section visibility, and a live storefront preview displayed above the content editor. Settings manage brand assets, social/footer links, SEO metadata, Open Graph/Twitter values, Google Tag Manager, Google Analytics, verification tags, and average-position analytics input.
 
 ## Localization
 
@@ -114,7 +116,16 @@ Blog model accessors automatically serve English title/content/excerpt values on
 
 ## Visitor Tracking
 
-`TrackVisitors` records unauthenticated non-JSON requests. It stores IP address, user agent, and path in `visitors`.
+`TrackVisitors` records unauthenticated non-JSON GET requests. It stores IP address, user agent, and path in `visitors`.
+
+## Storefront Analytics
+
+Dashboard analytics combines two local data sources:
+
+- `visitors` supplies traffic and impression/page-view counts.
+- `analytics_events` supplies click counts from public layout click tracking.
+
+CTR is calculated as clicks divided by impressions. Average position is a CMS/settings value (`analytics_average_position`) intended for manually entering Search Console-style SEO position data. Dashboard top traffic groups visitor paths into user-facing menu labels such as Beranda, Artikel, Produk, Kelola Konten, and Pengaturan instead of displaying raw URL paths.
 
 ## Reports
 

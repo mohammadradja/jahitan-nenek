@@ -4,7 +4,7 @@
 
 | Layout | Purpose |
 | --- | --- |
-| `resources/views/layouts/app.blade.php` | Public storefront layout with fixed navigation, footer, toast component, locale switcher, cart count, auth menu, AOS initialization, and floating widgets. |
+| `resources/views/layouts/app.blade.php` | Public storefront layout with fixed navigation, CMS-driven meta tags/footer/social links, promo/notification popup, click analytics script, toast component, locale switcher, cart count, auth menu, AOS initialization, and floating widgets. |
 | `resources/views/layouts/dashboard.blade.php` | Dashboard shell used by admin/superadmin/customer dashboard views. |
 | `resources/views/layouts/guest.blade.php` | Auth/guest screens. |
 | `resources/views/layouts/navigation.blade.php` | Breeze-style navigation partial. |
@@ -21,10 +21,10 @@
 ## Dashboard and Admin Views
 
 - `dashboards/user/index.blade.php` shows customer order history and product recommendations.
-- `dashboards/admin/index.blade.php` shows operational stats and charts.
-- `dashboards/superadmin/index.blade.php` shows business-wide stats and charts.
-- `admin/products`, `admin/categories`, `admin/orders`, `admin/measurements`, `admin/blogs`, `admin/cms`, and `admin/reports` implement admin screens. Product and category index screens use dashboard modals for create/edit workflows.
-- `superadmin/settings/index.blade.php`, `dashboards/superadmin/staff.blade.php`, and `dashboards/superadmin/customers` implement superadmin screens.
+- `dashboards/admin/index.blade.php` shows operational stats, charts, storefront analytics metrics, and user-facing traffic menu labels in Indonesian.
+- `dashboards/superadmin/index.blade.php` shows business-wide stats, charts, storefront analytics metrics, and user-facing traffic menu labels in Indonesian.
+- `admin/products`, `admin/categories`, `admin/orders`, `admin/measurements`, `admin/blogs`, `admin/cms`, and `admin/reports` implement admin screens. Product, category, blog, and staff index screens use scrollable dashboard modals for create/edit workflows.
+- `superadmin/settings/index.blade.php`, `superadmin/settings/promo.blade.php`, `dashboards/superadmin/staff.blade.php`, and `dashboards/superadmin/customers` implement superadmin screens. Settings include brand/social/footer values, SEO, metadata, Open Graph, Twitter card, Google Tag Manager, Google Analytics, verification tags, and average-position input. The promo screen manages the storefront promo banner, initial popup, and announcement text.
 
 ## Blade Components
 
@@ -85,11 +85,13 @@ Views frequently read CMS data through `SiteSetting::get()` and `SiteSetting::ge
 - Logo assets. The favicon is served from `public/assets/logo.png`.
 - Hero/about/features/gallery content.
 - Social links.
+- Footer social/contact links, including Instagram, TikTok, Shopee, WhatsApp, email, and address.
 - Section visibility flags.
+- SEO metadata, Open Graph/Twitter metadata, Google Tag Manager, Google Analytics, verification tags, and average-position dashboard input.
 - Bank transfer instructions.
-- Promo display values for storefront estimate display (`promo_original_price` and `promo_real_price` keys).
+- Promo display values for storefront estimate display (`promo_original_price` and `promo_real_price` keys) plus popup/announcement values.
 
-Dashboard image fields use drag-and-drop file upload controls rather than URL inputs. Product, category, blog, CMS, and payment-proof image inputs accept PNG, JPG/JPEG, WEBP, GIF, or AVIF files up to 5 MB.
+Dashboard image fields use drag-and-drop file upload controls rather than URL inputs. Product, category, blog, CMS, and payment-proof image inputs accept PNG, JPG/JPEG, WEBP, GIF, or AVIF files up to 5 MB. The CMS editor is stacked vertically with the live preview above the content editor; its internal content tabs sit above the form area. Hero and about text fields write localized `*_id` and `*_en` setting keys so the storefront preview reflects the same values read by `SiteSetting::getTranslatabled()`. Dashboard create/edit modals are teleported to the body and padded below the dashboard topbar so they do not collide with the header.
 
 Dashboard numeric entry fields are rendered as text inputs with numeric input modes and client-side filtering to avoid browser spinner controls while still accepting numeric-only input.
 
@@ -99,4 +101,3 @@ Product, blog, and category image views use model `imageUrl()` helpers so local 
 
 - Several controller methods reference missing edit views: `admin.products.edit` and `admin.measurements.edit`.
 - Some routes expose resource create/show/edit actions that are empty or not represented by views.
-- Public layout contains some hardcoded external links and contact values alongside CMS-driven values.

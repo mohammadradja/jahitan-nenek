@@ -2,7 +2,7 @@
 
 Routes are modular. `routes/web.php` defines public routes and requires the other route files.
 
-`php artisan route:list --except-vendor` reported 105 application routes during inspection.
+`php artisan route:list --except-vendor` reported 110 application routes during inspection.
 
 ## Public Routes
 
@@ -20,6 +20,7 @@ Defined in `routes/web.php`.
 | `POST /track-order` | `order.track.post` | `CheckoutController@trackOrder` | Order lookup by order ID and email. |
 | `GET /lang/{locale}` | `lang.switch` | inline closure | Supports `en` and `id`, stores locale in session. |
 | `GET /feed/instagram` | `feed.instagram` | `FeedController@instagram` | XML product feed. |
+| `POST /analytics/click` | `analytics.click` | `AnalyticsController@click` | Records public storefront click analytics. |
 | `GET /dashboard` | `dashboard` | inline closure | Redirects by role. Requires `auth`, `verified`. |
 
 ## Customer Routes
@@ -66,6 +67,7 @@ Reports:
 Settings/CMS:
 
 - `admin.settings.*` uses `Superadmin\SiteSettingController`.
+- `admin.promo.*` uses `Superadmin\SiteSettingController`.
 - `admin.cms.*` uses `CMSController`.
 
 ## Superadmin Routes
@@ -80,6 +82,7 @@ Routes include:
 
 - Dashboard.
 - Settings and test-connection endpoints.
+- Dedicated promo and storefront popup endpoints.
 - CMS index/update.
 - Sales, stock, customer, and finance reports through `Admin\ReportController`.
 - Staff resource routes except create/show/edit.

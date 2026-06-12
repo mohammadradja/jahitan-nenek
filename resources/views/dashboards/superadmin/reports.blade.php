@@ -34,7 +34,7 @@
                 <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center mb-6 backdrop-blur-md">
                     <i class="fas fa-dollar-sign text-soft-rose"></i>
                 </div>
-                <p class="text-[9px] font-bold text-white/50 uppercase tracking-[0.2em] mb-2">Paid Revenue</p>
+                <p class="text-[9px] font-bold text-white/50 uppercase tracking-[0.2em] mb-2">Pendapatan Dibayar</p>
                 <h3 class="text-2xl font-bold tracking-tight">Rp{{ number_format(\App\Models\Order::where('payment_status', 'paid')->sum('total_price'), 0, ',', '.') }}</h3>
             </div>
             <div class="absolute -right-6 -top-6 w-24 h-24 bg-soft-rose/5 rounded-full blur-2xl group-hover:bg-soft-rose/10 transition-all duration-700"></div>
@@ -44,7 +44,7 @@
             <div class="w-10 h-10 bg-soft-rose/10 rounded-xl flex items-center justify-center text-soft-rose mb-6 group-hover:bg-soft-rose group-hover:text-white transition-all duration-500 shadow-inner">
                 <i class="fas fa-shopping-bag text-xs"></i>
             </div>
-            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">Orders Count</p>
+            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">Jumlah Pesanan</p>
             <h3 class="text-2xl font-bold text-dark-wool tracking-tight">{{ number_format(\App\Models\Order::count(), 0, ',', '.') }}</h3>
         </div>
 
@@ -52,7 +52,7 @@
             <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-500 mb-6 group-hover:bg-blue-500 group-hover:text-white transition-all duration-500 shadow-inner">
                 <i class="fas fa-receipt text-xs"></i>
             </div>
-            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">Avg. Ticket</p>
+            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">Rata-rata Transaksi</p>
             <h3 class="text-2xl font-bold text-dark-wool tracking-tight">Rp{{ number_format(\App\Models\Order::where('payment_status', 'paid')->avg('total_price') ?? 0, 0, ',', '.') }}</h3>
         </div>
 
@@ -60,8 +60,8 @@
             <div class="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-500 mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-500 shadow-inner">
                 <i class="fas fa-boxes text-xs"></i>
             </div>
-            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">Stock Level</p>
-            <h3 class="text-2xl font-bold text-dark-wool tracking-tight">{{ number_format(\App\Models\Product::sum('stock'), 0, ',', '.') }} <span class="text-[10px] font-bold text-gray-300 ml-1">ITEMS</span></h3>
+            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">Level Stok</p>
+            <h3 class="text-2xl font-bold text-dark-wool tracking-tight">{{ number_format(\App\Models\Product::sum('stock'), 0, ',', '.') }} <span class="text-[10px] font-bold text-gray-300 ml-1">ITEM</span></h3>
         </div>
     </div>
 
@@ -70,7 +70,7 @@
         @if($type === 'all' || $type === 'sales')
             <div class="bg-white p-6 rounded-2xl border border-gray-50 shadow-sm">
                 <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-sm font-bold text-dark-wool uppercase tracking-widest">Penjualan & Revenue</h3>
+                    <h3 class="text-sm font-bold text-dark-wool uppercase tracking-widest">Penjualan & Pendapatan</h3>
                 </div>
                 @include('dashboards.superadmin.reports.sales')
             </div>

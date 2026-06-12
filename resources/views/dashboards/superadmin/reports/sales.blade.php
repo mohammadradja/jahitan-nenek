@@ -2,7 +2,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- Sales Overview Box -->
         <div class="bg-gray-50/50 p-5 rounded-xl border border-gray-100">
-            <h4 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Top Products by Revenue</h4>
+            <h4 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Produk Teratas Berdasarkan Pendapatan</h4>
             <div class="space-y-3">
                 @foreach(\App\Models\Product::orderBy('sales_count', 'desc')->take(3)->get() as $product)
                 <div class="flex items-center justify-between">

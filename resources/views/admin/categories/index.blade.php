@@ -101,9 +101,9 @@
     </div>
 
     <template x-teleport="body">
-        <div x-show="showCreateModal" x-cloak class="fixed inset-0 z-[200000] flex items-center justify-center p-4 sm:p-6">
-            <div class="absolute inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="closeModals()"></div>
-            <div class="relative bg-white w-full max-w-3xl rounded-[2.5rem] shadow-2xl animate__animated animate__zoomIn animate__faster max-h-[90vh] overflow-hidden flex flex-col">
+        <div x-show="showCreateModal" x-cloak class="fixed inset-0 z-[200000] overflow-y-auto px-3 pb-6 pt-24 sm:px-6 sm:pb-8 sm:pt-28 lg:pt-32">
+            <div class="fixed inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="closeModals()"></div>
+            <div class="relative mx-auto mb-6 bg-white w-full max-w-3xl rounded-[2.5rem] shadow-2xl animate__animated animate__zoomIn animate__faster max-h-[calc(100dvh-7rem)] sm:max-h-[calc(100dvh-8rem)] lg:max-h-[calc(100dvh-9rem)] overflow-hidden flex flex-col">
                 <div class="px-6 sm:px-10 py-6 border-b border-gray-100 flex items-center justify-between shrink-0">
                     <h3 class="text-2xl font-serif font-bold">Tambah Kategori</h3>
                     <button type="button" @click="closeModals()" class="w-10 h-10 rounded-xl bg-gray-50 text-gray-400 hover:bg-soft-rose hover:text-white transition-all">
@@ -112,7 +112,7 @@
                 </div>
                 <form action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data" class="flex min-h-0 flex-1 flex-col">
                     @csrf
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto px-6 sm:px-10 py-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 min-h-0 overflow-y-auto px-6 sm:px-10 py-8">
                         <div>
                             <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nama Kategori</label>
                             <input type="text" name="name" required class="input-premium" placeholder="Contoh: Cardigan Klasik">
@@ -157,9 +157,9 @@
     </template>
 
     <template x-teleport="body">
-        <div x-show="showEditModal" x-cloak class="fixed inset-0 z-[200000] flex items-center justify-center p-4 sm:p-6">
-            <div class="absolute inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="closeModals()"></div>
-            <div class="relative bg-white w-full max-w-3xl rounded-[2.5rem] shadow-2xl animate__animated animate__zoomIn animate__faster max-h-[90vh] overflow-hidden flex flex-col">
+        <div x-show="showEditModal" x-cloak class="fixed inset-0 z-[200000] overflow-y-auto px-3 pb-6 pt-24 sm:px-6 sm:pb-8 sm:pt-28 lg:pt-32">
+            <div class="fixed inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="closeModals()"></div>
+            <div class="relative mx-auto mb-6 bg-white w-full max-w-3xl rounded-[2.5rem] shadow-2xl animate__animated animate__zoomIn animate__faster max-h-[calc(100dvh-7rem)] sm:max-h-[calc(100dvh-8rem)] lg:max-h-[calc(100dvh-9rem)] overflow-hidden flex flex-col">
                 <div class="px-6 sm:px-10 py-6 border-b border-gray-100 flex items-center justify-between shrink-0">
                     <h3 class="text-2xl font-serif font-bold">Edit Kategori</h3>
                     <button type="button" @click="closeModals()" class="w-10 h-10 rounded-xl bg-gray-50 text-gray-400 hover:bg-soft-rose hover:text-white transition-all">
@@ -169,7 +169,7 @@
                 <form :action="`/admin/categories/${editData.id}`" method="POST" enctype="multipart/form-data" class="flex min-h-0 flex-1 flex-col">
                     @csrf
                     @method('PUT')
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto px-6 sm:px-10 py-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 min-h-0 overflow-y-auto px-6 sm:px-10 py-8">
                         <div>
                             <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nama Kategori</label>
                             <input type="text" name="name" x-model="editData.name" required class="input-premium" placeholder="Contoh: Cardigan Klasik">

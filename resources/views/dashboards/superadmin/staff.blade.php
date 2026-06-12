@@ -96,17 +96,18 @@
         {{ $staff->withQueryString()->links() }}
     </div>
 
-    <template x-if="showCreateModal">
-        <div class="fixed inset-0 z-[200000] flex items-center justify-center p-6 overflow-y-auto">
-            <div class="absolute inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="showCreateModal = false"></div>
-            <div class="relative bg-white w-full max-w-lg rounded-5xl shadow-2xl p-10 animate__animated animate__zoomIn animate__faster my-auto">
-                <div class="mb-8">
+    <template x-teleport="body">
+        <div x-show="showCreateModal" x-cloak class="fixed inset-0 z-[200000] overflow-y-auto px-3 pb-6 pt-24 sm:px-6 sm:pb-8 sm:pt-28 lg:pt-32">
+            <div class="fixed inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="showCreateModal = false"></div>
+            <div class="relative mx-auto mb-6 bg-white w-full max-w-lg rounded-5xl shadow-2xl animate__animated animate__zoomIn animate__faster max-h-[calc(100dvh-7rem)] sm:max-h-[calc(100dvh-8rem)] lg:max-h-[calc(100dvh-9rem)] overflow-hidden flex flex-col">
+                <div class="px-6 sm:px-10 py-8 border-b border-gray-100 shrink-0">
                     <h3 class="text-2xl font-serif font-bold text-dark-wool">Tambah Staf Baru</h3>
                     <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mt-1">Berikan akses administratif sistem</p>
                 </div>
                 
-                <form action="{{ route('superadmin.staff.store') }}" method="POST" class="space-y-6">
+                <form action="{{ route('superadmin.staff.store') }}" method="POST" class="flex min-h-0 flex-1 flex-col">
                     @csrf
+                    <div class="space-y-6 flex-1 min-h-0 overflow-y-auto px-6 sm:px-10 py-8">
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nama Lengkap</label>
                         <input type="text" name="name" required class="input-premium py-3 text-sm" placeholder="Contoh: Admin Operasional">
@@ -133,8 +134,9 @@
                             <option value="admin">Admin (Operasional)</option>
                         </select>
                     </div>
+                    </div>
 
-                    <div class="pt-6 flex justify-center space-x-4">
+                    <div class="px-6 sm:px-10 py-6 flex justify-center space-x-4 border-t border-gray-100 bg-white shrink-0">
                         <button type="submit" class="btn-primary">Simpan Staf</button>
                         <button type="button" @click="showCreateModal = false" class="btn-secondary">Batal</button>
                     </div>
@@ -143,18 +145,19 @@
         </div>
     </template>
 
-    <template x-if="showEditModal">
-        <div class="fixed inset-0 z-[200000] flex items-center justify-center p-6 overflow-y-auto">
-            <div class="absolute inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="showEditModal = false"></div>
-            <div class="relative bg-white w-full max-w-lg rounded-5xl shadow-2xl p-10 animate__animated animate__zoomIn animate__faster my-auto">
-                <div class="mb-8">
+    <template x-teleport="body">
+        <div x-show="showEditModal" x-cloak class="fixed inset-0 z-[200000] overflow-y-auto px-3 pb-6 pt-24 sm:px-6 sm:pb-8 sm:pt-28 lg:pt-32">
+            <div class="fixed inset-0 bg-dark-wool/40 backdrop-blur-sm" @click="showEditModal = false"></div>
+            <div class="relative mx-auto mb-6 bg-white w-full max-w-lg rounded-5xl shadow-2xl animate__animated animate__zoomIn animate__faster max-h-[calc(100dvh-7rem)] sm:max-h-[calc(100dvh-8rem)] lg:max-h-[calc(100dvh-9rem)] overflow-hidden flex flex-col">
+                <div class="px-6 sm:px-10 py-8 border-b border-gray-100 shrink-0">
                     <h3 class="text-2xl font-serif font-bold text-dark-wool">Edit Data Staf</h3>
                     <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mt-1">Perbarui informasi atau akses pengguna</p>
                 </div>
                 
-                <form :action="`/superadmin/staff/${editData.id}`" method="POST" class="space-y-6">
+                <form :action="`/superadmin/staff/${editData.id}`" method="POST" class="flex min-h-0 flex-1 flex-col">
                     @csrf
                     @method('PUT')
+                    <div class="space-y-6 flex-1 min-h-0 overflow-y-auto px-6 sm:px-10 py-8">
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nama Lengkap</label>
                         <input type="text" name="name" x-model="editData.name" required class="input-premium py-3 text-sm" placeholder="Contoh: Admin Operasional">
@@ -185,8 +188,9 @@
                             </div>
                         </div>
                     </div>
+                    </div>
 
-                    <div class="pt-6 flex justify-center space-x-4">
+                    <div class="px-6 sm:px-10 py-6 flex justify-center space-x-4 border-t border-gray-100 bg-white shrink-0">
                         <button type="submit" class="btn-accent">Perbarui Staf</button>
                         <button type="button" @click="showEditModal = false" class="btn-secondary">Batal</button>
                     </div>

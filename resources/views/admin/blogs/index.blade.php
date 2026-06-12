@@ -90,12 +90,12 @@
     </div>
 
     <!-- Create Modal -->
-    <template x-if="showCreateModal">
-        <div class="fixed inset-0 z-[200000] flex items-center justify-center p-6 overflow-y-auto">
-            <div class="absolute inset-0 bg-dark-wool/60 backdrop-blur-md" @click="showCreateModal = false"></div>
-            <div class="relative bg-white w-full max-w-5xl rounded-[3rem] shadow-2xl p-10 animate__animated animate__zoomIn animate__faster my-auto overflow-y-auto max-h-[90vh]">
+    <template x-teleport="body">
+        <div x-show="showCreateModal" x-cloak class="fixed inset-0 z-[200000] overflow-y-auto px-3 pb-6 pt-24 sm:px-6 sm:pb-8 sm:pt-28 lg:pt-32">
+            <div class="fixed inset-0 bg-dark-wool/60 backdrop-blur-md" @click="showCreateModal = false"></div>
+            <div class="relative mx-auto mb-6 bg-white w-full max-w-5xl rounded-[3rem] shadow-2xl animate__animated animate__zoomIn animate__faster max-h-[calc(100dvh-7rem)] sm:max-h-[calc(100dvh-8rem)] lg:max-h-[calc(100dvh-9rem)] overflow-hidden flex flex-col">
                 <div class="absolute top-0 left-0 w-full h-2 bg-soft-rose"></div>
-                <div class="flex justify-between items-center mb-6">
+                <div class="flex justify-between items-center px-6 sm:px-10 pt-10 pb-6 border-b border-gray-100 shrink-0">
                     <h3 class="text-2xl font-serif font-bold text-dark-wool flex items-center">
                         <i class="fas fa-pen-nib mr-3 text-soft-rose"></i> Tulis Artikel Baru
                     </h3>
@@ -104,9 +104,9 @@
                     </button>
                 </div>
                 
-                <form action="{{ route('admin.blogs.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.blogs.store') }}" method="POST" enctype="multipart/form-data" class="flex min-h-0 flex-1 flex-col">
                     @csrf
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-1 min-h-0 overflow-y-auto px-6 sm:px-10 py-8">
                         <!-- Left Column: Details & Cover -->
                         <div class="space-y-5">
                             <div>
@@ -154,7 +154,7 @@
                         </div>
                     </div>
  
-                    <div class="mt-8 flex gap-4 border-t border-gray-50 pt-6">
+                    <div class="flex gap-4 border-t border-gray-100 px-6 sm:px-10 py-6 bg-white shrink-0">
                         <button type="submit" class="flex-[2] btn-primary py-3">Simpan Artikel</button>
                         <button type="button" @click="showCreateModal = false" class="flex-1 btn-secondary py-3">Batal</button>
                     </div>
@@ -164,12 +164,12 @@
     </template>
  
     <!-- Edit Modal -->
-    <template x-if="showEditModal">
-        <div class="fixed inset-0 z-[200000] flex items-center justify-center p-6 overflow-y-auto">
-            <div class="absolute inset-0 bg-dark-wool/60 backdrop-blur-md" @click="showEditModal = false"></div>
-            <div class="relative bg-white w-full max-w-5xl rounded-[3rem] shadow-2xl p-10 animate__animated animate__zoomIn animate__faster my-auto overflow-y-auto max-h-[90vh]">
+    <template x-teleport="body">
+        <div x-show="showEditModal" x-cloak class="fixed inset-0 z-[200000] overflow-y-auto px-3 pb-6 pt-24 sm:px-6 sm:pb-8 sm:pt-28 lg:pt-32">
+            <div class="fixed inset-0 bg-dark-wool/60 backdrop-blur-md" @click="showEditModal = false"></div>
+            <div class="relative mx-auto mb-6 bg-white w-full max-w-5xl rounded-[3rem] shadow-2xl animate__animated animate__zoomIn animate__faster max-h-[calc(100dvh-7rem)] sm:max-h-[calc(100dvh-8rem)] lg:max-h-[calc(100dvh-9rem)] overflow-hidden flex flex-col">
                 <div class="absolute top-0 left-0 w-full h-2 bg-soft-rose"></div>
-                <div class="flex justify-between items-center mb-6">
+                <div class="flex justify-between items-center px-6 sm:px-10 pt-10 pb-6 border-b border-gray-100 shrink-0">
                     <h3 class="text-2xl font-serif font-bold text-dark-wool flex items-center">
                         <i class="fas fa-edit mr-3 text-soft-rose"></i> Edit Artikel
                     </h3>
@@ -178,10 +178,10 @@
                     </button>
                 </div>
                 
-                <form :action="`/admin/blogs/${editData.id}`" method="POST" enctype="multipart/form-data">
+                <form :action="`/admin/blogs/${editData.id}`" method="POST" enctype="multipart/form-data" class="flex min-h-0 flex-1 flex-col">
                     @csrf
                     @method('PUT')
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-1 min-h-0 overflow-y-auto px-6 sm:px-10 py-8">
                         <!-- Left Column: Details & Cover -->
                         <div class="space-y-5">
                             <div>
@@ -239,7 +239,7 @@
                         </div>
                     </div>
  
-                    <div class="mt-8 flex gap-4 border-t border-gray-50 pt-6">
+                    <div class="flex gap-4 border-t border-gray-100 px-6 sm:px-10 py-6 bg-white shrink-0">
                         <button type="submit" class="flex-[2] btn-primary py-3">Perbarui Artikel</button>
                         <button type="button" @click="showEditModal = false" class="flex-1 btn-secondary py-3">Batal</button>
                     </div>

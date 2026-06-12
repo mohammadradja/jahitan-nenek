@@ -37,7 +37,7 @@
                     <div class="w-6 h-6 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-500 mb-1">
                         <i class="fas fa-star text-[8px]"></i>
                     </div>
-                    <p class="text-[6px] font-bold text-gray-300 uppercase tracking-widest mb-0.5">Points</p>
+                    <p class="text-[6px] font-bold text-gray-300 uppercase tracking-widest mb-0.5">Poin</p>
                     <h4 class="text-xs font-bold text-dark-wool">{{ number_format(auth()->user()->loyalty_points) }}</h4>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                     <table class="w-full text-left">
                         <thead>
                             <tr class="bg-gray-50/50">
-                                <th class="px-8 py-4 text-[9px] font-bold uppercase tracking-widest text-gray-400">Order ID</th>
+                                <th class="px-8 py-4 text-[9px] font-bold uppercase tracking-widest text-gray-400">ID Pesanan</th>
                                 <th class="px-8 py-4 text-[9px] font-bold uppercase tracking-widest text-gray-400">Tanggal</th>
                                 <th class="px-8 py-4 text-[9px] font-bold uppercase tracking-widest text-gray-400 text-right">Aksi</th>
                             </tr>
@@ -108,7 +108,7 @@
                 <div class="px-8 py-4 border-t border-gray-50 bg-gray-50/30">
                     <div class="flex items-center justify-between">
                         <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                            Showing {{ $orders->firstItem() }}-{{ $orders->lastItem() }} of {{ $orders->total() }}
+                            Menampilkan {{ $orders->firstItem() }}-{{ $orders->lastItem() }} dari {{ $orders->total() }}
                         </div>
                         <div class="flex space-x-1">
                             {{ $orders->links('vendor.pagination.premium') }}

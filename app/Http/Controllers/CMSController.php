@@ -23,15 +23,6 @@ class CMSController extends Controller
         
         File::ensureDirectoryExists(public_path('assets/images/settings'));
 
-        // Handle Brand Assets
-        if ($request->hasFile('site_logo')) {
-            SiteSetting::set('site_logo', $this->storeImage($request, 'site_logo'));
-        }
-        
-        if ($request->hasFile('site_favicon')) {
-            SiteSetting::set('site_favicon', $this->storeImage($request, 'site_favicon'));
-        }
-
         // Handle CMS Landing Page Image Uploads
         if ($request->hasFile('cms_hero_image')) {
             SiteSetting::set('cms_hero_image', $this->storeImage($request, 'cms_hero_image'));
@@ -59,17 +50,17 @@ class CMSController extends Controller
         ];
 
         foreach ($sections as $section) {
-            SiteSetting::set($section, $request->has($section) ? '1' : '0');
+            SiteSetting::set($section, $request->has($section) ? '1' : '0', 'boolean', 'cms');
         }
 
         // Skip keys that are handled as files or arrays
-        $fileKeys = ['site_logo', 'site_favicon', 'cms_hero_image', 'cms_about_image', 'cms_gallery_img1', 'cms_gallery_img2', 'cms_gallery_img3', 'cms_gallery_img4'];
+        $fileKeys = ['cms_hero_image', 'cms_about_image', 'cms_gallery_img1', 'cms_gallery_img2', 'cms_gallery_img3', 'cms_gallery_img4'];
 
         foreach ($data as $key => $value) {
             if (in_array($key, $fileKeys) || in_array($key, $sections)) {
                 continue;
             }
-            SiteSetting::set($key, $value);
+            SiteSetting::set($key, $value, 'string', 'cms');
         }
 
         $message = 'Konten CMS berhasil diperbarui.';
@@ -98,7 +89,7 @@ class CMSController extends Controller
     {
         $rules = [];
 
-        foreach (['site_logo', 'site_favicon', 'cms_hero_image', 'cms_about_image', 'cms_gallery_img1', 'cms_gallery_img2', 'cms_gallery_img3', 'cms_gallery_img4'] as $key) {
+        foreach (['cms_hero_image', 'cms_about_image', 'cms_gallery_img1', 'cms_gallery_img2', 'cms_gallery_img3', 'cms_gallery_img4'] as $key) {
             $rules[$key] = ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif,avif', 'max:5120'];
         }
 

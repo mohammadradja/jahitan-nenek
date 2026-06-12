@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\AnalyticsController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
@@ -27,6 +28,7 @@ Route::get('/lang/{locale}', function ($locale) {
 })->name('lang.switch');
 
 Route::get('/feed/instagram', [\App\Http\Controllers\FeedController::class, 'instagram'])->name('feed.instagram');
+Route::post('/analytics/click', [AnalyticsController::class, 'click'])->middleware('throttle:120,1')->name('analytics.click');
 
 // Dashboard redirect based on role
 Route::get('/dashboard', function () {

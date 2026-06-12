@@ -123,9 +123,16 @@
             <a href="{{ route(auth()->user()->role . '.cms.index') }}" 
                class="flex items-center rounded-xl transition-all duration-300"
                :class="sidebarOpen ? 'space-x-3 px-4 py-2.5 {{ request()->routeIs('*.cms.*') ? 'bg-soft-rose text-white shadow-md shadow-soft-rose/20' : 'text-dark-wool hover:bg-gray-50 hover:translate-x-1 group' }}' : 'justify-center py-3 {{ request()->routeIs('*.cms.*') ? 'bg-soft-rose text-white shadow-md shadow-soft-rose/20' : 'text-dark-wool hover:bg-gray-50 group' }}'"
-               title="Content Management System (CMS)">
+               title="Kelola Konten">
                 <i class="fas fa-sliders text-[14px]" :class="sidebarOpen ? 'w-4' : ''"></i>
                 <span class="font-bold text-xs" :class="sidebarOpen ? '' : 'lg:hidden'">CMS / Kelola Konten</span>
+            </a>
+            <a href="{{ route(auth()->user()->role . '.promo.index') }}" 
+               class="flex items-center rounded-xl transition-all duration-300"
+               :class="sidebarOpen ? 'space-x-3 px-4 py-2.5 {{ request()->routeIs('*.promo.*') ? 'bg-soft-rose text-white shadow-md shadow-soft-rose/20' : 'text-dark-wool hover:bg-gray-50 hover:translate-x-1 group' }}' : 'justify-center py-3 {{ request()->routeIs('*.promo.*') ? 'bg-soft-rose text-white shadow-md shadow-soft-rose/20' : 'text-dark-wool hover:bg-gray-50 group' }}'"
+               title="Promo">
+                <i class="fas fa-tags text-[14px]" :class="sidebarOpen ? 'w-4' : ''"></i>
+                <span class="font-bold text-xs" :class="sidebarOpen ? '' : 'lg:hidden'">Promo</span>
             </a>
             <a href="{{ route(auth()->user()->role . '.settings.index') }}" 
                class="flex items-center rounded-xl transition-all duration-300"

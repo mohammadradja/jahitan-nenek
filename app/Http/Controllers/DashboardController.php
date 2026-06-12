@@ -8,6 +8,8 @@ use App\Models\Blog;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Visitor;
+use App\Models\AnalyticsEvent;
+use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -56,7 +58,9 @@ class DashboardController extends Controller
             $chart_data['orders'][] = $ordersPerDay->get($date, 0);
         }
 
-        return view('dashboards.admin.index', compact('stats', 'latest_orders', 'chart_data', 'top_products'));
+        $analytics = $this->analyticsSummary();
+
+        return view('dashboards.admin.index', compact('stats', 'latest_orders', 'chart_data', 'top_products', 'analytics'));
     }
 
     public function superadmin()
@@ -79,7 +83,7 @@ class DashboardController extends Controller
         $latest_orders = Order::latest()->take(5)->get();
         
         // Chart Data: Last 7 days (Optimized single queries)
-        $chart_data = ['labels' => [], 'visitors' => [], 'revenue' => []];
+        $chart_data = ['labels' => [], 'visitors' => [], 'revenue' => [], 'clicks' => []];
         
         $visitorsPerDay = Visitor::selectRaw('DATE(created_at) as date, COUNT(*) as count')
             ->where('created_at', '>=', now()->subDays(6)->startOfDay())
@@ -92,13 +96,95 @@ class DashboardController extends Controller
             ->groupBy('date')
             ->pluck('total', 'date');
 
+        $clicksPerDay = AnalyticsEvent::selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->where('event_type', 'click')
+            ->where('created_at', '>=', now()->subDays(6)->startOfDay())
+            ->groupBy('date')
+            ->pluck('count', 'date');
+
         for ($i = 6; $i >= 0; $i--) {
             $date = now()->subDays($i)->format('Y-m-d');
             $chart_data['labels'][] = now()->subDays($i)->format('d M');
             $chart_data['visitors'][] = $visitorsPerDay->get($date, 0);
             $chart_data['revenue'][] = (float) $revenuePerDay->get($date, 0);
+            $chart_data['clicks'][] = $clicksPerDay->get($date, 0);
         }
 
-        return view('dashboards.superadmin.index', compact('stats', 'latest_orders', 'chart_data'));
+        $analytics = $this->analyticsSummary();
+
+        return view('dashboards.superadmin.index', compact('stats', 'latest_orders', 'chart_data', 'analytics'));
+    }
+
+    private function analyticsSummary(int $days = 30): array
+    {
+        $start = now()->subDays($days - 1)->startOfDay();
+
+        $impressions = Visitor::where('created_at', '>=', $start)->count();
+        $traffic = Visitor::where('created_at', '>=', $start)
+            ->select('ip_address', 'user_agent')
+            ->distinct()
+            ->get()
+            ->count();
+        $clicks = AnalyticsEvent::where('event_type', 'click')
+            ->where('created_at', '>=', $start)
+            ->count();
+
+        return [
+            'days' => $days,
+            'traffic' => $traffic,
+            'impressions' => $impressions,
+            'clicks' => $clicks,
+            'ctr' => $impressions > 0 ? round(($clicks / $impressions) * 100, 2) : 0,
+            'average_position' => (float) SiteSetting::get('analytics_average_position', 0),
+            'top_paths' => Visitor::select('path', DB::raw('COUNT(*) as views'))
+                ->where('created_at', '>=', $start)
+                ->groupBy('path')
+                ->orderByDesc('views')
+                ->take(30)
+                ->get()
+                ->map(function ($path) {
+                    $path->label = $this->trafficPathLabel($path->path);
+
+                    return $path;
+                })
+                ->groupBy('label')
+                ->map(function ($items, $label) {
+                    return (object) [
+                        'label' => $label,
+                        'views' => $items->sum('views'),
+                    ];
+                })
+                ->sortByDesc('views')
+                ->values()
+                ->take(5),
+        ];
+    }
+
+    private function trafficPathLabel(?string $path): string
+    {
+        $path = trim((string) $path, '/');
+
+        if ($path === '') {
+            return 'Beranda';
+        }
+
+        return match (true) {
+            $path === 'blog' || str_starts_with($path, 'blog/') || str_starts_with($path, 'admin/blogs') => 'Artikel',
+            str_starts_with($path, 'product/') || str_starts_with($path, 'admin/products') => 'Produk',
+            str_starts_with($path, 'admin/categories') => 'Kategori Produk',
+            str_starts_with($path, 'admin/orders') => 'Pesanan',
+            str_starts_with($path, 'admin/measurements') => 'Ukuran Pelanggan',
+            str_starts_with($path, 'admin/cms') || str_starts_with($path, 'superadmin/cms') => 'Kelola Konten',
+            str_starts_with($path, 'admin/settings') || str_starts_with($path, 'superadmin/settings') => 'Pengaturan',
+            str_starts_with($path, 'admin/reports') || str_starts_with($path, 'superadmin/reports') => 'Laporan',
+            str_starts_with($path, 'superadmin/staff') => 'Staf Admin',
+            str_starts_with($path, 'superadmin/customers') => 'Data Pelanggan',
+            str_starts_with($path, 'cart') => 'Keranjang',
+            str_starts_with($path, 'checkout') => 'Checkout',
+            str_starts_with($path, 'track-order') => 'Lacak Pesanan',
+            str_starts_with($path, 'about') => 'Tentang Kami',
+            str_starts_with($path, 'contact') => 'Kontak',
+            default => str($path)->replace(['-', '_', '/'], [' ', ' ', ' > '])->title()->toString(),
+        };
     }
 }

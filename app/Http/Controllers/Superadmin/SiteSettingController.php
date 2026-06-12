@@ -18,6 +18,12 @@ class SiteSettingController extends Controller
         return view('superadmin.settings.index', compact('settings'));
     }
 
+    public function promo()
+    {
+        $settings = SiteSetting::all()->pluck('value', 'key');
+        return view('superadmin.settings.promo', compact('settings'));
+    }
+
     public function update(Request $request)
     {
         $request->validate($this->imageValidationRules());
@@ -37,11 +43,36 @@ class SiteSettingController extends Controller
             if (in_array($key, $fileKeys)) {
                 continue;
             }
-            SiteSetting::set($key, $value);
+            SiteSetting::set($key, $value, $this->inferType($key, $value), $section ?? 'general');
         }
 
         $message = 'Pengaturan ' . ($section ?? 'sistem') . ' berhasil diperbarui.';
         return redirect()->back()->with('success', $message);
+    }
+
+    public function updatePromo(Request $request)
+    {
+        $validated = $request->validate([
+            'promo_enabled' => ['required', 'in:0,1'],
+            'promo_label' => ['nullable', 'string', 'max:120'],
+            'promo_original_price' => ['nullable', 'integer', 'min:0'],
+            'promo_real_price' => ['nullable', 'integer', 'min:0'],
+            'promo_description' => ['nullable', 'string', 'max:255'],
+            'promo_popup_enabled' => ['required', 'in:0,1'],
+            'promo_popup_title' => ['nullable', 'string', 'max:140'],
+            'promo_popup_message' => ['nullable', 'string', 'max:500'],
+            'promo_popup_cta_label' => ['nullable', 'string', 'max:80'],
+            'promo_popup_cta_url' => ['nullable', 'string', 'max:255'],
+            'notification_enabled' => ['required', 'in:0,1'],
+            'notification_title' => ['nullable', 'string', 'max:140'],
+            'notification_message' => ['nullable', 'string', 'max:500'],
+        ]);
+
+        foreach ($validated as $key => $value) {
+            SiteSetting::set($key, $value, $this->inferType($key, $value), str_starts_with($key, 'notification_') ? 'notifications' : 'promo');
+        }
+
+        return redirect()->back()->with('success', 'Pengaturan promo berhasil diperbarui.');
     }
 
     public function testConnection(Request $request)
@@ -104,5 +135,22 @@ class SiteSettingController extends Controller
         }
 
         return $rules;
+    }
+
+    private function inferType(string $key, $value): string
+    {
+        if (str_contains($key, 'price') || str_contains($key, 'cost') || str_contains($key, 'position')) {
+            return is_numeric($value) ? 'decimal' : 'string';
+        }
+
+        if (is_bool($value) || in_array($value, ['0', '1'], true)) {
+            return 'boolean';
+        }
+
+        if (is_numeric($value) && preg_match('/^-?\d+$/', (string) $value)) {
+            return 'integer';
+        }
+
+        return 'string';
     }
 }

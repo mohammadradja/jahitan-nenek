@@ -16,12 +16,36 @@ class SiteSettingSeeder extends Seeder
             // General
             ['key' => 'site_name', 'value' => 'Jahitan Nenek', 'type' => 'string', 'group' => 'general'],
             ['key' => 'site_tagline', 'value' => 'Jahitan Kasih Sayang Premium', 'type' => 'string', 'group' => 'general'],
+            ['key' => 'site_description', 'value' => 'Jahitan Nenek menyajikan pakaian jahitan dan brukat berkualitas tinggi dengan kasih sayang, karakter, dan detail yang teliti.', 'type' => 'string', 'group' => 'seo'],
+            ['key' => 'site_keywords', 'value' => 'jahitan, jahitan nenek, brukat, baju brukat, fashion vintage, handmade indonesia', 'type' => 'string', 'group' => 'seo'],
+            ['key' => 'seo_meta_author', 'value' => 'Jahitan Nenek', 'type' => 'string', 'group' => 'seo'],
+            ['key' => 'seo_meta_robots', 'value' => 'index,follow', 'type' => 'string', 'group' => 'seo'],
+            ['key' => 'seo_canonical_url', 'value' => '', 'type' => 'string', 'group' => 'seo'],
+            ['key' => 'seo_og_title', 'value' => 'Jahitan Nenek', 'type' => 'string', 'group' => 'seo'],
+            ['key' => 'seo_og_description', 'value' => 'Pakaian jahitan dan brukat premium yang dibuat penuh kasih.', 'type' => 'string', 'group' => 'seo'],
+            ['key' => 'seo_og_image', 'value' => 'assets/logo.png', 'type' => 'string', 'group' => 'seo'],
+            ['key' => 'seo_og_type', 'value' => 'website', 'type' => 'string', 'group' => 'seo'],
+            ['key' => 'seo_twitter_card', 'value' => 'summary_large_image', 'type' => 'string', 'group' => 'seo'],
+            ['key' => 'seo_twitter_site', 'value' => '', 'type' => 'string', 'group' => 'seo'],
+            ['key' => 'google_tag_manager_id', 'value' => '', 'type' => 'string', 'group' => 'seo'],
+            ['key' => 'google_analytics_id', 'value' => '', 'type' => 'string', 'group' => 'seo'],
+            ['key' => 'google_site_verification', 'value' => '', 'type' => 'string', 'group' => 'seo'],
+            ['key' => 'facebook_domain_verification', 'value' => '', 'type' => 'string', 'group' => 'seo'],
+            ['key' => 'analytics_average_position', 'value' => '0', 'type' => 'decimal', 'group' => 'analytics'],
             ['key' => 'transaction_mode', 'value' => 'dev', 'type' => 'string', 'group' => 'general'], // dev or prod
             ['key' => 'promo_enabled', 'value' => '0', 'type' => 'boolean', 'group' => 'promo'],
             ['key' => 'promo_label', 'value' => 'Promo Spesial', 'type' => 'string', 'group' => 'promo'],
             ['key' => 'promo_original_price', 'value' => '150000', 'type' => 'integer', 'group' => 'promo'],
             ['key' => 'promo_real_price', 'value' => '100000', 'type' => 'integer', 'group' => 'promo'],
             ['key' => 'promo_description', 'value' => 'Harga spesial untuk koleksi pilihan Jahitan Nenek.', 'type' => 'string', 'group' => 'promo'],
+            ['key' => 'promo_popup_enabled', 'value' => '0', 'type' => 'boolean', 'group' => 'promo'],
+            ['key' => 'promo_popup_title', 'value' => 'Promo Spesial Jahitan Nenek', 'type' => 'string', 'group' => 'promo'],
+            ['key' => 'promo_popup_message', 'value' => 'Ada harga spesial untuk koleksi pilihan. Cek produk terbaru sebelum promonya selesai.', 'type' => 'string', 'group' => 'promo'],
+            ['key' => 'promo_popup_cta_label', 'value' => 'Lihat Koleksi', 'type' => 'string', 'group' => 'promo'],
+            ['key' => 'promo_popup_cta_url', 'value' => '/#produk', 'type' => 'string', 'group' => 'promo'],
+            ['key' => 'notification_enabled', 'value' => '0', 'type' => 'boolean', 'group' => 'notifications'],
+            ['key' => 'notification_title', 'value' => '', 'type' => 'string', 'group' => 'notifications'],
+            ['key' => 'notification_message', 'value' => '', 'type' => 'string', 'group' => 'notifications'],
 
             // Midtrans
             ['key' => 'midtrans_server_key', 'value' => 'SB-Mid-server-XXXXX', 'type' => 'string', 'group' => 'payment_midtrans'],
@@ -64,11 +88,15 @@ class SiteSettingSeeder extends Seeder
             ['key' => 'default_language', 'value' => 'id', 'type' => 'string', 'group' => 'localization'],
             ['key' => 'available_languages', 'value' => 'id,en', 'type' => 'string', 'group' => 'localization'],
 
-            // Brand Assets
-            ['key' => 'site_logo', 'value' => 'assets/logo.png', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'site_favicon', 'value' => 'favicon.ico', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_instagram_url', 'value' => 'https://instagram.com/jahitan.nenek', 'type' => 'string', 'group' => 'cms'],
-            ['key' => 'cms_whatsapp_url', 'value' => 'https://wa.me/628123456789', 'type' => 'string', 'group' => 'cms'],
+            // Brand, storefront social links, and footer contact
+            ['key' => 'site_logo', 'value' => 'assets/logo.png', 'type' => 'string', 'group' => 'general'],
+            ['key' => 'site_favicon', 'value' => 'favicon.ico', 'type' => 'string', 'group' => 'general'],
+            ['key' => 'cms_instagram_url', 'value' => 'https://instagram.com/jahitan.nenek', 'type' => 'string', 'group' => 'general'],
+            ['key' => 'cms_whatsapp_url', 'value' => 'https://wa.me/628123456789', 'type' => 'string', 'group' => 'general'],
+            ['key' => 'cms_tiktok_url', 'value' => 'https://tiktok.com', 'type' => 'string', 'group' => 'general'],
+            ['key' => 'cms_shopee_url', 'value' => '', 'type' => 'string', 'group' => 'general'],
+            ['key' => 'cms_footer_email', 'value' => 'halo@jahitannenek.com', 'type' => 'string', 'group' => 'general'],
+            ['key' => 'cms_footer_address', 'value' => 'Indonesia', 'type' => 'string', 'group' => 'general'],
 
             // Hero Section (ID)
             ['key' => 'cms_hero_title_id', 'value' => 'Jahitan Kasih Sayang, Warisan Tradisi.', 'type' => 'string', 'group' => 'cms'],

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Symfony\Component\HttpFoundation\Response;
 
 class TrackVisitors
@@ -15,7 +16,13 @@ class TrackVisitors
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->expectsJson() && !auth()->check()) {
+        if (
+            $request->isMethod('get')
+            && !$request->expectsJson()
+            && !auth()->check()
+            && !$request->is('analytics/*')
+            && Schema::hasTable('visitors')
+        ) {
             \App\Models\Visitor::create([
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->userAgent(),

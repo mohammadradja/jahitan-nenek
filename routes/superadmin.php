@@ -12,6 +12,8 @@ Route::middleware(['auth', 'role:superadmin'])->prefix('superadmin')->name('supe
     Route::get('/settings', [SiteSettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SiteSettingController::class, 'update'])->name('settings.update');
     Route::post('/settings/test-connection', [SiteSettingController::class, 'testConnection'])->name('settings.test');
+    Route::get('/promo', [SiteSettingController::class, 'promo'])->name('promo.index');
+    Route::post('/promo', [SiteSettingController::class, 'updatePromo'])->name('promo.update');
 
     // Dedicated Content Management System (CMS)
     Route::get('/cms', [\App\Http\Controllers\CMSController::class, 'index'])->name('cms.index');

@@ -159,6 +159,9 @@
                  <a href="{{ route(auth()->user()->role . '.cms.index') }}" @click="mobileMenuOpen = false" class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest transition-all {{ request()->routeIs('*.cms.*') ? 'bg-soft-rose text-white shadow-md' : 'text-dark-wool hover:bg-gray-50' }}">
                      <i class="fas fa-sliders w-4"></i> CMS / Konten
                  </a>
+                 <a href="{{ route(auth()->user()->role . '.promo.index') }}" @click="mobileMenuOpen = false" class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest transition-all {{ request()->routeIs('*.promo.*') ? 'bg-soft-rose text-white shadow-md' : 'text-dark-wool hover:bg-gray-50' }}">
+                     <i class="fas fa-tags w-4"></i> Promo
+                 </a>
                  <a href="{{ route(auth()->user()->role . '.settings.index') }}" @click="mobileMenuOpen = false" class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest transition-all {{ request()->routeIs('*.settings.*') ? 'bg-soft-rose text-white shadow-md' : 'text-dark-wool hover:bg-gray-50' }}">
                      <i class="fas fa-cog w-4"></i> Pengaturan
                  </a>

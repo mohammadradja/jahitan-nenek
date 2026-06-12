@@ -1,15 +1,76 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 <head>
+    @php
+        $siteName = \App\Models\SiteSetting::get('site_name', 'Jahitan Nenek');
+        $siteTagline = \App\Models\SiteSetting::get('site_tagline', 'Jahitan Kasih Sayang');
+        $siteDescription = \App\Models\SiteSetting::get('site_description', 'Jahitan Nenek menyajikan pakaian jahitan dan brukat berkualitas tinggi dengan kasih sayang, karakter, dan detail yang teliti.');
+        $siteKeywords = \App\Models\SiteSetting::get('site_keywords', 'jahitan, jahitan nenek, brukat, baju brukat, fashion vintage, handmade indonesia');
+        $siteFavicon = \App\Models\SiteSetting::get('site_favicon', 'assets/logo.png');
+        $canonicalUrl = \App\Models\SiteSetting::get('seo_canonical_url') ?: url()->current();
+        $ogTitle = \App\Models\SiteSetting::get('seo_og_title', $siteName);
+        $ogDescription = \App\Models\SiteSetting::get('seo_og_description', $siteDescription);
+        $ogImage = \App\Models\SiteSetting::get('seo_og_image', 'assets/logo.png');
+        $ogImageUrl = $ogImage && str_starts_with($ogImage, 'http') ? $ogImage : asset($ogImage ?: 'assets/logo.png');
+        $gtmId = trim((string) \App\Models\SiteSetting::get('google_tag_manager_id', ''));
+        $gaId = trim((string) \App\Models\SiteSetting::get('google_analytics_id', ''));
+        $cmsInstagramUrl = \App\Models\SiteSetting::get('cms_instagram_url', 'https://instagram.com');
+        $cmsWhatsappUrl = \App\Models\SiteSetting::get('cms_whatsapp_url', 'https://wa.me/628123456789');
+        $cmsTiktokUrl = \App\Models\SiteSetting::get('cms_tiktok_url', 'https://tiktok.com');
+        $cmsShopeeUrl = \App\Models\SiteSetting::get('cms_shopee_url');
+        $footerEmail = \App\Models\SiteSetting::get('cms_footer_email', 'halo@jahitannenek.com');
+        $footerAddress = \App\Models\SiteSetting::get('cms_footer_address', __('messages.address'));
+        $promoEnabled = \App\Models\SiteSetting::get('promo_enabled', '0') == '1';
+        $promoPopupEnabled = \App\Models\SiteSetting::get('promo_popup_enabled', '0') == '1';
+        $notificationEnabled = \App\Models\SiteSetting::get('notification_enabled', '0') == '1';
+        $promoPopupCtaUrl = \App\Models\SiteSetting::get('promo_popup_cta_url') ?: route('home') . '#produk';
+    @endphp
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" href="{{ asset('assets/logo.png') }}" type="image/png">
+    <link rel="shortcut icon" href="{{ str_starts_with($siteFavicon, 'http') ? $siteFavicon : asset($siteFavicon) }}" type="image/png">
     
-    <title>@hasSection('title') @yield('title') - {{ \App\Models\SiteSetting::get('site_name', 'Jahitan Nenek') }} @else {{ \App\Models\SiteSetting::get('site_name', 'Jahitan Nenek') }} | {{ \App\Models\SiteSetting::get('site_tagline', 'Jahitan Kasih Sayang') }} @endif</title>
-    <meta name="description" content="Jahitan Nenek menyajikan pakaian jahitan dan brukat berkualitas tinggi dengan kasih sayang, karakter, dan detail yang teliti.">
-    <meta name="keywords" content="jahitan, jahitan nenek, brukat, baju brukat, fashion vintage, handmade indonesia">
+    <title>@hasSection('title') @yield('title') - {{ $siteName }} @else {{ $siteName }} | {{ $siteTagline }} @endif</title>
+    <meta name="description" content="{{ $siteDescription }}">
+    <meta name="keywords" content="{{ $siteKeywords }}">
+    <meta name="author" content="{{ \App\Models\SiteSetting::get('seo_meta_author', $siteName) }}">
+    <meta name="robots" content="{{ \App\Models\SiteSetting::get('seo_meta_robots', 'index,follow') }}">
+    @if(\App\Models\SiteSetting::get('google_site_verification'))
+        <meta name="google-site-verification" content="{{ \App\Models\SiteSetting::get('google_site_verification') }}">
+    @endif
+    @if(\App\Models\SiteSetting::get('facebook_domain_verification'))
+        <meta name="facebook-domain-verification" content="{{ \App\Models\SiteSetting::get('facebook_domain_verification') }}">
+    @endif
+    <link rel="canonical" href="{{ $canonicalUrl }}">
+    <meta property="og:title" content="{{ $ogTitle }}">
+    <meta property="og:description" content="{{ $ogDescription }}">
+    <meta property="og:type" content="{{ \App\Models\SiteSetting::get('seo_og_type', 'website') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ $ogImageUrl }}">
+    <meta name="twitter:card" content="{{ \App\Models\SiteSetting::get('seo_twitter_card', 'summary_large_image') }}">
+    @if(\App\Models\SiteSetting::get('seo_twitter_site'))
+        <meta name="twitter:site" content="{{ \App\Models\SiteSetting::get('seo_twitter_site') }}">
+    @endif
     @stack('meta')
+
+    @if($gtmId)
+        <script>
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','{{ $gtmId }}');
+        </script>
+    @endif
+    @if($gaId)
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gaId }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{{ $gaId }}');
+        </script>
+    @endif
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;600&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
@@ -20,6 +81,9 @@
     @stack('styles')
 </head>
 <body class="bg-vintage-cream text-dark-wool font-sans antialiased overflow-x-hidden">
+    @if($gtmId)
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmId }}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    @endif
     
     <main class="pt-24 min-h-screen">
         @yield('content')
@@ -27,6 +91,73 @@
  
     <!-- Global Toast -->
     <x-ui.toast />
+
+    @if(!request()->has('preview_as_guest') && (($promoEnabled && $promoPopupEnabled) || $notificationEnabled))
+        <div
+            x-data="{
+                show: false,
+                seenKey: 'jahitan-nenek-storefront-popup',
+                init() {
+                    if (!sessionStorage.getItem(this.seenKey)) {
+                        this.show = true;
+                        sessionStorage.setItem(this.seenKey, '1');
+                    }
+                },
+                close() { this.show = false; }
+            }"
+            x-show="show"
+            x-cloak
+            class="fixed inset-0 px-4 pt-28 pb-6 sm:pt-32 flex items-start justify-center"
+            style="z-index: 2147483646; display: none;"
+        >
+            <div class="fixed inset-0 bg-dark-wool/55 backdrop-blur-sm" @click="close()"></div>
+            <div
+                x-show="show"
+                x-transition:enter="ease-out duration-300"
+                x-transition:enter-start="opacity-0 translate-y-4 scale-95"
+                x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                x-transition:leave="ease-in duration-200"
+                x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                x-transition:leave-end="opacity-0 translate-y-4 scale-95"
+                class="relative w-full max-w-lg bg-white rounded-[2rem] shadow-2xl overflow-hidden border border-white/70"
+            >
+                <button type="button" @click="close()" class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-white/80 text-gray-400 hover:bg-soft-rose hover:text-white transition-all shadow-sm">
+                    <i class="fas fa-xmark"></i>
+                </button>
+
+                @if($promoEnabled && $promoPopupEnabled)
+                    <div class="bg-dark-wool text-white px-8 pt-10 pb-8">
+                        <p class="text-[10px] font-bold text-soft-rose uppercase tracking-[0.3em] mb-3">{{ \App\Models\SiteSetting::get('promo_label', 'Promo Spesial') }}</p>
+                        <h3 class="text-3xl font-serif font-bold pr-10">{{ \App\Models\SiteSetting::get('promo_popup_title', 'Promo Spesial Jahitan Nenek') }}</h3>
+                        <p class="mt-4 text-sm leading-relaxed text-white/75">{{ \App\Models\SiteSetting::get('promo_popup_message', \App\Models\SiteSetting::get('promo_description', 'Harga spesial untuk koleksi pilihan Jahitan Nenek.')) }}</p>
+                        <div class="mt-6 flex flex-wrap items-end gap-4">
+                            @if(\App\Models\SiteSetting::get('promo_original_price'))
+                                <span class="text-lg font-bold text-white/35 line-through">Rp{{ number_format((int) \App\Models\SiteSetting::get('promo_original_price'), 0, ',', '.') }}</span>
+                            @endif
+                            @if(\App\Models\SiteSetting::get('promo_real_price'))
+                                <span class="text-3xl font-serif font-bold text-soft-rose">Rp{{ number_format((int) \App\Models\SiteSetting::get('promo_real_price'), 0, ',', '.') }}</span>
+                            @endif
+                        </div>
+                    </div>
+                @endif
+
+                @if($notificationEnabled)
+                    <div class="px-8 py-6 {{ $promoEnabled && $promoPopupEnabled ? 'border-b border-gray-100' : 'pt-10' }}">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.25em] mb-2">Pemberitahuan</p>
+                        <h4 class="text-xl font-serif font-bold text-dark-wool">{{ \App\Models\SiteSetting::get('notification_title', 'Info Jahitan Nenek') }}</h4>
+                        <p class="mt-3 text-sm leading-relaxed text-gray-500">{{ \App\Models\SiteSetting::get('notification_message', '') }}</p>
+                    </div>
+                @endif
+
+                <div class="px-8 py-6 bg-gray-50/80 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-end">
+                    <button type="button" @click="close()" class="btn-secondary btn-sm">Nanti Saja</button>
+                    @if($promoEnabled && $promoPopupEnabled)
+                        <a href="{{ $promoPopupCtaUrl }}" @click="close()" class="btn-primary btn-sm text-center">{{ \App\Models\SiteSetting::get('promo_popup_cta_label', 'Lihat Koleksi') }}</a>
+                    @endif
+                </div>
+            </div>
+        </div>
+    @endif
  
     @if(session('success'))
         <script>
@@ -49,11 +180,11 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-20">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-16 mb-20">
                 <div>
-                    <h3 class="text-3xl font-serif font-bold text-white mb-6">🧵 {{ \App\Models\SiteSetting::get('site_name', 'Jahitan Nenek') }}</h3>
+                    <h3 class="text-3xl font-serif font-bold text-white mb-6">🧵 {{ $siteName }}</h3>
                     <p class="leading-relaxed mb-6">{{ __('messages.footer_desc') }}</p>
                     <div class="space-y-3 text-sm opacity-80">
-                        <p class="flex items-center"><i class="fa-solid fa-location-dot mr-3 text-soft-rose"></i> {{ __('messages.address') }}</p>
-                        <p class="flex items-center"><i class="fa-solid fa-envelope mr-3 text-soft-rose"></i> halo@jahitannenek.com</p>
+                        <p class="flex items-center"><i class="fa-solid fa-location-dot mr-3 text-soft-rose"></i> {{ $footerAddress }}</p>
+                        <p class="flex items-center"><i class="fa-solid fa-envelope mr-3 text-soft-rose"></i> {{ $footerEmail }}</p>
                     </div>
                 </div>
                 <div class="md:text-center">
@@ -69,13 +200,18 @@
                 <div class="md:text-right">
                     <h5 class="text-xl font-bold text-white mb-6 font-serif">{{ __('messages.follow_us') }}</h5>
                     <div class="flex md:justify-end space-x-4">
-                        <a href="{{ \App\Models\SiteSetting::get('cms_instagram_url', 'https://instagram.com') }}" target="_blank" class="w-12 h-12 bg-white/5 flex items-center justify-center rounded-2xl hover:bg-soft-rose hover:text-white transition-all hover:-translate-y-2">
+                        <a href="{{ $cmsInstagramUrl }}" target="_blank" class="w-12 h-12 bg-white/5 flex items-center justify-center rounded-2xl hover:bg-soft-rose hover:text-white transition-all hover:-translate-y-2">
                             <i class="fa-brands fa-instagram text-xl"></i>
                         </a>
-                        <a href="https://tiktok.com" target="_blank" class="w-12 h-12 bg-white/5 flex items-center justify-center rounded-2xl hover:bg-soft-rose hover:text-white transition-all hover:-translate-y-2">
+                        <a href="{{ $cmsTiktokUrl }}" target="_blank" class="w-12 h-12 bg-white/5 flex items-center justify-center rounded-2xl hover:bg-soft-rose hover:text-white transition-all hover:-translate-y-2">
                             <i class="fa-brands fa-tiktok text-xl"></i>
                         </a>
-                        <a href="{{ \App\Models\SiteSetting::get('cms_whatsapp_url', 'https://wa.me/628123456789') }}" target="_blank" class="w-12 h-12 bg-white/5 flex items-center justify-center rounded-2xl hover:bg-green-500 hover:text-white transition-all hover:-translate-y-2">
+                        @if($cmsShopeeUrl)
+                            <a href="{{ $cmsShopeeUrl }}" target="_blank" class="w-12 h-12 bg-white/5 flex items-center justify-center rounded-2xl hover:bg-orange-500 hover:text-white transition-all hover:-translate-y-2">
+                                <i class="fa-solid fa-store text-xl"></i>
+                            </a>
+                        @endif
+                        <a href="{{ $cmsWhatsappUrl }}" target="_blank" class="w-12 h-12 bg-white/5 flex items-center justify-center rounded-2xl hover:bg-green-500 hover:text-white transition-all hover:-translate-y-2">
                             <i class="fa-brands fa-whatsapp text-xl"></i>
                         </a>
                     </div>
@@ -214,9 +350,12 @@
                 @endif
                 
                 <div class="flex justify-center space-x-6 pt-10 border-t border-gray-50">
-                    <a href="https://instagram.com" target="_blank" class="text-2xl text-gray-400 hover:text-soft-rose transition-colors"><i class="fab fa-instagram"></i></a>
-                    <a href="https://tiktok.com" target="_blank" class="text-2xl text-gray-400 hover:text-soft-rose transition-colors"><i class="fab fa-tiktok"></i></a>
-                    <a href="https://wa.me/628123456789" target="_blank" class="text-2xl text-gray-400 hover:text-green-500 transition-colors"><i class="fab fa-whatsapp"></i></a>
+                    <a href="{{ $cmsInstagramUrl }}" target="_blank" class="text-2xl text-gray-400 hover:text-soft-rose transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="{{ $cmsTiktokUrl }}" target="_blank" class="text-2xl text-gray-400 hover:text-soft-rose transition-colors"><i class="fab fa-tiktok"></i></a>
+                    @if($cmsShopeeUrl)
+                        <a href="{{ $cmsShopeeUrl }}" target="_blank" class="text-2xl text-gray-400 hover:text-orange-500 transition-colors"><i class="fa-solid fa-store"></i></a>
+                    @endif
+                    <a href="{{ $cmsWhatsappUrl }}" target="_blank" class="text-2xl text-gray-400 hover:text-green-500 transition-colors"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
@@ -265,7 +404,7 @@
         </button>
 
         <!-- WhatsApp Floating -->
-        <a href="https://wa.me/628123456789" target="_blank"
+        <a href="{{ $cmsWhatsappUrl }}" target="_blank"
            class="w-14 h-14 bg-green-500 text-white rounded-2xl shadow-2xl flex items-center justify-center hover:bg-green-600 hover:-translate-y-2 transition-all duration-500 group relative">
             <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white animate-bounce"></span>
             <i class="fab fa-whatsapp text-2xl"></i>
@@ -278,5 +417,35 @@
     </div>
 
     @stack('scripts')
+    <script>
+        document.addEventListener('click', (event) => {
+            const target = event.target.closest('a, button');
+            if (!target || target.closest('[data-no-analytics]')) {
+                return;
+            }
+
+            const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+            if (!token) {
+                return;
+            }
+
+            const payload = new FormData();
+            payload.append('_token', token);
+            payload.append('path', window.location.pathname.replace(/^\/+/, '') || '/');
+            payload.append('target', (target.getAttribute('data-analytics-label') || target.href || target.textContent || '').trim().slice(0, 255));
+
+            if (navigator.sendBeacon) {
+                navigator.sendBeacon('{{ route('analytics.click') }}', payload);
+                return;
+            }
+
+            fetch('{{ route('analytics.click') }}', {
+                method: 'POST',
+                body: payload,
+                keepalive: true,
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            }).catch(() => {});
+        }, { capture: true });
+    </script>
 </body>
 </html>

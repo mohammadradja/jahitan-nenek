@@ -3,17 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
 
 class SiteSetting extends Model
 {
     protected $fillable = ['key', 'value', 'type', 'group'];
 
-    protected $casts = [
-        'value' => 'json',
-    ];
-
     public static function get($key, $default = null)
     {
+        if (!Schema::hasTable((new static())->getTable())) {
+            return $default;
+        }
+
         $setting = static::where('key', $key)->first();
         return $setting ? $setting->value : $default;
     }
@@ -35,5 +36,23 @@ class SiteSetting extends Model
             ['key' => $key],
             ['value' => $value, 'type' => $type, 'group' => $group]
         );
+    }
+
+    public function getValueAttribute($value)
+    {
+        if ($value === null || $value === '') {
+            return $value;
+        }
+
+        $decoded = json_decode($value, true);
+
+        return json_last_error() === JSON_ERROR_NONE ? $decoded : $value;
+    }
+
+    public function setValueAttribute($value): void
+    {
+        $this->attributes['value'] = is_array($value) || is_object($value)
+            ? json_encode($value)
+            : $value;
     }
 }

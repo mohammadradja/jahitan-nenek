@@ -92,12 +92,33 @@ class SettingsAndAnalyticsTest extends TestCase
         $this->actingAs($admin)
             ->get(route('admin.settings.index'))
             ->assertOk()
-            ->assertSee('Pengaturan Sistem &amp; CMS', false);
+            ->assertSee('Pengaturan Sistem &amp; CMS', false)
+            ->assertSee('Google Ads Tag ID');
 
         $this->actingAs($superadmin)
             ->get(route('superadmin.settings.index'))
             ->assertOk()
-            ->assertSee('Pengaturan Sistem &amp; CMS', false);
+            ->assertSee('Pengaturan Sistem &amp; CMS', false)
+            ->assertSee('Google Ads Tag ID');
+    }
+
+    public function test_google_ads_tag_id_can_be_saved_and_rendered_on_storefront(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+
+        $response = $this->actingAs($admin)
+            ->post(route('admin.settings.update'), [
+                'section' => 'seo',
+                'google_ads_tag_id' => 'AW-123456789',
+            ]);
+
+        $response->assertRedirect();
+        $this->assertSame('AW-123456789', SiteSetting::get('google_ads_tag_id'));
+
+        $this->get('/?preview_as_guest=true')
+            ->assertOk()
+            ->assertSee('gtag/js?id=AW-123456789', false)
+            ->assertSee("gtag('config', 'AW-123456789');", false);
     }
 
     public function test_admin_cms_update_writes_localized_content_visible_in_preview(): void

@@ -126,7 +126,7 @@ Notes:
 
 - `value` uses custom accessor/mutator logic. It reads raw strings and JSON-encoded values, stores scalar values as strings, and stores arrays/objects as JSON.
 - Promo display and popup values are stored as settings under the `promo` group; optional storefront announcement values use notification setting keys.
-- SEO, Open Graph, Google Tag Manager, Google Analytics, verification, and analytics average-position values are stored as settings.
+- SEO, Open Graph, Google Tag Manager, Google Analytics, Google Ads, verification, and analytics average-position values are stored as settings.
 - `getTranslatabled` appears to be a typo, but it is the existing method name.
 
 ## `AnalyticsEvent`

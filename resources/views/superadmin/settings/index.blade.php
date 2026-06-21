@@ -412,6 +412,10 @@
                     <input type="text" name="google_analytics_id" class="input-premium py-3 text-sm" value="{{ $settings['google_analytics_id'] ?? '' }}" placeholder="G-XXXXXXXXXX">
                 </div>
                 <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Google Ads Tag ID</label>
+                    <input type="text" name="google_ads_tag_id" class="input-premium py-3 text-sm" value="{{ $settings['google_ads_tag_id'] ?? '' }}" placeholder="AW-XXXXXXXXXX">
+                </div>
+                <div>
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Google Site Verification</label>
                     <input type="text" name="google_site_verification" class="input-premium py-3 text-sm" value="{{ $settings['google_site_verification'] ?? '' }}">
                 </div>

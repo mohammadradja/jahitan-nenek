@@ -29,6 +29,7 @@ class SiteSettingSeeder extends Seeder
             ['key' => 'seo_twitter_site', 'value' => '', 'type' => 'string', 'group' => 'seo'],
             ['key' => 'google_tag_manager_id', 'value' => '', 'type' => 'string', 'group' => 'seo'],
             ['key' => 'google_analytics_id', 'value' => '', 'type' => 'string', 'group' => 'seo'],
+            ['key' => 'google_ads_tag_id', 'value' => '', 'type' => 'string', 'group' => 'seo'],
             ['key' => 'google_site_verification', 'value' => '', 'type' => 'string', 'group' => 'seo'],
             ['key' => 'facebook_domain_verification', 'value' => '', 'type' => 'string', 'group' => 'seo'],
             ['key' => 'analytics_average_position', 'value' => '0', 'type' => 'decimal', 'group' => 'analytics'],

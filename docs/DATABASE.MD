@@ -122,7 +122,7 @@ The model reads both raw scalar strings and legacy JSON-encoded values. `SiteSet
 
 Promo display settings use keys such as `promo_enabled`, `promo_label`, `promo_original_price`, `promo_real_price`, and `promo_description`. The initial storefront modal uses `promo_popup_enabled`, `promo_popup_title`, `promo_popup_message`, `promo_popup_cta_label`, `promo_popup_cta_url`, `notification_enabled`, `notification_title`, and `notification_message`.
 
-SEO and tracking settings include `site_description`, `site_keywords`, `seo_meta_author`, `seo_meta_robots`, `seo_canonical_url`, `seo_og_title`, `seo_og_description`, `seo_og_image`, `seo_og_type`, `seo_twitter_card`, `seo_twitter_site`, `google_tag_manager_id`, `google_analytics_id`, `google_site_verification`, `facebook_domain_verification`, and `analytics_average_position`.
+SEO and tracking settings include `site_description`, `site_keywords`, `seo_meta_author`, `seo_meta_robots`, `seo_canonical_url`, `seo_og_title`, `seo_og_description`, `seo_og_image`, `seo_og_type`, `seo_twitter_card`, `seo_twitter_site`, `google_tag_manager_id`, `google_analytics_id`, `google_ads_tag_id`, `google_site_verification`, `facebook_domain_verification`, and `analytics_average_position`.
 
 ### `measurements`
 

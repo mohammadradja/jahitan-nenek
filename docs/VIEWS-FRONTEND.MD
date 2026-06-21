@@ -24,7 +24,7 @@
 - `dashboards/admin/index.blade.php` shows operational stats, charts, storefront analytics metrics, and user-facing traffic menu labels in Indonesian.
 - `dashboards/superadmin/index.blade.php` shows business-wide stats, charts, storefront analytics metrics, and user-facing traffic menu labels in Indonesian.
 - `admin/products`, `admin/categories`, `admin/orders`, `admin/measurements`, `admin/blogs`, `admin/cms`, and `admin/reports` implement admin screens. Product, category, blog, and staff index screens use scrollable dashboard modals for create/edit workflows.
-- `superadmin/settings/index.blade.php`, `superadmin/settings/promo.blade.php`, `dashboards/superadmin/staff.blade.php`, and `dashboards/superadmin/customers` implement superadmin screens. Settings include brand/social/footer values, SEO, metadata, Open Graph, Twitter card, Google Tag Manager, Google Analytics, verification tags, and average-position input. The promo screen manages the storefront promo banner, initial popup, and announcement text.
+- `superadmin/settings/index.blade.php`, `superadmin/settings/promo.blade.php`, `dashboards/superadmin/staff.blade.php`, and `dashboards/superadmin/customers` implement superadmin screens. Settings include brand/social/footer values, SEO, metadata, Open Graph, Twitter card, Google Tag Manager, Google Analytics, Google Ads, verification tags, and average-position input. The promo screen manages the storefront promo banner, initial popup, and announcement text.
 
 ## Blade Components
 
@@ -87,7 +87,7 @@ Views frequently read CMS data through `SiteSetting::get()` and `SiteSetting::ge
 - Social links.
 - Footer social/contact links, including Instagram, TikTok, Shopee, WhatsApp, email, and address.
 - Section visibility flags.
-- SEO metadata, Open Graph/Twitter metadata, Google Tag Manager, Google Analytics, verification tags, and average-position dashboard input.
+- SEO metadata, Open Graph/Twitter metadata, Google Tag Manager, Google Analytics, Google Ads, verification tags, and average-position dashboard input.
 - Bank transfer instructions.
 - Promo display values for storefront estimate display (`promo_original_price` and `promo_real_price` keys) plus popup/announcement values.
 

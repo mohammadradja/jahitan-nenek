@@ -112,7 +112,7 @@
 - Loads and updates site settings.
 - Validates brand/CMS image uploads up to 5 MB and stores them under `public/assets/images/settings`.
 - Serves and updates the dedicated promo dashboard, including storefront estimate display keys, popup keys, and notification keys.
-- Updates SEO, metadata, Open Graph, Twitter card, Google Tag Manager, Google Analytics, verification, and analytics average-position settings.
+- Updates SEO, metadata, Open Graph, Twitter card, Google Tag Manager, Google Analytics, Google Ads, verification, and analytics average-position settings.
 - Tests WhatsApp by sending a Fonnte message to the configured center number.
 - Tests Midtrans by posting a minimal transaction to the sandbox or production Snap token endpoint.
 

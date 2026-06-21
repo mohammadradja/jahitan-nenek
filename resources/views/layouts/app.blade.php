@@ -14,6 +14,8 @@
         $ogImageUrl = $ogImage && str_starts_with($ogImage, 'http') ? $ogImage : asset($ogImage ?: 'assets/logo.png');
         $gtmId = trim((string) \App\Models\SiteSetting::get('google_tag_manager_id', ''));
         $gaId = trim((string) \App\Models\SiteSetting::get('google_analytics_id', ''));
+        $googleAdsTagId = trim((string) \App\Models\SiteSetting::get('google_ads_tag_id', ''));
+        $gtagPrimaryId = $gaId ?: $googleAdsTagId;
         $cmsInstagramUrl = \App\Models\SiteSetting::get('cms_instagram_url', 'https://instagram.com');
         $cmsWhatsappUrl = \App\Models\SiteSetting::get('cms_whatsapp_url', 'https://wa.me/628123456789');
         $cmsTiktokUrl = \App\Models\SiteSetting::get('cms_tiktok_url', 'https://tiktok.com');
@@ -62,13 +64,18 @@
             })(window,document,'script','dataLayer','{{ $gtmId }}');
         </script>
     @endif
-    @if($gaId)
-        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gaId }}"></script>
+    @if($gtagPrimaryId)
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gtagPrimaryId }}"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '{{ $gaId }}');
+            @if($gaId)
+                gtag('config', '{{ $gaId }}');
+            @endif
+            @if($googleAdsTagId)
+                gtag('config', '{{ $googleAdsTagId }}');
+            @endif
         </script>
     @endif
     

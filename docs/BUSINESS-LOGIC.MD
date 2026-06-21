@@ -106,7 +106,7 @@ Both write settings through `SiteSetting::set()`.
 
 Promo settings are managed from the dedicated promo dashboard. When `promo_enabled` is active, the storefront product section displays the configured label, description, and estimate values stored in `promo_original_price` and `promo_real_price`. The promo dashboard also controls the initial storefront popup through `promo_popup_*` keys and optional announcement text through `notification_*` keys.
 
-The CMS dashboard manages hero/about content, gallery text/images, section visibility, and a live storefront preview displayed above the content editor. Settings manage brand assets, social/footer links, SEO metadata, Open Graph/Twitter values, Google Tag Manager, Google Analytics, verification tags, and average-position analytics input.
+The CMS dashboard manages hero/about content, gallery text/images, section visibility, and a live storefront preview displayed above the content editor. Settings manage brand assets, social/footer links, SEO metadata, Open Graph/Twitter values, Google Tag Manager, Google Analytics, Google Ads, verification tags, and average-position analytics input.
 
 ## Localization
 

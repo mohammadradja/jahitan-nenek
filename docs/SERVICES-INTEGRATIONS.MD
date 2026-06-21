@@ -101,9 +101,10 @@ Behavior:
 
 ## Analytics and SEO Tags
 
-The public layout can render Google Tag Manager and Google Analytics scripts from `site_settings` keys:
+The public layout can render Google Tag Manager, Google Analytics, and Google Ads scripts from `site_settings` keys:
 
 - `google_tag_manager_id`
 - `google_analytics_id`
+- `google_ads_tag_id`
 
 Search verification tags are also CMS-driven through `google_site_verification` and `facebook_domain_verification`. No Google Search Console API integration exists; average position is stored as a manual setting.
